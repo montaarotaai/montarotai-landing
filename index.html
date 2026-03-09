@@ -579,7 +579,7 @@ async function cadastrarLoja(){
   if(senha.length<6){setMsg('msg-store','Senha mínimo 6 caracteres.','err');return;}
   setMsg('msg-store','Aguarde...','');
   try{
-    const r=await post('lojas',{nome_loja:nome,nome,cidade:v('s-cidade'),telefone:v('s-tel'),email:email.toLowerCase(),senha_hash:senha,status:'pendente',responsavel:resp});
+    const r=await post('lojas',{nome,cidade:v('s-cidade'),telefone:v('s-tel'),email:email.toLowerCase(),senha_hash:senha,status:'pendente',responsavel:resp});
     if(r.ok||r.status===201){document.getElementById('form-wrap').style.display='none';document.getElementById('ok-store').classList.add('show');}
     else{const d=await r.json();setMsg('msg-store',d.message||'Erro ao cadastrar.','err');}
   }catch{setMsg('msg-store','Erro de conexão.','err');}
