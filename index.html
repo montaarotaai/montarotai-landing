@@ -912,9 +912,9 @@ footer{
     <div class="dl-text">📲 Baixe o app agora</div>
     <div class="dl-sub">Mesmo app para loja e entregador · Android 8.0+ · APK gratuito</div>
   </div>
-  <a href="https://median.co/app/mgbpwg3fxa15qrarev2ej172dr/download/apk" target="_blank" class="btn-dark">
+  <button onclick="openDownloadModal()" class="btn-dark">
     Baixar APK (Android)
-  </a>
+  </button>
 </div>
 
 <!-- CTA FINAL -->
@@ -938,6 +938,7 @@ footer{
 </footer>
 
 <!-- MODAL -->
+<!-- MODAL CADASTRO -->
 <div class="overlay" id="modal-store">
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">×</button>
@@ -986,7 +987,62 @@ footer{
 </div>
 
 <script>
-// NAV scroll
+// ═══════════════════════════════════════
+// DOWNLOAD PROTEGIDO — CONFIGURAÇÃO
+// ═══════════════════════════════════════
+// 1. No Supabase Storage, crie um bucket PRIVADO chamado "apk"
+// 2. Faça upload do APK com o nome definido em APK_FILE_NAME
+// ═══════════════════════════════════════
+const APK_BUCKET    = 'apk';              // nome do bucket privado no Supabase Storage
+const APK_FILE_NAME = 'app-release.apk'; // nome do arquivo dentro do bucket
+const APK_EXPIRY    = 60;                 // link válido por 60 segundos (suficiente para iniciar o download)
+
+async function openDownloadModal() {
+  const btn = document.querySelector('.dl-strip .btn-dark');
+  const original = btn.textContent;
+  btn.textContent = 'Gerando link...';
+  btn.style.pointerEvents = 'none';
+
+  try {
+    const res = await fetch(
+      `${SB_URL}/storage/v1/object/sign/${APK_BUCKET}/${APK_FILE_NAME}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SB_KEY,
+          'Authorization': 'Bearer ' + SB_KEY,
+        },
+        body: JSON.stringify({ expiresIn: APK_EXPIRY }),
+      }
+    );
+
+    if (!res.ok) throw new Error();
+
+    const data = await res.json();
+    const signedURL = `${SB_URL}/storage/v1${data.signedURL}`;
+
+    // Dispara o download diretamente — sem abrir modal, sem expor a URL
+    const a = document.createElement('a');
+    a.href = signedURL;
+    a.download = 'MontaRotai.apk';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    btn.textContent = '✓ Download iniciado';
+    setTimeout(() => {
+      btn.textContent = original;
+      btn.style.pointerEvents = '';
+    }, 4000);
+
+  } catch {
+    btn.textContent = 'Erro — tente novamente';
+    btn.style.pointerEvents = '';
+    setTimeout(() => { btn.textContent = original; }, 3000);
+  }
+}
+// ═══════════════════════════════════════
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 60));
 
