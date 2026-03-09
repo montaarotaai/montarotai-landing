@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MontaRotaí — Sistema inteligente para delivery</title>
+<title>MontaRotaí — Sistema de gestão de delivery</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -164,7 +164,7 @@ nav.scrolled{
   display:block;letter-spacing:-.03em;line-height:1;margin-bottom:4px;
 }
 .stat b span{color:var(--gold)}
-.stat small{font-size:10px;color:#475569;letter-spacing:.08em;text-transform:uppercase}
+.stat small{font-size:10px;color:#6A9EC8;letter-spacing:.08em;text-transform:uppercase}
 
 @keyframes fade-up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
@@ -175,7 +175,7 @@ nav.scrolled{
   padding:13px 0;background:#0B1840;
 }
 .belt-inner{display:flex;width:max-content;animation:belt 24s linear infinite}
-.bi{font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#1E293B;padding:0 32px;white-space:nowrap}
+.bi{font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#C8DCFF;padding:0 32px;white-space:nowrap}
 .bi b{color:var(--gold);font-weight:600}
 @keyframes belt{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
@@ -191,7 +191,7 @@ nav.scrolled{
   letter-spacing:-.03em;color:var(--wh);margin-bottom:14px;line-height:1.1;
 }
 .section h2 em{font-style:italic;color:var(--gold)}
-.section-sub{color:#64748B;font-size:15px;max-width:440px;margin-bottom:52px}
+.section-sub{color:#8BAFD4;font-size:15px;max-width:440px;margin-bottom:52px}
 
 /* CARDS */
 .grid{
@@ -213,13 +213,90 @@ nav.scrolled{
 }
 .card:hover::before{opacity:.7}
 .card-icon{
-  width:40px;height:40px;border-radius:9px;
-  background:linear-gradient(135deg,rgba(255,204,0,.22),rgba(0,180,255,.22));border:1px solid rgba(0,180,255,.4);box-shadow:0 0 14px rgba(0,180,255,.2);
+  width:58px;height:58px;border-radius:14px;
+  background:linear-gradient(135deg,rgba(0,180,255,.18),rgba(255,204,0,.14));
+  border:1px solid rgba(0,180,255,.35);
+  box-shadow:0 0 20px rgba(0,180,255,.15);
   display:flex;align-items:center;justify-content:center;
-  font-size:18px;margin-bottom:18px;
+  margin-bottom:20px;flex-shrink:0;
 }
-.card h3{font-size:16px;font-weight:700;color:var(--wh);margin-bottom:9px;letter-spacing:-.01em}
-.card p{color:#64748B;font-size:13px;line-height:1.65}
+.card h3{font-size:17px;font-weight:700;color:var(--wh);margin-bottom:10px;letter-spacing:-.01em}
+.card p{color:#8BAFD4;font-size:14px;line-height:1.7}
+
+/* VANTAGENS ANIMADAS */
+.vant-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:36px}
+.vant-card{
+  background:#060C18;border:1px solid rgba(0,180,255,.2);border-radius:14px;
+  padding:24px 26px;display:flex;align-items:center;gap:18px;
+  opacity:0;transform:translateX(-30px);
+  transition:opacity .5s ease, transform .5s ease, border-color .3s;
+}
+.vant-card.visible{opacity:1;transform:translateX(0)}
+.vant-c1{transition-delay:.0s}
+.vant-c2{transition-delay:.15s}
+.vant-c3{transition-delay:.30s}
+.vant-card:hover{border-color:rgba(255,204,0,.4);background:#080F1F}
+.vant-icon{width:48px;height:48px;border-radius:12px;flex-shrink:0;
+  background:rgba(255,204,0,.1);border:1px solid rgba(255,204,0,.25);
+  display:flex;align-items:center;justify-content:center}
+.vant-label{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#6A9EC8;margin-bottom:2px}
+.vant-value{font-size:22px;font-weight:800;color:var(--wh);letter-spacing:-.02em;line-height:1}
+.vant-value.strike{text-decoration:line-through;color:#F87171;position:relative}
+.vant-desc{font-size:12px;color:#8BAFD4;margin-top:3px}
+
+/* PREÇO DESTAQUE */
+.price-destaque{
+  position:relative;border-radius:20px;overflow:hidden;
+  background:linear-gradient(135deg,#060C18,#0A1535);
+  border:1px solid rgba(255,204,0,.35);
+  padding:48px 28px 40px;text-align:center;
+  box-shadow:0 0 60px rgba(255,204,0,.08),0 0 120px rgba(0,180,255,.06);
+  margin-bottom:32px;
+}
+.pd-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:280px;height:280px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,204,0,.10),transparent 70%);
+  pointer-events:none;animation:pulse-gold 3s ease-in-out infinite}
+@keyframes pulse-gold{0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}}
+.pd-label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#6A9EC8;margin-bottom:16px}
+.pd-amount{display:flex;align-items:flex-start;justify-content:center;gap:4px;line-height:1}
+.pd-amount sup{font-size:20px;font-weight:700;color:#FFCC00;margin-top:8px}
+.pd-num{
+  font-size:72px;font-weight:900;color:var(--wh);letter-spacing:-.04em;
+  animation:count-up .8s ease forwards;
+}
+@keyframes count-up{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
+.pd-cents{font-size:30px;font-weight:700;color:#FFCC00;align-self:flex-end;padding-bottom:12px}
+.pd-unit{font-size:14px;color:#8BAFD4;margin-top:8px}
+.pd-unit strong{color:var(--wh)}
+.pd-bar{width:60px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:18px auto}
+.pd-sub{font-size:13px;color:#8BAFD4;line-height:1.8}
+.pd-sub strong{color:var(--wh)}
+
+/* CONTROLE DE PAGAMENTO */
+.pgto-grid{display:grid;grid-template-columns:1fr;gap:16px}
+.pgto-card{
+  background:#060C18;border:1px solid rgba(0,180,255,.18);border-radius:14px;
+  padding:26px 24px;transition:border-color .3s,background .3s;
+}
+.pgto-card:hover{border-color:rgba(0,180,255,.4);background:#080F1F}
+.pgto-badge{
+  display:inline-block;font-size:10px;font-weight:700;letter-spacing:.15em;
+  padding:4px 12px;border-radius:20px;margin-bottom:14px;
+}
+.pgto-dinheiro{background:rgba(74,222,128,.12);color:#4ADE80;border:1px solid rgba(74,222,128,.3)}
+.pgto-cartao{background:rgba(0,180,255,.12);color:#00B4FF;border:1px solid rgba(0,180,255,.3)}
+.pgto-km{background:rgba(255,204,0,.12);color:#FFCC00;border:1px solid rgba(255,204,0,.3)}
+.pgto-titulo{font-size:17px;font-weight:700;color:var(--wh);margin-bottom:8px}
+.pgto-desc{font-size:13px;color:#8BAFD4;line-height:1.7;margin-bottom:16px}
+.pgto-exemplo{
+  background:#0A1535;border-radius:10px;padding:14px 16px;
+  display:flex;flex-direction:column;gap:6px;font-size:13px;color:#8BAFD4;
+  border:1px solid rgba(0,180,255,.12);
+}
+.pgto-exemplo strong{color:var(--wh)}
+.pgto-troco strong{color:#FFCC00}
+.pgto-pago{border-color:rgba(74,222,128,.2);color:#4ADE80}
 
 /* STEPS */
 .steps{display:flex;flex-direction:column}
@@ -233,13 +310,13 @@ nav.scrolled{
 @keyframes fade-right{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:translateX(0)}}
 .step-num{font-size:12px;font-weight:700;color:var(--gold);letter-spacing:.06em;padding-top:3px}
 .step h3{font-size:17px;font-weight:700;color:var(--wh);margin-bottom:7px;letter-spacing:-.01em}
-.step p{color:#64748B;font-size:14px;line-height:1.65;max-width:580px}
-.step p strong{color:#94A3B8;font-weight:500}
+.step p{color:#8BAFD4;font-size:14px;line-height:1.65;max-width:580px}
+.step p strong{color:#C8DCFF;font-weight:500}
 
 /* PRICE */
 .price-wrap{
   max-width:560px;margin:52px auto 0;
-  border:1px solid rgba(0,180,255,.35);border-radius:14px;box-shadow:0 0 80px rgba(0,180,255,.2),0 0 40px rgba(255,204,0,.08);overflow:hidden;
+  border:1px solid rgba(0,180,255,.35);border-radius:14px;box-shadow:0 0 80px rgba(0,180,255,.2),0 0 40px rgba(255,204,0,.08);
   background:var(--s1);position:relative;
 }
 .price-glow-gold{
@@ -262,21 +339,21 @@ nav.scrolled{
   letter-spacing:-.05em;line-height:1;position:relative;z-index:1;
 }
 .price-amount sup{font-size:.28em;vertical-align:super;color:var(--gold);letter-spacing:0}
-.price-amount sub{font-size:.16em;vertical-align:baseline;color:#475569;font-weight:400;letter-spacing:0}
+.price-amount sub{font-size:.16em;vertical-align:baseline;color:#6A9EC8;font-weight:400;letter-spacing:0}
 .price-unit{
   font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
   color:var(--gold);margin-top:14px;
   display:flex;align-items:center;justify-content:center;gap:8px;
 }
 .price-unit::before,.price-unit::after{content:'';width:14px;height:1px;background:var(--gold)}
-.price-note{color:#64748B;font-size:13px;margin-top:14px;line-height:1.65}
-.price-bottom{padding:32px 48px 44px}
+.price-note{color:#8BAFD4;font-size:13px;margin-top:14px;line-height:1.65}
+.price-bottom{padding:32px 28px 36px}
 .price-list{list-style:none;display:flex;flex-direction:column;gap:11px;margin-bottom:30px}
-.price-list li{display:flex;align-items:center;gap:12px;font-size:14px;color:#94A3B8}
+.price-list li{display:flex;align-items:center;gap:12px;font-size:14px;color:#94A3B8;min-width:0}
 .price-list li::before{
   content:'✓';font-size:10px;color:var(--gr);
   background:var(--gra);border:1px solid rgba(34,197,94,.18);
-  width:20px;height:20px;border-radius:5px;
+  width:20px;height:20px;min-width:20px;border-radius:5px;
   display:flex;align-items:center;justify-content:center;flex-shrink:0;
 }
 
@@ -289,7 +366,7 @@ nav.scrolled{
 }
 .cta h2{font-size:clamp(34px,5vw,58px);font-weight:800;letter-spacing:-.03em;color:var(--wh);margin-bottom:18px;line-height:1.1}
 .cta h2 em{font-style:italic;color:var(--gold)}
-.cta p{color:#64748B;font-size:16px;margin:0 auto 36px;max-width:400px}
+.cta p{color:#8BAFD4;font-size:16px;margin:0 auto 36px;max-width:400px}
 .cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 
 /* FOOTER */
@@ -312,12 +389,12 @@ footer{
 .modal-close:hover{color:var(--wh)}
 .modal-tag{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
 .modal h2{font-size:22px;font-weight:700;color:var(--wh);letter-spacing:-.02em;margin-bottom:6px}
-.modal-sub{font-size:13px;color:#64748B;margin-bottom:26px;line-height:1.6}
+.modal-sub{font-size:13px;color:#8BAFD4;margin-bottom:26px;line-height:1.6}
 .field{display:flex;flex-direction:column;gap:6px;margin-bottom:11px}
-.field label{font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:#475569}
+.field label{font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:#7A9EC8}
 .field input{background:#0D1E4A;border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:11px 13px;font-family:Inter,system-ui;font-size:14px;color:var(--wh);outline:none;transition:border-color .2s;text-transform:uppercase;}
 .field input:focus{border-color:var(--gold)}
-.field input::placeholder{color:#1E293B}
+.field input::placeholder{color:#3A5A7A}
 #s-email,#s-senha,#d-email,#d-senha{text-transform:none;}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .modal-submit{width:100%;margin-top:16px;padding:14px;border:none;border-radius:8px;font-family:Inter,system-ui;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;background:var(--gold);color:#08153A;letter-spacing:.02em}
@@ -328,10 +405,10 @@ footer{
 .success-view.show{display:flex}
 .success-icon{width:48px;height:48px;border-radius:12px;background:var(--gra);border:1px solid rgba(34,197,94,.2);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:4px}
 .success-view h3{font-size:22px;font-weight:700;color:var(--wh);letter-spacing:-.02em}
-.success-view p{font-size:13px;color:#64748B;line-height:1.7;max-width:280px}
+.success-view p{font-size:13px;color:#8BAFD4;line-height:1.7;max-width:280px}
 .apk-btn{padding:12px 28px;background:var(--gold);color:#08153A;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;transition:all .2s;display:inline-block}
 .apk-btn:hover{background:var(--goldh)}
-.apk-note{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#1E293B}
+.apk-note{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#6A9EC8}
 
 @media(max-width:640px){
   .hero{padding:80px 0 80px}
@@ -398,13 +475,13 @@ footer{
 <!-- BELT -->
 <div class="belt">
   <div class="belt-inner">
-    <span class="bi"><b>Rota com IA</b> &nbsp;·&nbsp; </span>
+    <span class="bi"><b>Rota Inteligente</b> &nbsp;·&nbsp; </span>
     <span class="bi">GPS em tempo real &nbsp;·&nbsp; </span>
     <span class="bi"><b>Leitura de comanda</b> &nbsp;·&nbsp; </span>
     <span class="bi">Controle financeiro &nbsp;·&nbsp; </span>
     <span class="bi">Zero mensalidade &nbsp;·&nbsp; </span>
     <span class="bi"><b>Ativo em 24 horas</b> &nbsp;·&nbsp; </span>
-    <span class="bi"><b>Rota com IA</b> &nbsp;·&nbsp; </span>
+    <span class="bi"><b>Rota Inteligente</b> &nbsp;·&nbsp; </span>
     <span class="bi">GPS em tempo real &nbsp;·&nbsp; </span>
     <span class="bi"><b>Leitura de comanda</b> &nbsp;·&nbsp; </span>
     <span class="bi">Controle financeiro &nbsp;·&nbsp; </span>
@@ -419,27 +496,86 @@ footer{
 <section class="section" id="features">
   <p class="section-label">O que o sistema faz</p>
   <h2>Sua operação<br>mais <em>organizada.</em></h2>
-  <p class="section-sub">4 ferramentas que resolvem os problemas reais do dia a dia do delivery.</p>
+  <p class="section-sub">As ferramentas que resolvem os problemas reais do dia a dia do delivery.</p>
   <div class="grid">
     <div class="card" data-delay="0">
-      <div class="card-icon">🗺️</div>
-      <h3>Rota otimizada com IA</h3>
-      <p>A loja fotografa a comanda, a IA lê o endereço e monta a sequência mais eficiente. Menos km, mais entregas no mesmo turno.</p>
+      <div class="card-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00B4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/>
+          <line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/>
+        </svg>
+      </div>
+      <h3>Rota otimizada</h3>
+      <p>A loja fotografa a comanda, o sistema lê o endereço e monta a sequência mais eficiente. Menos km, mais entregas no mesmo turno.</p>
     </div>
     <div class="card" data-delay="1">
-      <div class="card-icon">📍</div>
+      <div class="card-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00B4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 0-8 8c0 5 8 13 8 13s8-8 8-13a8 8 0 0 0-8-8z"/>
+        </svg>
+      </div>
       <h3>GPS em tempo real</h3>
       <p>Acompanhe cada entregador no mapa ao vivo. Você sabe exatamente onde cada pedido está e quando foi entregue. Confirmação via link do iFood.</p>
     </div>
     <div class="card" data-delay="2">
-      <div class="card-icon">📸</div>
+      <div class="card-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00B4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+          <circle cx="12" cy="13" r="4"/>
+        </svg>
+      </div>
       <h3>Leitura de comanda por foto</h3>
-      <p>Tire uma foto da comanda e o sistema identifica o endereço automaticamente. Sem digitar nada, sem erro, sem perder tempo.</p>
+      <p>Tire uma foto da comanda e o sistema identifica o endereço automaticamente. Sem perder tempo, facilitando o processo nos momentos de pico — quando cada segundo conta.</p>
     </div>
     <div class="card" data-delay="3">
-      <div class="card-icon">📊</div>
+      <div class="card-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00B4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>
+          <line x1="6" y1="20" x2="6" y2="14"/>
+          <line x1="2" y1="20" x2="22" y2="20"/>
+        </svg>
+      </div>
       <h3>Relatório financeiro completo</h3>
       <p>Cada entrega confirmada gera registro por entregador. Você sabe exatamente o que deve e para quem — sem planilha, sem conta na cabeça.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTROLE DE PAGAMENTO -->
+<section class="section" id="pagamento">
+  <p class="section-label">Controle total</p>
+  <h2>Zero erro<br>no processo de entrega.</h2>
+  <p class="section-sub">O entregador sabe exatamente o que fazer antes mesmo de sair da loja.</p>
+
+  <div class="pgto-grid">
+    <div class="pgto-card">
+      <div class="pgto-badge pgto-dinheiro">💵 DINHEIRO</div>
+      <p class="pgto-titulo">Precisa de troco?</p>
+      <p class="pgto-desc">O app mostra o valor do pedido, o dinheiro que o cliente vai entregar e o troco exato que o entregador precisa levar. Nenhuma conta na cabeça.</p>
+      <div class="pgto-exemplo">
+        <span>Pedido: <strong>R$ 47,50</strong></span>
+        <span>Cliente paga: <strong>R$ 60,00</strong></span>
+        <span class="pgto-troco">Troco: <strong>R$ 12,50</strong></span>
+      </div>
+    </div>
+    <div class="pgto-card">
+      <div class="pgto-badge pgto-cartao">💳 CARTÃO</div>
+      <p class="pgto-titulo">Já está pago?</p>
+      <p class="pgto-desc">O app mostra claramente quando o pedido já foi pago no cartão ou pelo iFood. Sem discussão na porta do cliente, sem erro de cobrança.</p>
+      <div class="pgto-exemplo pgto-pago">
+        <span>✓ Pedido pago online</span>
+        <span style="font-size:12px;color:#4ADE80">Não cobrar na entrega</span>
+      </div>
+    </div>
+    <div class="pgto-card">
+      <div class="pgto-badge pgto-km">📍 ROTA</div>
+      <p class="pgto-titulo">Distância e custo</p>
+      <p class="pgto-desc">O sistema calcula a distância de cada entrega e o custo total da rota. A loja sabe exatamente quanto está gastando por km rodado.</p>
+      <div class="pgto-exemplo">
+        <span>Distância: <strong>4,2 km</strong></span>
+        <span>Custo estimado: <strong>R$ 13,00</strong></span>
+        <span class="pgto-troco">Rota total: <strong>4,2 km</strong></span>
+      </div>
     </div>
   </div>
 </section>
@@ -462,13 +598,25 @@ footer{
       <div>
         <h3>Manda o app para os seus entregadores</h3>
         <p>Você compartilha o link do app com sua equipe. <strong>Eles baixam, criam conta e já estão prontos.</strong> O app é gratuito para o entregador.</p>
+        <div style="margin-top:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <a href="https://median.co/share/eenlwqy#apk" target="_blank"
+             style="display:inline-flex;align-items:center;gap:8px;background:rgba(0,180,255,.12);border:1px solid rgba(0,180,255,.35);color:#00B4FF;font-size:12px;font-weight:600;letter-spacing:.06em;padding:9px 16px;border-radius:8px;text-decoration:none;text-transform:uppercase;transition:all .2s"
+             onmouseover="this.style.background='rgba(0,180,255,.22)'" onmouseout="this.style.background='rgba(0,180,255,.12)'">
+            📲 Copiar link do app
+          </a>
+          <button onclick="navigator.share ? navigator.share({title:'MontaRotaí',text:'Baixe o app da sua loja',url:'https://median.co/share/eenlwqy#apk'}) : (navigator.clipboard.writeText('https://median.co/share/eenlwqy#apk').then(()=>alert('Link copiado!')))"
+             style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,204,0,.12);border:1px solid rgba(255,204,0,.35);color:#FFCC00;font-size:12px;font-weight:600;letter-spacing:.06em;padding:9px 16px;border-radius:8px;cursor:pointer;text-transform:uppercase;transition:all .2s"
+             onmouseover="this.style.background='rgba(255,204,0,.22)'" onmouseout="this.style.background='rgba(255,204,0,.12)'">
+            ↗ Compartilhar
+          </button>
+        </div>
       </div>
     </div>
     <div class="step" data-delay="2">
       <span class="step-num">03</span>
       <div>
         <h3>Opera com controle total</h3>
-        <p>Foto da comanda → IA monta a rota → entregador sai → você acompanha ao vivo → entrega confirmada. <strong>Relatório pronto no final.</strong></p>
+        <p>Foto da comanda → sistema monta a rota → entregador sai → você acompanha ao vivo → entrega confirmada. <strong>Relatório pronto no final.</strong></p>
       </div>
     </div>
   </div>
@@ -477,23 +625,58 @@ footer{
 <!-- PREÇO -->
 <section class="section" id="preco">
   <p class="section-label">Preço</p>
-  <h2>Simples.</h2>
-  <div class="price-wrap">
-    <div class="price-glow-gold"></div>
-    <div class="price-glow-blue"></div>
-    <div class="price-top">
-      <div class="price-amount"><sup>R$</sup>0<sub>,99</sub></div>
-      <p class="price-unit">por entrega confirmada</p>
-      <p class="price-note">Sem mensalidade. Sem taxa de cadastro.<br>Você paga apenas quando a entrega acontece.</p>
+  <h2>Simples.<br><em>Sem surpresa.</em></h2>
+  <p class="section-sub">O delivery da sua empresa na palma da sua mão — sem mensalidade, sem taxa escondida, sem sustos no bolso.</p>
+
+  <!-- Cards de vantagens animados -->
+  <div class="vant-grid">
+    <div class="vant-card vant-c1">
+      <div class="vant-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFCC00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </div>
+      <p class="vant-label">Mensalidade</p>
+      <p class="vant-value strike">R$ 0</p>
+      <p class="vant-desc">Zero. Nada. Nunca.</p>
     </div>
-    <div class="price-bottom">
+    <div class="vant-card vant-c2">
+      <div class="vant-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFCC00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <p class="vant-label">Taxa de cadastro</p>
+      <p class="vant-value strike">R$ 0</p>
+      <p class="vant-desc">Entra na hora, sem pagar nada.</p>
+    </div>
+    <div class="vant-card vant-c3">
+      <div class="vant-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFCC00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <p class="vant-label">Cobrança surpresa</p>
+      <p class="vant-value strike">Jamais</p>
+      <p class="vant-desc">Você sabe exatamente o que vai pagar.</p>
+    </div>
+  </div>
+
+  <!-- Preço destaque -->
+  <div class="price-destaque">
+    <div class="price-destaque-inner">
+      <p class="pd-label">Você paga apenas</p>
+      <div class="pd-amount"><sup>R$</sup><span class="pd-num">0</span><span class="pd-cents">,99</span></div>
+      <p class="pd-unit">por entrega <strong>confirmada</strong></p>
+      <div class="pd-bar"></div>
+      <p class="pd-sub">100 entregas = R$99,00 &nbsp;·&nbsp; 200 entregas = R$198,00<br>Totalmente previsível. Sem asterisco.</p>
+    </div>
+    <div class="pd-glow"></div>
+  </div>
+
+  <!-- Lista de features incluídas -->
+  <div class="price-wrap" style="margin-top:32px">
+    <div class="price-bottom" style="border-top:none;padding-top:0">
       <ul class="price-list">
         <li>Entregadores e pedidos ilimitados</li>
         <li>GPS e rastreamento em tempo real</li>
-        <li>Rota otimizada com IA</li>
+        <li>Rota otimizada</li>
         <li>Leitura de comanda por foto</li>
         <li>Relatório financeiro completo</li>
-        
         <li>Confirmação via link do iFood</li>
         <li>App gratuito para os entregadores</li>
         <li>Ativo em menos de 24 horas</li>
@@ -603,7 +786,7 @@ const io = new IntersectionObserver(entries => {
     }
   });
 }, {threshold:.12});
-document.querySelectorAll('.card,.step').forEach(el=>io.observe(el));
+document.querySelectorAll('.card,.step,.vant-card').forEach(el=>io.observe(el));
 
 const SB_URL=(()=>['aHR0cHM6Ly9kZnZqYXdl','eXhmZW5oamd1c2VrcS5z','dXBhYmFzZS5jbw=='].map(x=>atob(x)).join(''))();
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRmdmphd2V5eGZlbmhqZ3VzZWtxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIwMzk4NTMsImV4cCI6MjA4NzYxNTg1M30.MT9pzSQgc3ZNGiIV95DwjVtNvSZI0Lz-SKMkvMys1Kg';
