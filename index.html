@@ -3,1324 +3,757 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Monta Rotaí — Gestão de Entregas</title>
+<title>MontaRotaí — Controle total do seu delivery</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --ink: #080808;
-  --ink2: #111318;
-  --gold: #B8860B;
-  --gold-hi: #D4A017;
-  --gold-lo: rgba(184,134,11,0.15);
-  --wire: rgba(184,134,11,0.2);
-  --dim: #3a3d45;
-  --mist: #8a8d96;
-  --fog: #c8cad0;
-  --paper: #f0ede8;
-  --white: #ffffff;
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px;scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+:root{
+  --bg:#0B0D12;
+  --s1:#111318;
+  --s2:#161820;
+  --s3:#1C1F29;
+  --bd:rgba(255,255,255,0.07);
+  --bdh:rgba(255,255,255,0.13);
+  --or:#FF5722;
+  --orh:#FF6D3F;
+  --ora:rgba(255,87,34,0.12);
+  --orb:rgba(255,87,34,0.06);
+  --gr:#22C55E;
+  --gra:rgba(34,197,94,0.1);
+  --bl:#4B7BFF;
+  --bla:rgba(75,123,255,0.1);
+  --tx:#E2DDD6;
+  --tx2:#72768A;
+  --tx3:#383B4A;
+  --wh:#FAFAF8;
 }
-
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { font-size:16px; scroll-behavior:smooth; }
-
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--ink);
-  color: var(--fog);
-  overflow-x: hidden;
-  cursor: none;
-}
-
-/* CURSOR */
-.cursor {
-  position: fixed;
-  width: 8px; height: 8px;
-  background: var(--gold-hi);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
-  mix-blend-mode: difference;
-}
-.cursor-ring {
-  position: fixed;
-  width: 32px; height: 32px;
-  border: 1px solid rgba(184,134,11,0.5);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%, -50%);
-  transition: transform 0.15s ease-out, width 0.3s, height 0.3s, border-color 0.3s;
-}
-body:has(a:hover) .cursor-ring,
-body:has(button:hover) .cursor-ring { width:48px; height:48px; border-color:var(--gold-hi); }
+body{font-family:'Familjen Grotesk',sans-serif;background:var(--bg);color:var(--tx);overflow-x:hidden}
 
 /* NAV */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 48px;
-  height: 64px;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.4s, background 0.4s;
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  height:66px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 52px;transition:all .4s
 }
-nav.scrolled {
-  background: rgba(8,8,8,0.95);
-  backdrop-filter: blur(20px);
-  border-bottom-color: var(--wire);
+nav.on{background:rgba(11,13,18,.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd)}
+.nl img{height:36px;display:block}
+.nr{display:flex;gap:8px;align-items:center}
+.nlink{font-size:13px;font-weight:500;color:var(--tx2);text-decoration:none;padding:8px 14px;transition:color .2s}
+.nlink:hover{color:var(--wh)}
+.ncta{
+  font-size:13px;font-weight:700;letter-spacing:.04em;
+  background:var(--or);color:#fff;border:none;border-radius:8px;
+  padding:11px 22px;cursor:pointer;transition:all .2s
 }
-.nav-wordmark {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 600;
-  font-size: 18px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--white);
-  text-decoration: none;
-}
-.nav-wordmark span { color: var(--gold-hi); }
-.nav-right { display: flex; gap: 8px; align-items: center; }
-.nav-pill {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 500;
-  font-size: 13px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  padding: 10px 24px;
-  border-radius: 2px;
-  border: none;
-  cursor: none;
-  transition: background 0.2s, color 0.2s;
-  text-decoration: none;
-}
-.pill-ghost { background: transparent; color: var(--fog); border: 1px solid var(--wire); }
-.pill-ghost:hover { background: var(--wire); color: var(--white); }
-.pill-solid { background: var(--gold); color: var(--ink); }
-.pill-solid:hover { background: var(--gold-hi); }
+.ncta:hover{background:var(--orh);transform:translateY(-1px);box-shadow:0 8px 24px rgba(255,87,34,.3)}
 
 /* HERO */
-.hero {
-  min-height: 100vh;
-  display: grid;
-  grid-template-rows: 1fr auto;
-  padding: 0 48px;
-  position: relative;
-  overflow: hidden;
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  justify-content:center;padding:120px 52px 80px;
+  position:relative;overflow:hidden;
+  border-bottom:1px solid var(--bd)
 }
+.hbg{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 55% 55% at 75% 40%,rgba(255,87,34,.06) 0%,transparent 70%),
+    radial-gradient(ellipse 40% 60% at 10% 70%,rgba(75,123,255,.05) 0%,transparent 70%)
+}
+.hdots{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:28px 28px
+}
+.htag{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--or);
+  margin-bottom:40px;position:relative;z-index:2;
+  opacity:0;animation:up .6s ease .1s forwards
+}
+.htag::before{content:'';width:20px;height:1px;background:var(--or)}
+.hlogo{
+  margin-bottom:48px;position:relative;z-index:2;
+  opacity:0;animation:up .7s ease .2s forwards
+}
+.hlogo img{
+  height:100px;width:auto;
+  filter:drop-shadow(0 0 48px rgba(255,87,34,.18))
+}
+.hh{
+  font-size:clamp(44px,6.5vw,96px);font-weight:700;
+  line-height:1.05;letter-spacing:-.03em;color:var(--wh);
+  position:relative;z-index:2;
+  opacity:0;animation:up .8s ease .3s forwards
+}
+.hh em{font-style:italic;color:var(--or)}
+.hsub{
+  margin-top:28px;font-size:18px;font-weight:400;line-height:1.65;
+  color:var(--tx2);max-width:560px;position:relative;z-index:2;
+  opacity:0;animation:up .8s ease .45s forwards
+}
+.hsub strong{color:var(--tx);font-weight:600}
+.hbtns{
+  display:flex;gap:12px;flex-wrap:wrap;margin-top:48px;
+  position:relative;z-index:2;
+  opacity:0;animation:up .8s ease .6s forwards
+}
+.bp{
+  font-size:15px;font-weight:700;letter-spacing:.02em;
+  background:var(--or);color:#fff;border:none;border-radius:8px;
+  padding:16px 32px;cursor:pointer;transition:all .2s;
+  display:inline-flex;align-items:center;gap:10px
+}
+.bp:hover{background:var(--orh);transform:translateY(-2px);box-shadow:0 14px 40px rgba(255,87,34,.28)}
+.bs{
+  font-size:15px;font-weight:600;letter-spacing:.02em;
+  background:transparent;color:var(--tx2);
+  border:1px solid var(--bdh);border-radius:8px;
+  padding:16px 32px;cursor:pointer;transition:all .2s;
+  display:inline-flex;align-items:center;gap:10px;text-decoration:none
+}
+.bs:hover{border-color:var(--tx);color:var(--wh)}
+.hnums{
+  display:flex;gap:48px;flex-wrap:wrap;
+  margin-top:64px;padding-top:40px;border-top:1px solid var(--bd);
+  position:relative;z-index:2;
+  opacity:0;animation:up .8s ease .75s forwards
+}
+.hn{display:flex;flex-direction:column;gap:5px}
+.hn-v{font-size:38px;font-weight:700;color:var(--wh);letter-spacing:-.03em;line-height:1}
+.hn-v b{color:var(--or)}
+.hn-l{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--tx3)}
 
-/* Animated grid */
-.hero-grid {
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(var(--wire) 1px, transparent 1px),
-    linear-gradient(90deg, var(--wire) 1px, transparent 1px);
-  background-size: 80px 80px;
-  animation: gridDrift 20s linear infinite;
-}
-@keyframes gridDrift {
-  from { background-position: 0 0; }
-  to { background-position: 80px 80px; }
-}
+@keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 
-/* Vignette */
-.hero-vignette {
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse 70% 70% at 50% 50%, transparent 40%, var(--ink) 100%);
+/* BELT */
+.belt{
+  overflow:hidden;border-bottom:1px solid var(--bd);
+  padding:15px 0;background:var(--s1)
 }
-
-/* Accent light */
-.hero-light {
-  position: absolute;
-  top: -200px; left: 50%; transform: translateX(-50%);
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(184,134,11,0.12) 0%, transparent 70%);
-  animation: breathe 6s ease-in-out infinite;
+.belt-track{display:flex;width:max-content;animation:belt 26s linear infinite}
+.bi{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--tx3);padding:0 40px;white-space:nowrap
 }
-@keyframes breathe {
-  0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
-  50% { opacity: 1; transform: translateX(-50%) scale(1.15); }
-}
-
-.hero-main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-top: 100px;
-  position: relative; z-index: 2;
-  max-width: 1100px;
-}
-
-.hero-eyebrow {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--gold-hi);
-  margin-bottom: 32px;
-  opacity: 0;
-  animation: riseIn 0.8s ease 0.2s forwards;
-}
-.hero-eyebrow::before {
-  content: '';
-  display: inline-block;
-  width: 32px; height: 1px;
-  background: var(--gold-hi);
-  vertical-align: middle;
-  margin-right: 14px;
-}
-
-.hero-h1 {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 700;
-  font-size: clamp(72px, 10vw, 140px);
-  line-height: 0.92;
-  text-transform: uppercase;
-  letter-spacing: -1px;
-  color: var(--white);
-  opacity: 0;
-  animation: riseIn 0.9s ease 0.35s forwards;
-}
-.hero-h1 .accent {
-  color: transparent;
-  -webkit-text-stroke: 1px var(--gold);
-  display: block;
-}
-
-.hero-desc {
-  margin-top: 40px;
-  max-width: 480px;
-  font-size: 17px;
-  font-weight: 300;
-  line-height: 1.75;
-  color: var(--mist);
-  opacity: 0;
-  animation: riseIn 0.9s ease 0.5s forwards;
-}
-.hero-desc strong { color: var(--fog); font-weight: 500; }
-
-.hero-actions {
-  margin-top: 52px;
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  opacity: 0;
-  animation: riseIn 0.9s ease 0.65s forwards;
-}
-.btn-primary {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  padding: 18px 40px;
-  border-radius: 2px;
-  border: none;
-  cursor: none;
-  transition: all 0.25s;
-  text-decoration: none;
-  display: inline-block;
-}
-.btn-store { background: var(--gold); color: var(--ink); }
-.btn-store:hover { background: var(--gold-hi); transform: translateY(-1px); box-shadow: 0 12px 40px rgba(184,134,11,0.3); }
-.btn-driver { background: transparent; color: var(--fog); border: 1px solid var(--dim); }
-.btn-driver:hover { border-color: var(--fog); color: var(--white); }
-
-.hero-ticker {
-  position: relative; z-index: 2;
-  border-top: 1px solid var(--wire);
-  padding: 24px 0;
-  display: flex;
-  gap: 64px;
-  opacity: 0;
-  animation: riseIn 0.9s ease 0.8s forwards;
-}
-.ticker-item { display: flex; flex-direction: column; }
-.ticker-val {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 700;
-  font-size: 36px;
-  color: var(--white);
-  letter-spacing: -0.5px;
-  line-height: 1;
-}
-.ticker-val sup { font-size: 16px; color: var(--gold-hi); vertical-align: super; }
-.ticker-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--dim);
-  margin-top: 4px;
-}
-
-/* MARQUEE */
-.marquee-wrap {
-  overflow: hidden;
-  border-top: 1px solid var(--wire);
-  border-bottom: 1px solid var(--wire);
-  padding: 18px 0;
-  background: var(--ink2);
-}
-.marquee-track {
-  display: flex;
-  width: max-content;
-  animation: marquee 18s linear infinite;
-}
-.marquee-item {
-  font-family: 'Oswald', sans-serif;
-  font-size: 13px;
-  font-weight: 400;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--dim);
-  padding: 0 40px;
-  white-space: nowrap;
-}
-.marquee-item b { color: var(--gold-hi); font-weight: 400; }
-.marquee-sep { color: var(--gold); padding: 0 8px; }
-@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.bi b{color:var(--or);font-weight:400}
+@keyframes belt{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* SECTIONS */
-.section { padding: 120px 48px; }
-.section-inner { max-width: 1100px; margin: 0 auto; }
+.sec{padding:120px 52px}
+.wrap{max-width:1140px;margin:0 auto}
+.tag{
+  display:inline-flex;align-items:center;gap:12px;
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--or);
+  margin-bottom:20px
+}
+.tag::before{content:'';width:20px;height:1px;background:var(--or)}
+.sh{font-size:clamp(36px,4.5vw,64px);font-weight:700;letter-spacing:-.03em;color:var(--wh);line-height:1.05}
+.sh em{font-style:italic;color:var(--or)}
 
-.section-header { margin-bottom: 72px; }
-.section-num {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 3px;
-  color: var(--gold-hi);
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
+/* PROBLEMA — 2 col com número gigante */
+.prob-sec{background:var(--bg)}
+.prob-intro{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end;margin-bottom:80px}
+.prob-lead{font-size:17px;font-weight:400;line-height:1.7;color:var(--tx2);max-width:400px}
+.prob-cards{display:flex;flex-direction:column;gap:0}
+.pc{
+  display:grid;grid-template-columns:72px 1fr;
+  border-top:1px solid var(--bd);padding:44px 0;
+  opacity:0;transform:translateY(16px);
+  transition:opacity .65s ease,transform .65s ease
 }
-.section-num::after { content: ''; flex: 0 0 32px; height: 1px; background: var(--gold-hi); }
-.section-title {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 700;
-  font-size: clamp(42px, 5vw, 72px);
-  text-transform: uppercase;
-  letter-spacing: -0.5px;
-  color: var(--white);
-  line-height: 1;
+.pc:last-child{border-bottom:1px solid var(--bd)}
+.pc.on{opacity:1;transform:translateY(0)}
+.pc-n{
+  font-size:56px;font-weight:700;color:var(--bd);
+  letter-spacing:-.03em;line-height:1;padding-top:6px
 }
-.section-title em { font-style: normal; color: transparent; -webkit-text-stroke: 1px var(--gold); }
+.pc-t{font-size:20px;font-weight:700;color:var(--wh);margin-bottom:10px;letter-spacing:-.02em}
+.pc-b{font-size:14px;font-weight:400;line-height:1.7;color:var(--tx2);max-width:520px}
+.pc-b strong{color:var(--tx);font-weight:600}
 
-/* FEATURES — diagonal layout */
-.features-alt {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+/* SOLUÇÃO — cards com preview */
+.sol-sec{background:var(--s1)}
+.sol-intro{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end;margin-bottom:72px}
+.sol-desc{font-size:16px;font-weight:400;line-height:1.7;color:var(--tx2)}
+.sol-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bd);border:1px solid var(--bd);border-radius:14px;overflow:hidden}
+.sc{
+  background:var(--s2);padding:40px 36px 0;
+  display:flex;flex-direction:column;
+  opacity:0;transform:translateY(16px);
+  transition:opacity .65s ease,transform .65s ease
 }
-.feat-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  border-top: 1px solid var(--wire);
-  min-height: 220px;
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+.sc.on{opacity:1;transform:translateY(0)}
+.sc:hover{background:var(--s3)}
+.sc-icon{
+  width:40px;height:40px;border-radius:10px;
+  background:var(--ora);border:1px solid rgba(255,87,34,.18);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;margin-bottom:22px;flex-shrink:0
 }
-.feat-row.vis { opacity: 1; transform: translateY(0); }
-.feat-row:last-child { border-bottom: 1px solid var(--wire); }
-.feat-cell {
-  padding: 48px 48px 48px 0;
-  border-right: 1px solid var(--wire);
+.sc-t{font-size:18px;font-weight:700;color:var(--wh);margin-bottom:10px;letter-spacing:-.01em}
+.sc-b{font-size:13px;font-weight:400;line-height:1.65;color:var(--tx2);margin-bottom:24px}
+.sc-pre{
+  margin:0 -0px;border-top:1px solid var(--bd);
+  background:var(--bg);padding:16px;border-radius:0;
+  flex:1;display:flex;flex-direction:column;gap:0;margin-top:auto
 }
-.feat-cell:last-child { border-right: none; padding: 48px 0 48px 48px; }
-.feat-num {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 2px;
-  color: var(--gold-hi);
-  margin-bottom: 20px;
+.pr{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:9px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:12px
 }
-.feat-title {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 600;
-  font-size: 26px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--white);
-  margin-bottom: 12px;
-  line-height: 1.1;
-}
-.feat-body {
-  font-size: 14px;
-  font-weight: 300;
-  line-height: 1.75;
-  color: var(--mist);
-  max-width: 340px;
-}
+.pr:last-child{border-bottom:none}
+.prl{color:var(--tx2)}
+.prv{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--tx)}
+.prv.o{color:var(--or)}
+.prv.g{color:var(--gr)}
+.chip{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px}
+.c-go{background:var(--ora);color:var(--or);border:1px solid rgba(255,87,34,.2)}
+.c-ok{background:var(--gra);color:var(--gr);border:1px solid rgba(34,197,94,.2)}
+.c-bl{background:var(--bla);color:var(--bl);border:1px solid rgba(75,123,255,.2)}
 
-/* HOW IT WORKS — tabs + steps */
-.how-section { background: var(--ink2); }
+/* mini map */
+.mmap{height:72px;border-radius:6px;background:var(--s1);position:relative;overflow:hidden;margin-bottom:0}
+.mmap::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,87,34,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,87,34,.05) 1px,transparent 1px);background-size:14px 14px}
+.mp{position:absolute;font-size:14px}
+.mp.r{animation:mr 5s ease-in-out infinite}
+.mp.r2{animation:mr2 7s ease-in-out infinite}
+@keyframes mr{0%{top:35%;left:12%}50%{top:18%;left:55%}100%{top:35%;left:12%}}
+@keyframes mr2{0%{top:60%;left:65%}50%{top:25%;left:80%}100%{top:60%;left:65%}}
+.mpd{position:absolute;width:8px;height:8px;border-radius:50%;border:2px solid var(--or);background:var(--ora)}
+.mpd::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:1px solid rgba(255,87,34,.2);animation:rp 2s ease-out infinite}
+@keyframes rp{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(2.4)}}
 
-.tab-row {
-  display: flex;
-  border-bottom: 1px solid var(--wire);
-  margin-bottom: 72px;
-}
-.tab-item {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 500;
-  font-size: 15px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  padding: 20px 40px 20px 0;
-  border: none;
-  background: none;
-  color: var(--dim);
-  cursor: none;
-  position: relative;
-  transition: color 0.2s;
-}
-.tab-item::after {
-  content: '';
-  position: absolute;
-  bottom: -1px; left: 0;
-  width: 0; height: 2px;
-  background: var(--gold-hi);
-  transition: width 0.3s ease;
-}
-.tab-item.active { color: var(--white); }
-.tab-item.active::after { width: 100%; }
+/* scan anim */
+.scan-wrap{display:flex;gap:12px;align-items:center}
+.scan-img{width:52px;height:52px;border-radius:6px;background:var(--s2);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.scan-lines{flex:1;display:flex;flex-direction:column;gap:6px}
+.sl{height:8px;border-radius:3px;background:var(--s3);overflow:hidden;position:relative}
+.sl::after{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,87,34,.35),transparent);animation:sc 1.8s ease-in-out infinite}
+.sl.s2::after{animation-delay:.25s;width:35%}
+.sl.s3::after{animation-delay:.5s;width:45%}
+@keyframes sc{from{left:-60%}to{left:120%}}
 
-.steps-panel { display: none; }
-.steps-panel.active { display: flex; flex-direction: column; }
+/* bars */
+.bars{height:52px;display:flex;align-items:flex-end;gap:4px}
+.bar{flex:1;border-radius:2px 2px 0 0;background:rgba(255,87,34,.15)}
+.bar.hi{background:rgba(255,87,34,.5)}
 
-.step-row {
-  display: grid;
-  grid-template-columns: 80px 1fr 1fr;
-  gap: 0;
-  border-top: 1px solid var(--wire);
-  padding: 40px 0;
-  align-items: start;
-  opacity: 0;
-  transform: translateX(-16px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+/* COMO FUNCIONA */
+.how-sec{background:var(--bg);border-top:1px solid var(--bd)}
+.steps{display:flex;flex-direction:column}
+.step{
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
+  padding:72px 0;border-bottom:1px solid var(--bd);
+  opacity:0;transform:translateX(-16px);
+  transition:opacity .6s ease,transform .6s ease
 }
-.step-row.vis { opacity: 1; transform: translateX(0); }
-.step-row:last-child { border-bottom: 1px solid var(--wire); }
-.step-n {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 700;
-  font-size: 48px;
-  color: var(--wire);
-  line-height: 1;
-  padding-top: 4px;
-}
-.step-info { padding-right: 48px; }
-.step-info h3 {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 600;
-  font-size: 22px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--white);
-  margin-bottom: 10px;
-}
-.step-info p {
-  font-size: 14px;
-  font-weight: 300;
-  line-height: 1.75;
-  color: var(--mist);
-}
-.step-screen {
-  background: #0c0f1a;
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 4px;
-  overflow: hidden;
-}
-.ss-bar {
-  background: #141828;
-  padding: 10px 14px;
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-}
-.ss-dot { width: 8px; height: 8px; border-radius: 50%; }
-.ss-body { padding: 16px; }
-.ss-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-  font-size: 12px;
-}
-.ss-row:last-child { border-bottom: none; }
-.ss-label { color: var(--mist); font-weight: 300; }
-.ss-val { color: var(--fog); font-family: 'DM Mono', monospace; font-size: 11px; }
-.ss-chip {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  padding: 3px 8px;
-  border-radius: 2px;
-}
-.chip-live { background: rgba(22,163,74,0.15); color: #4ade80; border: 1px solid rgba(22,163,74,0.25); }
-.chip-transit { background: rgba(184,134,11,0.15); color: var(--gold-hi); border: 1px solid rgba(184,134,11,0.25); }
-.chip-pending { background: rgba(100,116,139,0.15); color: #94a3b8; border: 1px solid rgba(100,116,139,0.25); }
-.chip-done { background: rgba(0,78,137,0.2); color: #60b3ff; border: 1px solid rgba(0,78,137,0.3); }
-.ss-map {
-  height: 70px;
-  background: linear-gradient(135deg, #080d1a, #0a1120);
-  border-radius: 3px;
-  margin-bottom: 10px;
-  position: relative;
-  overflow: hidden;
-}
-.ss-map::before {
-  content: '';
-  position: absolute; inset: 0;
-  background-image: linear-gradient(rgba(0,78,137,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,78,137,0.1) 1px, transparent 1px);
-  background-size: 16px 16px;
-}
-.ss-pin {
-  position: absolute;
-  font-size: 16px;
-  animation: pulsate 1.8s ease-in-out infinite;
-}
-@keyframes pulsate { 0%,100%{transform:scale(1)} 50%{transform:scale(1.25)} }
-.ss-btn {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 3px;
-  font-family: 'Oswald', sans-serif;
-  font-weight: 500;
-  font-size: 13px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  cursor: none;
-  margin-top: 8px;
-}
-.ss-btn-g { background: rgba(22,163,74,0.9); color: white; }
-.ss-btn-b { background: rgba(0,78,137,0.9); color: white; }
+.step:first-child{border-top:1px solid var(--bd)}
+.step.on{opacity:1;transform:translateX(0)}
+.st-n{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--or);margin-bottom:18px}
+.st-t{font-size:28px;font-weight:700;letter-spacing:-.02em;color:var(--wh);margin-bottom:14px;line-height:1.15}
+.st-b{font-size:15px;font-weight:400;line-height:1.7;color:var(--tx2)}
+.st-b strong{color:var(--tx);font-weight:600}
+/* UI mock */
+.mock{background:var(--s2);border:1px solid var(--bd);border-radius:12px;overflow:hidden}
+.mock-bar{padding:11px 14px;border-bottom:1px solid var(--bd);display:flex;gap:6px;align-items:center;background:var(--s1)}
+.md{width:9px;height:9px;border-radius:50%}
+.mock-name{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--tx3);margin-left:6px}
+.mock-body{padding:18px}
+.mr{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:12px}
+.mr:last-child{border-bottom:none}
+.mrl{color:var(--tx2)}
+.mrv{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--tx)}
+.mrv.o{color:var(--or)}
+.mrv.g{color:var(--gr)}
+.umap{height:88px;border-radius:8px;background:var(--bg);position:relative;overflow:hidden;margin-bottom:14px}
+.umap::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,87,34,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,87,34,.06) 1px,transparent 1px);background-size:16px 16px}
+.upin{position:absolute;font-size:15px}
+.upin.mv{animation:uv 6s ease-in-out infinite}
+@keyframes uv{0%{top:35%;left:12%}50%{top:15%;left:55%}100%{top:50%;left:78%}}
+.ubtn{width:100%;padding:12px;border:none;border-radius:8px;font-family:'Familjen Grotesk',sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;cursor:pointer;margin-top:6px}
+.ub-or{background:var(--or);color:#fff}
 
-/* PRICING */
-.pricing-section { border-top: 1px solid var(--wire); }
-.pricing-block {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
-  border: 1px solid var(--wire);
-  border-radius: 4px;
-  overflow: hidden;
+/* PRECO */
+.price-sec{background:var(--s1);border-top:1px solid var(--bd)}
+.price-box{
+  display:grid;grid-template-columns:1fr 1fr;
+  border:1px solid var(--bd);border-radius:14px;overflow:hidden;margin-top:64px
 }
-.pricing-left {
-  padding: 72px 64px;
-  border-right: 1px solid var(--wire);
-  background: var(--ink2);
+.pl{
+  padding:72px 64px;background:var(--s2);
+  position:relative;overflow:hidden
 }
-.pricing-amount {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 700;
-  font-size: 120px;
-  line-height: 1;
-  color: var(--white);
-  letter-spacing: -3px;
+.pl::after{content:'';position:absolute;bottom:-80px;right:-80px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(255,87,34,.09) 0%,transparent 70%)}
+.price-big{font-size:clamp(80px,12vw,148px);font-weight:700;line-height:.9;color:var(--wh);letter-spacing:-.05em;position:relative;z-index:1}
+.price-big sup{font-size:.28em;vertical-align:super;color:var(--or);letter-spacing:0}
+.price-big sub{font-size:.17em;vertical-align:baseline;color:var(--tx2);font-weight:400;letter-spacing:0}
+.price-unit{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--or);margin-top:18px;display:flex;align-items:center;gap:10px;position:relative;z-index:1}
+.price-unit::before{content:'';width:18px;height:1px;background:var(--or)}
+.price-note{font-size:14px;color:var(--tx2);line-height:1.65;margin-top:20px;max-width:260px;position:relative;z-index:1}
+.pr2{padding:72px 64px;background:var(--s2);border-left:1px solid var(--bd);display:flex;flex-direction:column;justify-content:space-between}
+.plist{list-style:none;display:flex;flex-direction:column;gap:16px}
+.plist li{display:flex;align-items:flex-start;gap:14px;font-size:15px;font-weight:400;line-height:1.5;color:var(--tx)}
+.plist li::before{content:'✓';font-size:11px;color:var(--gr);background:var(--gra);border:1px solid rgba(34,197,94,.18);width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.pcta{
+  margin-top:48px;font-size:15px;font-weight:700;letter-spacing:.04em;
+  padding:17px 36px;background:var(--or);color:#fff;border:none;border-radius:8px;
+  cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:10px
 }
-.pricing-amount sup {
-  font-size: 40px;
-  letter-spacing: 0;
-  vertical-align: super;
-  color: var(--gold-hi);
-}
-.pricing-amount sub {
-  font-size: 22px;
-  letter-spacing: 0;
-  vertical-align: baseline;
-  color: var(--mist);
-  font-weight: 300;
-}
-.pricing-caption {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--gold-hi);
-  margin-top: 12px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.pricing-caption::before { content: ''; width: 24px; height: 1px; background: var(--gold-hi); }
-
-.pricing-right {
-  padding: 72px 64px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.pricing-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
-.pricing-list li {
-  font-size: 14px;
-  font-weight: 300;
-  color: var(--fog);
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  line-height: 1.5;
-}
-.pricing-list li::before {
-  content: '';
-  width: 16px; height: 1px;
-  background: var(--gold-hi);
-  flex-shrink: 0;
-  margin-top: 8px;
-}
-.pricing-cta {
-  margin-top: 48px;
-  font-family: 'Oswald', sans-serif;
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  padding: 18px 40px;
-  background: var(--gold);
-  color: var(--ink);
-  border: none;
-  border-radius: 2px;
-  cursor: none;
-  transition: all 0.25s;
-  display: inline-block;
-  text-decoration: none;
-}
-.pricing-cta:hover { background: var(--gold-hi); transform: translateY(-1px); box-shadow: 0 12px 40px rgba(184,134,11,0.3); }
+.pcta:hover{background:var(--orh);transform:translateY(-2px);box-shadow:0 14px 40px rgba(255,87,34,.3)}
 
 /* CTA FINAL */
-.final-cta {
-  padding: 160px 48px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+.cta-sec{padding:160px 52px;text-align:center;position:relative;overflow:hidden;background:var(--bg)}
+.cta-glow{position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:600px;height:360px;background:radial-gradient(ellipse,rgba(255,87,34,.07) 0%,transparent 70%);pointer-events:none}
+.cta-tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--or);margin-bottom:28px;display:flex;align-items:center;justify-content:center;gap:14px;position:relative;z-index:1}
+.cta-tag::before,.cta-tag::after{content:'';width:20px;height:1px;background:var(--or)}
+.cta-h{font-size:clamp(48px,8vw,108px);font-weight:700;line-height:.95;letter-spacing:-.04em;color:var(--wh);position:relative;z-index:1}
+.cta-h em{font-style:italic;color:var(--or)}
+.cta-sub{font-size:17px;font-weight:400;line-height:1.7;color:var(--tx2);margin:36px auto 52px;max-width:420px;position:relative;z-index:1}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+.wa{
+  font-size:14px;font-weight:600;letter-spacing:.03em;
+  padding:15px 28px;border:1px solid var(--bdh);border-radius:8px;
+  color:var(--tx2);text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:all .2s
 }
-.final-cta-bg {
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(184,134,11,0.1) 0%, transparent 60%);
-}
-.final-cta-h {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 700;
-  font-size: clamp(52px, 8vw, 100px);
-  text-transform: uppercase;
-  letter-spacing: -1px;
-  line-height: 0.92;
-  color: var(--white);
-  position: relative; z-index: 1;
-}
-.final-cta-h em { font-style: normal; color: var(--gold-hi); }
-.final-cta-sub {
-  font-size: 16px;
-  font-weight: 300;
-  color: var(--mist);
-  margin: 24px auto 48px;
-  max-width: 400px;
-  line-height: 1.7;
-  position: relative; z-index: 1;
-}
-.final-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
-
-.wa-link {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 500;
-  font-size: 13px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  padding: 18px 40px;
-  border: 1px solid var(--wire);
-  border-radius: 2px;
-  color: var(--fog);
-  text-decoration: none;
-  transition: all 0.25s;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-}
-.wa-link:hover { border-color: var(--fog); color: var(--white); }
-.wa-icon { width: 18px; height: 18px; flex-shrink: 0; }
+.wa:hover{border-color:var(--tx);color:var(--wh)}
 
 /* FOOTER */
-footer {
-  border-top: 1px solid var(--wire);
-  padding: 32px 48px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-.footer-brand {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 600;
-  font-size: 15px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--white);
-}
-.footer-brand span { color: var(--gold-hi); }
-.footer-info {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 1px;
-  color: var(--dim);
-}
+footer{border-top:1px solid var(--bd);padding:32px 52px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;background:var(--bg)}
+.fl img{height:26px;opacity:.55}
+.fi{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--tx3)}
 
 /* MODAL */
-.overlay {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,0.88);
-  backdrop-filter: blur(12px);
-  z-index: 500;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-.overlay.open { display: flex; }
-.modal {
-  background: var(--ink2);
-  border: 1px solid var(--wire);
-  border-radius: 4px;
-  width: 100%;
-  max-width: 460px;
-  max-height: 90vh;
-  overflow-y: auto;
-  padding: 48px 44px;
-  position: relative;
-  animation: modalIn 0.3s ease;
-}
-@keyframes modalIn { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
-.modal-close {
-  position: absolute; top: 18px; right: 22px;
-  background: none; border: none;
-  font-family: 'DM Mono', monospace;
-  font-size: 20px; color: var(--dim);
-  cursor: none; transition: color 0.2s;
-  line-height: 1;
-}
-.modal-close:hover { color: var(--white); }
-.modal-eyebrow {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--gold-hi);
-  margin-bottom: 12px;
-}
-.modal h2 {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 700;
-  font-size: 36px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--white);
-  margin-bottom: 8px;
-}
-.modal-sub { font-size: 13px; font-weight: 300; color: var(--mist); line-height: 1.6; margin-bottom: 32px; }
-.field { margin-bottom: 16px; }
-.field label {
-  display: block;
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--dim);
-  margin-bottom: 6px;
-}
-.field input {
-  width: 100%;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 2px;
-  color: var(--fog);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  font-weight: 300;
-  padding: 13px 14px;
-  outline: none;
-  transition: border-color 0.2s, background 0.2s;
-}
-.field input:focus { border-color: rgba(184,134,11,0.5); background: rgba(184,134,11,0.04); }
-.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.field-row .field { margin-bottom: 0; }
-.modal-submit {
-  width: 100%;
-  margin-top: 8px;
-  padding: 15px;
-  border: none;
-  border-radius: 2px;
-  font-family: 'Oswald', sans-serif;
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  cursor: none;
-  transition: all 0.25s;
-}
-.submit-store { background: var(--gold); color: var(--ink); }
-.submit-store:hover { background: var(--gold-hi); }
-.submit-driver { background: #1a4a1a; color: #4ade80; border: 1px solid rgba(74,222,128,0.2); }
-.submit-driver:hover { background: #1f5a1f; }
-.form-msg { font-size: 12px; text-align: center; margin-top: 10px; min-height: 16px; font-family: 'DM Mono', monospace; letter-spacing: 1px; }
-.msg-ok { color: #4ade80; }
-.msg-err { color: #f87171; }
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.86);backdrop-filter:blur(20px);z-index:500;display:none;align-items:center;justify-content:center;padding:20px}
+.ov.on{display:flex}
+.modal{background:var(--s1);border:1px solid var(--bdh);border-radius:14px;width:100%;max-width:480px;max-height:92vh;overflow-y:auto;padding:48px 44px;position:relative;animation:min .3s ease}
+@keyframes min{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.mc{position:absolute;top:18px;right:18px;width:34px;height:34px;border-radius:8px;background:var(--s3);border:none;color:var(--tx2);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.mc:hover{background:var(--bdh);color:var(--wh)}
+.mk{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--or);margin-bottom:14px}
+.modal h2{font-size:26px;font-weight:700;color:var(--wh);letter-spacing:-.02em;margin-bottom:8px}
+.msub{font-size:13px;font-weight:400;line-height:1.7;color:var(--tx2);margin-bottom:30px}
+.field{display:flex;flex-direction:column;gap:7px;margin-bottom:14px}
+.field label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--tx2)}
+.field input{background:var(--s2);border:1px solid var(--bd);border-radius:8px;padding:12px 15px;font-family:'Familjen Grotesk',sans-serif;font-size:14px;color:var(--wh);outline:none;transition:border-color .2s}
+.field input:focus{border-color:var(--or)}
+.field input::placeholder{color:var(--tx3)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.msub-btn{width:100%;margin-top:20px;font-family:'Familjen Grotesk',sans-serif;font-size:14px;font-weight:700;letter-spacing:.04em;padding:15px;border:none;border-radius:8px;cursor:pointer;transition:all .2s}
+.ms{background:var(--or);color:#fff}
+.ms:hover{background:var(--orh);box-shadow:0 8px 24px rgba(255,87,34,.28)}
+.md-btn{background:var(--bla);color:var(--bl);border:1px solid rgba(75,123,255,.25)}
+.md-btn:hover{background:rgba(75,123,255,.18)}
+.fmsg{font-size:12px;margin-top:10px;text-align:center;min-height:18px}
+.fe{color:#F87171}.fo{color:var(--gr)}
+.sv{display:none;flex-direction:column;align-items:center;text-align:center;gap:14px}
+.sv.on{display:flex}
+.sv-ic{width:50px;height:50px;border-radius:12px;background:var(--gra);border:1px solid rgba(34,197,94,.22);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:6px}
+.sv h3{font-size:24px;font-weight:700;color:var(--wh);letter-spacing:-.02em}
+.sv p{font-size:14px;line-height:1.75;color:var(--tx2);max-width:300px}
+.apkl{font-size:14px;font-weight:700;letter-spacing:.04em;padding:13px 28px;background:var(--or);color:#fff;border-radius:8px;text-decoration:none;transition:all .2s;display:inline-block}
+.apkl:hover{background:var(--orh)}
+.apks{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.15em;color:var(--tx3)}
 
-/* SUCCESS */
-.success-view { display: none; text-align: center; padding: 16px 0; }
-.success-view.show { display: block; }
-.success-line {
-  width: 40px; height: 2px;
-  background: var(--gold-hi);
-  margin: 0 auto 24px;
-}
-.success-view h3 {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 700;
-  font-size: 30px;
-  text-transform: uppercase;
-  color: var(--white);
-  margin-bottom: 12px;
-}
-.success-view p { font-size: 14px; font-weight: 300; color: var(--mist); line-height: 1.7; margin-bottom: 28px; }
-.apk-dl {
-  display: inline-block;
-  font-family: 'Oswald', sans-serif;
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  padding: 16px 36px;
-  background: var(--gold);
-  color: var(--ink);
-  border-radius: 2px;
-  text-decoration: none;
-  transition: all 0.25s;
-}
-.apk-dl:hover { background: var(--gold-hi); transform: translateY(-1px); }
-.apk-sub {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--dim);
-  margin-top: 10px;
-}
-
-/* UTILS */
-@keyframes riseIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@media (max-width: 768px) {
-  nav { padding: 0 20px; }
-  .nav-right .pill-ghost { display: none; }
-  .hero { padding: 0 20px; }
-  .hero-h1 { font-size: 58px; }
-  .hero-ticker { gap: 32px; flex-wrap: wrap; }
-  .section { padding: 80px 20px; }
-  .feat-row { grid-template-columns: 1fr; }
-  .feat-cell { border-right: none; padding: 40px 0; }
-  .feat-cell:last-child { padding: 0 0 40px; }
-  .step-row { grid-template-columns: 56px 1fr; }
-  .step-screen { display: none; }
-  .pricing-block { grid-template-columns: 1fr; }
-  .pricing-left { border-right: none; border-bottom: 1px solid var(--wire); padding: 48px 32px; }
-  .pricing-right { padding: 48px 32px; }
-  .pricing-amount { font-size: 80px; }
-  .final-cta { padding: 100px 20px; }
-  footer { padding: 24px 20px; flex-direction: column; text-align: center; }
-  .modal { padding: 36px 24px; }
-  .field-row { grid-template-columns: 1fr; }
-  body { cursor: auto; }
-  .cursor, .cursor-ring { display: none; }
+/* RESPONSIVE */
+@media(max-width:960px){
+  nav{padding:0 24px}
+  .nlink{display:none}
+  .hero{padding:110px 24px 72px}
+  .hlogo img{height:72px}
+  .hnums{gap:28px}
+  .sec{padding:80px 24px}
+  .prob-intro,.sol-intro{grid-template-columns:1fr}
+  .sol-grid{grid-template-columns:1fr}
+  .step{grid-template-columns:1fr;gap:36px}
+  .price-box{grid-template-columns:1fr}
+  .pl,.pr2{padding:52px 40px}
+  .cta-sec{padding:100px 24px}
+  footer{padding:28px 24px}
+  .modal{padding:36px 28px}
+  .frow{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursor-ring"></div>
-
 <!-- NAV -->
 <nav id="nav">
-  <a href="#" class="nav-wordmark">Monta<span>Rotaí</span></a>
-  <div class="nav-right">
-    <button class="nav-pill pill-ghost" onclick="openModal('store')">Para lojas</button>
-    <button class="nav-pill pill-solid" onclick="openModal('driver')">Para entregadores</button>
+  <a class="nl" href="#"><img src="data:image/webp;base64,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" alt="MontaRotaí"></a>
+  <div class="nr">
+    <a class="nlink" href="#como">Como funciona</a>
+    <a class="nlink" href="#preco">Preço</a>
+    <button class="ncta" onclick="openM('store')">Cadastrar minha loja</button>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-grid"></div>
-  <div class="hero-vignette"></div>
-  <div class="hero-light"></div>
-
-  <div class="hero-main">
-    <p class="hero-eyebrow">Sistema de gestão de entregas com IA</p>
-    <h1 class="hero-h1">
-      Suas entregas,
-      <span class="accent">sob controle.</span>
-    </h1>
-    <p class="hero-desc">
-      Fotografe a comanda. A inteligência artificial lê o endereço, calcula a rota mais eficiente e o entregador já sai. <strong>Tudo no celular.</strong> Sem plataforma intermediária. Sem mensalidade.
-    </p>
-    <div class="hero-actions">
-      <button class="btn-primary btn-store" onclick="openModal('store')">Quero usar na minha loja</button>
-      <button class="btn-primary btn-driver" onclick="openModal('driver')">Sou entregador</button>
-    </div>
+  <div class="hbg"></div>
+  <div class="hdots"></div>
+  <span class="htag">Ribeirão Preto, SP</span>
+  <div class="hlogo"><img src="data:image/webp;base64,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" alt="MontaRotaí"></div>
+  <h1 class="hh">Sua loja no controle.<br><em>Seu delivery organizado.</em></h1>
+  <p class="hsub">Para de gerenciar entrega no papel e no WhatsApp. <strong>MontaRotaí centraliza pedidos, rotas e controle financeiro</strong> em um sistema que qualquer loja usa — e qualquer entregador aprende em minutos.</p>
+  <div class="hbtns">
+    <button class="bp" onclick="openM('store')">
+      Cadastrar minha loja
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <a class="bs" href="https://wa.me/5516993996336?text=Olá!%20Quero%20saber%20mais%20sobre%20o%20MontaRotaí" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Falar no WhatsApp
+    </a>
   </div>
-
-  <div class="hero-ticker">
-    <div class="ticker-item">
-      <span class="ticker-val"><sup>R$</sup>0<span style="font-size:0.5em">,99</span></span>
-      <span class="ticker-label">Por entrega</span>
-    </div>
-    <div class="ticker-item">
-      <span class="ticker-val">R$0</span>
-      <span class="ticker-label">Mensalidade</span>
-    </div>
-    <div class="ticker-item">
-      <span class="ticker-val">15<span style="font-size:0.45em;font-weight:300">s</span></span>
-      <span class="ticker-label">Atualização GPS</span>
-    </div>
-    <div class="ticker-item">
-      <span class="ticker-val">IA</span>
-      <span class="ticker-label">Leitura de comanda</span>
-    </div>
+  <div class="hnums">
+    <div class="hn"><div class="hn-v">R$<b>0,99</b></div><div class="hn-l">por entrega</div></div>
+    <div class="hn"><div class="hn-v"><b>&lt;24h</b></div><div class="hn-l">para começar</div></div>
+    <div class="hn"><div class="hn-v"><b>0</b></div><div class="hn-l">mensalidade</div></div>
+    <div class="hn"><div class="hn-v"><b>∞</b></div><div class="hn-l">entregadores</div></div>
   </div>
 </section>
 
-<!-- MARQUEE -->
-<div class="marquee-wrap">
-  <div class="marquee-track">
-    <span class="marquee-item">Gestão de Entregas <b>—</b></span>
-    <span class="marquee-item">GPS em Tempo Real <b>—</b></span>
-    <span class="marquee-item">Rotas com Inteligência Artificial <b>—</b></span>
-    <span class="marquee-item">Leitura de Comanda por Foto <b>—</b></span>
-    <span class="marquee-item">Relatório Financeiro Completo <b>—</b></span>
-    <span class="marquee-item">Sem Plataforma Intermediária <b>—</b></span>
-    <span class="marquee-item">R$0,99 por Entrega <b>—</b></span>
-    <span class="marquee-item">Gestão de Entregas <b>—</b></span>
-    <span class="marquee-item">GPS em Tempo Real <b>—</b></span>
-    <span class="marquee-item">Rotas com Inteligência Artificial <b>—</b></span>
-    <span class="marquee-item">Leitura de Comanda por Foto <b>—</b></span>
-    <span class="marquee-item">Relatório Financeiro Completo <b>—</b></span>
-    <span class="marquee-item">Sem Plataforma Intermediária <b>—</b></span>
-    <span class="marquee-item">R$0,99 por Entrega <b>—</b></span>
+<!-- BELT -->
+<div class="belt">
+  <div class="belt-track">
+    <span class="bi"><b>Rota com IA</b> &nbsp;·&nbsp; </span>
+    <span class="bi">GPS em tempo real &nbsp;·&nbsp; </span>
+    <span class="bi"><b>Leitura de comanda</b> &nbsp;·&nbsp; </span>
+    <span class="bi">Controle financeiro &nbsp;·&nbsp; </span>
+    <span class="bi"><b>Antifraude incluso</b> &nbsp;·&nbsp; </span>
+    <span class="bi">Zero mensalidade &nbsp;·&nbsp; </span>
+    <span class="bi"><b>R$0,99 por entrega</b> &nbsp;·&nbsp; </span>
+    <span class="bi">Ativo em 24 horas &nbsp;·&nbsp; </span>
+    <span class="bi"><b>Rota com IA</b> &nbsp;·&nbsp; </span>
+    <span class="bi">GPS em tempo real &nbsp;·&nbsp; </span>
+    <span class="bi"><b>Leitura de comanda</b> &nbsp;·&nbsp; </span>
+    <span class="bi">Controle financeiro &nbsp;·&nbsp; </span>
+    <span class="bi"><b>Antifraude incluso</b> &nbsp;·&nbsp; </span>
+    <span class="bi">Zero mensalidade &nbsp;·&nbsp; </span>
+    <span class="bi"><b>R$0,99 por entrega</b> &nbsp;·&nbsp; </span>
+    <span class="bi">Ativo em 24 horas &nbsp;·&nbsp; </span>
   </div>
 </div>
 
-<!-- FEATURES -->
-<section class="section" id="funcionalidades">
-  <div class="section-inner">
-    <div class="section-header">
-      <p class="section-num">01</p>
-      <h2 class="section-title">O que o sistema<br><em>entrega</em> para você</h2>
+<!-- PROBLEMA -->
+<section class="sec prob-sec">
+  <div class="wrap">
+    <div class="prob-intro">
+      <div>
+        <p class="tag">O problema</p>
+        <h2 class="sh">Você entrega.<br>Mas não <em>enxerga</em><br>nada.</h2>
+      </div>
+      <p class="prob-lead">Sem sistema, você não sabe onde está seu entregador, quanto gastou, quanto deve — e quando algo dá errado, você só descobre depois.</p>
     </div>
-    <div class="features-alt">
-      <div class="feat-row">
-        <div class="feat-cell">
-          <p class="feat-num">001</p>
-          <h3 class="feat-title">Leitura de Comanda por Foto</h3>
-          <p class="feat-body">Fotografe o comprovante. A IA extrai o endereço automaticamente. Sem digitação, sem erro humano, sem tempo perdido.</p>
-        </div>
-        <div class="feat-cell">
-          <p class="feat-num">002</p>
-          <h3 class="feat-title">Rota Otimizada com IA</h3>
-          <p class="feat-body">Com múltiplos pedidos, o sistema calcula a sequência de entrega mais eficiente. Menos quilômetros. Mais entregas por turno.</p>
+    <div class="prob-cards">
+      <div class="pc" data-obs>
+        <div class="pc-n">01</div>
+        <div>
+          <h3 class="pc-t">Entregador sumiu e o cliente ligou</h3>
+          <p class="pc-b">Sem rastreamento, cada pedido vira uma ligação. <strong>Você gerencia entrega no chute — e o cliente paga o preço do seu descontrole.</strong></p>
         </div>
       </div>
-      <div class="feat-row">
-        <div class="feat-cell">
-          <p class="feat-num">003</p>
-          <h3 class="feat-title">GPS em Tempo Real</h3>
-          <p class="feat-body">Posição de cada entregador atualizada a cada 15 segundos no mapa da loja. Sem equipamento adicional. Sem aplicativo separado.</p>
-        </div>
-        <div class="feat-cell">
-          <p class="feat-num">004</p>
-          <h3 class="feat-title">Independência Total</h3>
-          <p class="feat-body">Nenhuma plataforma intermediária. Nenhuma taxa de marketplace. Suas entregas, seus entregadores, suas regras, seu lucro.</p>
+      <div class="pc" data-obs>
+        <div class="pc-n">02</div>
+        <div>
+          <h3 class="pc-t">Entregador saindo na ordem errada, todo dia</h3>
+          <p class="pc-b">Sem rota otimizada, você queima combustível, atrasa pedidos e perde dinheiro em cada saída. <strong>Uma rota ruim custa caro no final do mês.</strong></p>
         </div>
       </div>
-      <div class="feat-row">
-        <div class="feat-cell">
-          <p class="feat-num">005</p>
-          <h3 class="feat-title">Relatório Financeiro</h3>
-          <p class="feat-body">Loja e entregador têm relatórios individuais. Ganhos por dia, semana e mês. Histórico completo de entregas e quilômetros.</p>
-        </div>
-        <div class="feat-cell">
-          <p class="feat-num">006</p>
-          <h3 class="feat-title">Tudo no Celular</h3>
-          <p class="feat-body">Loja gerencia pelo celular. Entregador recebe e navega pelo celular. Sem computador, sem treinamento prolongado, sem burocracia.</p>
+      <div class="pc" data-obs>
+        <div class="pc-n">03</div>
+        <div>
+          <h3 class="pc-t">Financeiro no papel, fraude sem prova</h3>
+          <p class="pc-b">Você não sabe o que deve, para quem, quanto foi entregue. <strong>Sem registro, qualquer erro — ou abuso — passa em branco.</strong></p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
-<section class="section how-section" id="como-funciona">
-  <div class="section-inner">
-    <div class="section-header">
-      <p class="section-num">02</p>
-      <h2 class="section-title">Como funciona<br>na <em>prática</em></h2>
+<!-- SOLUÇÃO -->
+<section class="sec sol-sec" id="features">
+  <div class="wrap">
+    <div class="sol-intro">
+      <div>
+        <p class="tag">O que o sistema faz</p>
+        <h2 class="sh">4 ferramentas.<br><em>1 problema</em><br>resolvido.</h2>
+      </div>
+      <p class="sol-desc">Tudo que sua operação precisa, sem nada que ela não precisa. Sistema direto ao ponto — a loja cadastra, manda o link do app para o entregador, e começa a operar.</p>
     </div>
-    <div class="tab-row">
-      <button class="tab-item active" id="tab-store" onclick="switchTab('store')">Para a Loja</button>
-      <button class="tab-item" id="tab-driver" onclick="switchTab('driver')">Para o Entregador</button>
-    </div>
+    <div class="sol-grid">
 
-    <!-- LOJA -->
-    <div class="steps-panel active" id="panel-store">
-      <div class="step-row">
-        <div class="step-n">01</div>
-        <div class="step-info">
-          <h3>Cadastre-se e acesse</h3>
-          <p>Preencha o cadastro aqui no site. Em até 24 horas você recebe a aprovação e já pode operar. Nenhum técnico necessário.</p>
+      <!-- Rota IA -->
+      <div class="sc" data-obs>
+        <div class="sc-icon">🗺️</div>
+        <h3 class="sc-t">Rota com IA</h3>
+        <p class="sc-b">A loja fotografa a comanda — a IA lê o endereço e monta a rota na sequência mais eficiente. Menos km, mais entregas no mesmo turno.</p>
+        <div class="sc-pre">
+          <div class="mmap">
+            <span class="mp r">🛵</span>
+            <span class="mp r2">🛵</span>
+            <div class="mpd" style="top:22%;left:48%"></div>
+            <div class="mpd" style="top:58%;left:72%"></div>
+            <div class="mpd" style="top:70%;left:28%"></div>
+          </div>
+          <div class="pr" style="margin-top:10px"><span class="prl">Rota otimizada</span><span class="prv g">↓ 34% km</span></div>
+          <div class="pr"><span class="prl">Paradas</span><span class="prv">4 endereços</span></div>
         </div>
-        <div class="step-screen">
-          <div class="ss-bar"><div class="ss-dot" style="background:#ef4444"></div><div class="ss-dot" style="background:#f59e0b"></div><div class="ss-dot" style="background:#22c55e"></div></div>
-          <div class="ss-body">
-            <div style="text-align:center;padding:8px 0">
-              <div style="font-family:'Oswald',sans-serif;font-size:16px;letter-spacing:3px;color:var(--gold-hi);margin-bottom:14px">MONTAROTAÍ</div>
-              <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:2px;padding:9px 12px;font-size:12px;color:var(--mist);margin-bottom:8px;text-align:left">email@sualoja.com</div>
-              <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:2px;padding:9px 12px;font-size:12px;color:var(--mist);margin-bottom:12px;text-align:left">••••••••</div>
-              <div style="background:var(--gold);border-radius:2px;padding:10px;font-size:12px;font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:2px;color:var(--ink)">ENTRAR</div>
+      </div>
+
+      <!-- GPS -->
+      <div class="sc" data-obs>
+        <div class="sc-icon">📍</div>
+        <h3 class="sc-t">GPS em tempo real</h3>
+        <p class="sc-b">Veja cada entregador no mapa agora. Confirmação de chegada no endereço com código antifraude — você sabe o que foi entregue, quando e onde.</p>
+        <div class="sc-pre">
+          <div class="pr"><span class="prl">Carlos — Rua XV</span><span class="chip c-go">Em rota</span></div>
+          <div class="pr"><span class="prl">Bruno — Av. Brasil</span><span class="chip c-ok">Entregou</span></div>
+          <div class="pr"><span class="prl">Ana — R. das Flores</span><span class="chip c-bl">Confirmado</span></div>
+          <div class="pr"><span class="prl">Marcos — Jardins</span><span class="chip c-go">Em rota</span></div>
+        </div>
+      </div>
+
+      <!-- Leitura comanda -->
+      <div class="sc" data-obs>
+        <div class="sc-icon">📸</div>
+        <h3 class="sc-t">Leitura de comanda</h3>
+        <p class="sc-b">A loja tira foto da comanda e a IA extrai os dados automaticamente. Endereço, valor, cliente — sem digitar nada, sem erro.</p>
+        <div class="sc-pre">
+          <div class="scan-wrap" style="margin-bottom:14px">
+            <div class="scan-img">🧾</div>
+            <div class="scan-lines">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--or);margin-bottom:7px">Lendo...</div>
+              <div class="sl"></div>
+              <div class="sl s2"></div>
+              <div class="sl s3"></div>
             </div>
           </div>
+          <div class="pr"><span class="prl">Endereço</span><span class="prv">R. das Flores, 23</span></div>
+          <div class="pr"><span class="prl">Valor</span><span class="prv o">R$ 58,90</span></div>
         </div>
       </div>
-      <div class="step-row">
-        <div class="step-n">02</div>
-        <div class="step-info">
-          <h3>Fotografe a comanda</h3>
-          <p>Em "Novo Pedido", fotografe o comprovante. A IA lê o endereço e preenche os campos automaticamente. Sem digitação.</p>
-        </div>
-        <div class="step-screen">
-          <div class="ss-bar"><div class="ss-dot" style="background:#ef4444"></div><div class="ss-dot" style="background:#f59e0b"></div><div class="ss-dot" style="background:#22c55e"></div></div>
-          <div class="ss-body">
-            <div style="width:100%;height:50px;background:rgba(255,255,255,0.03);border:1px dashed rgba(184,134,11,0.3);border-radius:2px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--gold-hi);margin-bottom:10px">FOTOGRAFAR COMANDA</div>
-            <div class="ss-row"><span class="ss-label">Endereço</span><span class="ss-chip chip-live">Detectado</span></div>
-            <div class="ss-row"><span class="ss-label" style="font-size:11px">Av. Presidente Vargas, 1200</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="step-row">
-        <div class="step-n">03</div>
-        <div class="step-info">
-          <h3>Atribua ao entregador</h3>
-          <p>Veja os entregadores disponíveis e atribua o pedido com um toque. O entregador recebe o alerta de imediato.</p>
-        </div>
-        <div class="step-screen">
-          <div class="ss-bar"><div class="ss-dot" style="background:#ef4444"></div><div class="ss-dot" style="background:#f59e0b"></div><div class="ss-dot" style="background:#22c55e"></div></div>
-          <div class="ss-body">
-            <div class="ss-row"><span class="ss-label">João</span><span class="ss-chip chip-live">Disponível</span></div>
-            <div class="ss-row"><span class="ss-label">Pedro</span><span class="ss-chip chip-done">2 pedidos</span></div>
-            <div class="ss-row"><span class="ss-label">Carlos</span><span class="ss-chip chip-pending">Offline</span></div>
-            <button class="ss-btn ss-btn-b" style="margin-top:10px">Atribuir ao João</button>
-          </div>
-        </div>
-      </div>
-      <div class="step-row">
-        <div class="step-n">04</div>
-        <div class="step-info">
-          <h3>Acompanhe em tempo real</h3>
-          <p>Mapa ao vivo com a posição de cada entregador. Status atualizado automaticamente: Na Loja, A Caminho, Entregue.</p>
-        </div>
-        <div class="step-screen">
-          <div class="ss-bar"><div class="ss-dot" style="background:#ef4444"></div><div class="ss-dot" style="background:#f59e0b"></div><div class="ss-dot" style="background:#22c55e"></div></div>
-          <div class="ss-body">
-            <div class="ss-map"><div class="ss-pin" style="top:38%;left:44%">▲</div><div style="position:absolute;bottom:7px;right:9px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--dim)">GPS · AO VIVO</div></div>
-            <div class="ss-row"><span class="ss-label">João · Pedido #142</span><span class="ss-chip chip-transit">A caminho</span></div>
-            <div class="ss-row"><span class="ss-label">Previsão</span><span class="ss-val" style="color:var(--gold-hi)">~12 min</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="step-row">
-        <div class="step-n">05</div>
-        <div class="step-info">
-          <h3>Relatório financeiro</h3>
-          <p>Acompanhe cada centavo. Entregas por entregador, quilômetros rodados, custo por período. Dados reais para decisões reais.</p>
-        </div>
-        <div class="step-screen">
-          <div class="ss-bar"><div class="ss-dot" style="background:#ef4444"></div><div class="ss-dot" style="background:#f59e0b"></div><div class="ss-dot" style="background:#22c55e"></div></div>
-          <div class="ss-body">
-            <div class="ss-row"><span class="ss-label">Entregas hoje</span><span class="ss-val">32</span></div>
-            <div class="ss-row"><span class="ss-label">Custo hoje</span><span class="ss-val" style="color:var(--gold-hi)">R$ 31,68</span></div>
-            <div class="ss-row"><span class="ss-label">Km total</span><span class="ss-val">87,4 km</span></div>
-            <div class="ss-row"><span class="ss-label">Top entregador</span><span class="ss-chip chip-live">João · 14</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- ENTREGADOR -->
-    <div class="steps-panel" id="panel-driver">
-      <div class="step-row">
-        <div class="step-n">01</div>
-        <div class="step-info">
-          <h3>Cadastre-se e instale</h3>
-          <p>Preencha o cadastro aqui no site. Baixe o aplicativo — um arquivo simples, instalado em menos de um minuto no Android.</p>
-        </div>
-        <div class="step-screen">
-          <div class="ss-bar"><div class="ss-dot" style="background:#ef4444"></div><div class="ss-dot" style="background:#f59e0b"></div><div class="ss-dot" style="background:#22c55e"></div></div>
-          <div class="ss-body" style="text-align:center;padding:20px 14px">
-            <div style="font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:2px;color:var(--white);margin-bottom:6px">MONTAROTAÍ.APK</div>
-            <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--dim);margin-bottom:16px">ANDROID 8.0+</div>
-            <div style="background:rgba(22,163,74,0.9);border-radius:2px;padding:10px;font-size:12px;font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:2px;color:white">BAIXAR AGORA</div>
+      <!-- Financeiro -->
+      <div class="sc" data-obs>
+        <div class="sc-icon">📊</div>
+        <h3 class="sc-t">Controle financeiro</h3>
+        <p class="sc-b">Relatório completo por entregador: quantas entregas fez, quanto você deve a cada um. Sem planilha, sem conta na cabeça.</p>
+        <div class="sc-pre">
+          <div class="bars" style="margin-bottom:12px">
+            <div class="bar" style="height:35%"></div>
+            <div class="bar" style="height:58%"></div>
+            <div class="bar hi" style="height:82%"></div>
+            <div class="bar" style="height:48%"></div>
+            <div class="bar" style="height:67%"></div>
+            <div class="bar hi" style="height:90%"></div>
+            <div class="bar" style="height:54%"></div>
           </div>
+          <div class="pr"><span class="prl">Total semana</span><span class="prv o">R$ 228,00</span></div>
+          <div class="pr"><span class="prl">Entregadores</span><span class="prv">4 pessoas</span></div>
+          <div class="pr"><span class="prl">Relatório</span><span class="prv g">Gerado ✓</span></div>
         </div>
       </div>
-      <div class="step-row">
-        <div class="step-n">02</div>
-        <div class="step-info">
-          <h3>Fique online</h3>
-          <p>Abra o app e ative "Estou Online". Quando uma loja atribuir um pedido, você recebe alerta sonoro imediatamente.</p>
-        </div>
-        <div class="step-screen">
-          <div class="ss-bar"><div class="ss-dot" style="background:#ef4444"></div><div class="ss-dot" style="background:#f59e0b"></div><div class="ss-dot" style="background:#22c55e"></div></div>
-          <div class="ss-body">
-            <div class="ss-row"><span class="ss-label">Status</span><span class="ss-chip chip-live">Online</span></div>
-            <div class="ss-row"><span class="ss-label">Entregas hoje</span><span class="ss-val">8</span></div>
-            <div class="ss-row"><span class="ss-label">Ganhos hoje</span><span class="ss-val" style="color:var(--gold-hi)">R$ 96,00</span></div>
-            <button class="ss-btn ss-btn-g" style="margin-top:10px">Estou Online</button>
-          </div>
-        </div>
-      </div>
-      <div class="step-row">
-        <div class="step-n">03</div>
-        <div class="step-info">
-          <h3>Aceite e busque</h3>
-          <p>Aceite o pedido, vá à loja, confirme a chegada no app. A loja é notificada automaticamente. Sem ligação, sem mensagem.</p>
-        </div>
-        <div class="step-screen">
-          <div class="ss-bar"><div class="ss-dot" style="background:#ef4444"></div><div class="ss-dot" style="background:#f59e0b"></div><div class="ss-dot" style="background:#22c55e"></div></div>
-          <div class="ss-body">
-            <div style="background:rgba(184,134,11,0.08);border:1px solid rgba(184,134,11,0.2);border-radius:2px;padding:12px;margin-bottom:10px">
-              <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-hi);margin-bottom:6px">Novo Pedido</div>
-              <div style="font-size:12px;color:var(--fog)">Av. Presidente Vargas, 1200</div>
-              <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--dim);margin-top:3px">2.4 km</div>
-            </div>
-            <button class="ss-btn ss-btn-g">Aceitar Pedido</button>
-          </div>
-        </div>
-      </div>
-      <div class="step-row">
-        <div class="step-n">04</div>
-        <div class="step-info">
-          <h3>Navegue pela rota</h3>
-          <p>O app mostra a sequência otimizada de entregas. Navegação integrada. Menos quilômetro, mais entrega, mais ganho.</p>
-        </div>
-        <div class="step-screen">
-          <div class="ss-bar"><div class="ss-dot" style="background:#ef4444"></div><div class="ss-dot" style="background:#f59e0b"></div><div class="ss-dot" style="background:#22c55e"></div></div>
-          <div class="ss-body">
-            <div class="ss-map"><div class="ss-pin" style="top:45%;left:47%">▲</div><div style="position:absolute;top:8px;left:10px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--gold-hi)">350m · VIRE À DIREITA</div></div>
-            <div class="ss-row"><span class="ss-label">Parada 1</span><span class="ss-chip chip-live">1.2 km</span></div>
-            <div class="ss-row"><span class="ss-label">Parada 2</span><span class="ss-chip chip-transit">2.8 km</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="step-row">
-        <div class="step-n">05</div>
-        <div class="step-info">
-          <h3>Seus ganhos, em tempo real</h3>
-          <p>Cada entrega confirmada registra o ganho automaticamente. Acompanhe dia, semana e mês no seu painel pessoal.</p>
-        </div>
-        <div class="step-screen">
-          <div class="ss-bar"><div class="ss-dot" style="background:#ef4444"></div><div class="ss-dot" style="background:#f59e0b"></div><div class="ss-dot" style="background:#22c55e"></div></div>
-          <div class="ss-body">
-            <div class="ss-row"><span class="ss-label">Hoje</span><span class="ss-val" style="color:var(--gold-hi)">R$ 104,00</span></div>
-            <div class="ss-row"><span class="ss-label">Semana</span><span class="ss-val" style="color:var(--gold-hi)">R$ 612,00</span></div>
-            <div class="ss-row"><span class="ss-label">Mês</span><span class="ss-val" style="color:var(--gold-hi)">R$ 2.340,00</span></div>
-            <div class="ss-row"><span class="ss-label">Km rodados</span><span class="ss-val">487 km</span></div>
-          </div>
-        </div>
-      </div>
+
     </div>
   </div>
 </section>
 
-<!-- PRICING -->
-<section class="section pricing-section" id="preco">
-  <div class="section-inner">
-    <div class="section-header">
-      <p class="section-num">03</p>
-      <h2 class="section-title">Um preço.<br><em>Sem surpresa.</em></h2>
-    </div>
-    <div class="pricing-block">
-      <div class="pricing-left">
-        <div class="pricing-amount"><sup>R$</sup>0<sub>,99</sub></div>
-        <p class="pricing-caption">Por entrega realizada</p>
+<!-- COMO FUNCIONA -->
+<section class="sec how-sec" id="como">
+  <div class="wrap">
+    <p class="tag">Como funciona</p>
+    <h2 class="sh" style="margin-bottom:72px">3 passos.<br><em>Você já está operando.</em></h2>
+    <div class="steps">
+
+      <div class="step" data-obs>
+        <div>
+          <p class="st-n">Passo 01</p>
+          <h3 class="st-t">Cadastre sua loja</h3>
+          <p class="st-b">Preenche os dados, a gente aprova. <strong>Em menos de 24 horas sua loja está ativa no sistema.</strong> Sem taxa de adesão, sem reunião de vendas, sem burocracia.</p>
+        </div>
+        <div class="mock">
+          <div class="mock-bar">
+            <div class="md" style="background:#FF5F57"></div>
+            <div class="md" style="background:#FEBC2E"></div>
+            <div class="md" style="background:#28C840"></div>
+            <span class="mock-name">Painel da loja</span>
+          </div>
+          <div class="mock-body">
+            <div class="mr"><span class="mrl">Status</span><span class="chip c-ok">Aprovada ✓</span></div>
+            <div class="mr"><span class="mrl">Entregadores</span><span class="mrv">4 ativos</span></div>
+            <div class="mr"><span class="mrl">Pedidos hoje</span><span class="mrv">23</span></div>
+            <div class="mr"><span class="mrl">A pagar</span><span class="mrv o">R$ 228,00</span></div>
+          </div>
+        </div>
       </div>
-      <div class="pricing-right">
-        <ul class="pricing-list">
-          <li>Entregadores ilimitados</li>
-          <li>Pedidos ilimitados</li>
-          <li>GPS em tempo real incluso</li>
-          <li>IA de leitura de comanda inclusa</li>
+
+      <div class="step" data-obs>
+        <div>
+          <p class="st-n">Passo 02</p>
+          <h3 class="st-t">Manda o link do app pro entregador</h3>
+          <p class="st-b">Você compartilha o app com seus entregadores. <strong>Eles baixam, criam a conta e já estão prontos para receber rotas.</strong> O entregador não paga nada — o app é gratuito para ele.</p>
+        </div>
+        <div class="mock">
+          <div class="mock-bar">
+            <div class="md" style="background:#FF5F57"></div>
+            <div class="md" style="background:#FEBC2E"></div>
+            <div class="md" style="background:#28C840"></div>
+            <span class="mock-name">App do entregador</span>
+          </div>
+          <div class="mock-body">
+            <div class="umap">
+              <span class="upin mv">🛵</span>
+              <span class="upin" style="top:20%;left:52%;font-size:13px">📍</span>
+              <span class="upin" style="top:58%;left:74%;font-size:13px">📍</span>
+            </div>
+            <div class="mr"><span class="mrl">Rota ativa</span><span class="chip c-go">3 paradas</span></div>
+            <div class="mr"><span class="mrl">Próximo endereço</span><span class="mrv">R. XV, 234</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step" data-obs>
+        <div>
+          <p class="st-n">Passo 03</p>
+          <h3 class="st-t">Opera com controle total</h3>
+          <p class="st-b">Foto da comanda → IA monta a rota → entregador sai → você acompanha ao vivo → entrega confirmada com código antifraude. <strong>No final, o relatório já está pronto.</strong></p>
+        </div>
+        <div class="mock">
+          <div class="mock-bar">
+            <div class="md" style="background:#FF5F57"></div>
+            <div class="md" style="background:#FEBC2E"></div>
+            <div class="md" style="background:#28C840"></div>
+            <span class="mock-name">Monitor ao vivo</span>
+          </div>
+          <div class="mock-body">
+            <div class="mr"><span class="mrl">Carlos — Rua XV</span><span class="chip c-go">Em rota</span></div>
+            <div class="mr"><span class="mrl">Bruno — Av. Brasil</span><span class="chip c-ok">Entregou</span></div>
+            <div class="mr"><span class="mrl">Ana — R. Flores</span><span class="chip c-bl">Confirmado</span></div>
+            <div class="mr"><span class="mrl">Total confirmado</span><span class="mrv o">R$ 22,77</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PREÇO -->
+<section class="sec price-sec" id="preco">
+  <div class="wrap">
+    <p class="tag">Preço</p>
+    <h2 class="sh">Simples.</h2>
+    <div class="price-box">
+      <div class="pl">
+        <div class="price-big"><sup>R$</sup>0<sub>,99</sub></div>
+        <p class="price-unit">por entrega confirmada</p>
+        <p class="price-note">Zero mensalidade. Zero taxa de cadastro. Você paga apenas quando uma entrega é confirmada no destino.</p>
+      </div>
+      <div class="pr2">
+        <ul class="plist">
+          <li>Entregadores e pedidos ilimitados</li>
+          <li>GPS e rastreamento em tempo real</li>
+          <li>Rota otimizada com IA</li>
+          <li>Leitura de comanda por foto</li>
           <li>Relatório financeiro completo</li>
-          <li>Suporte direto — sem call center</li>
-          <li>Sem contrato. Cancele quando quiser.</li>
+          <li>Antifraude por código de confirmação</li>
+          <li>App gratuito para os entregadores</li>
+          <li>Ativo em menos de 24 horas</li>
         </ul>
-        <button class="pricing-cta" onclick="openModal('store')">Começar agora</button>
+        <button class="pcta" onclick="openM('store')">
+          Cadastrar minha loja
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
       </div>
     </div>
   </div>
 </section>
 
 <!-- CTA FINAL -->
-<section class="final-cta">
-  <div class="final-cta-bg"></div>
-  <h2 class="final-cta-h">Sua operação<br>começa <em>hoje.</em></h2>
-  <p class="final-cta-sub">Cadastre-se agora. Em menos de 24 horas sua loja está operando com o sistema.</p>
-  <div class="final-cta-btns">
-    <button class="btn-primary btn-store" onclick="openModal('store')">Cadastrar minha loja</button>
-    <button class="btn-primary btn-driver" onclick="openModal('driver')">Quero ser entregador</button>
-    <a href="https://wa.me/5516993996336?text=Olá!%20Vi%20o%20site%20do%20Monta%20Rotaí%20e%20quero%20saber%20mais" target="_blank" class="wa-link">
-      <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Falar pelo WhatsApp
+<section class="cta-sec">
+  <div class="cta-glow"></div>
+  <p class="cta-tag">Comece hoje</p>
+  <h2 class="cta-h">Sua operação<br>merece um<br><em>sistema de verdade.</em></h2>
+  <p class="cta-sub">Cadastre sua loja agora. Em menos de 24 horas você já opera com controle total.</p>
+  <div class="cta-btns">
+    <button class="bp" onclick="openM('store')">
+      Cadastrar minha loja
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <a class="wa" href="https://wa.me/5516993996336?text=Olá!%20Quero%20saber%20mais%20sobre%20o%20MontaRotaí" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Falar no WhatsApp
     </a>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <span class="footer-brand">Monta<span>Rotaí</span></span>
-  <span class="footer-info">Ribeirão Preto — SP · (16) 99399-6336 · © 2026</span>
+  <div class="fl"><img src="data:image/webp;base64,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" alt="MontaRotaí"></div>
+  <span class="fi">Ribeirão Preto — SP &nbsp;·&nbsp; (16) 99399-6336 &nbsp;·&nbsp; © 2026 MontaRotaí</span>
 </footer>
 
 <!-- MODAL LOJA -->
-<div class="overlay" id="modal-store">
+<div class="ov" id="modal-store">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal('store')">×</button>
-    <div id="form-store-wrap">
-      <p class="modal-eyebrow">Cadastro de loja</p>
+    <button class="mc" onclick="closeM('store')">×</button>
+    <div id="fs-wrap">
+      <p class="mk">Cadastro de loja</p>
       <h2>Sua loja no sistema</h2>
-      <p class="modal-sub">Preencha os dados abaixo. Você receberá a aprovação em até 24 horas e poderá começar imediatamente.</p>
+      <p class="msub">Preencha os dados. Aprovação em até 24 horas — você já começa a operar.</p>
       <div class="field"><label>Nome da loja</label><input id="s-nome" placeholder="Ex: Pizzaria do João"></div>
-      <div class="field-row">
+      <div class="frow">
         <div class="field"><label>Cidade</label><input id="s-cidade" placeholder="Ribeirão Preto"></div>
         <div class="field"><label>Telefone</label><input id="s-tel" placeholder="(16) 99999-9999"></div>
       </div>
-      <div class="field"><label>Nome do responsável</label><input id="s-resp" placeholder="Seu nome completo"></div>
+      <div class="field"><label>Responsável</label><input id="s-resp" placeholder="Seu nome completo"></div>
       <div class="field"><label>E-mail</label><input id="s-email" type="email" placeholder="email@sualoja.com"></div>
       <div class="field"><label>Senha</label><input id="s-senha" type="password" placeholder="Mínimo 6 caracteres"></div>
-      <button class="modal-submit submit-store" onclick="cadastrarLoja()">Cadastrar loja</button>
-      <p class="form-msg" id="msg-store"></p>
+      <button class="msub-btn ms" onclick="cadastrarLoja()">Cadastrar loja</button>
+      <p class="fmsg" id="msg-store"></p>
     </div>
-    <div class="success-view" id="ok-store">
-      <div class="success-line"></div>
-      <h3>Cadastro enviado</h3>
-      <p>Recebemos os dados da sua loja. Em até 24 horas você receberá a aprovação por e-mail e poderá começar a operar.</p>
-      <a href="https://median.co/app/mgbpwg3fxa15qrarev2ej172dr/build" target="_blank" class="apk-dl">Baixar o aplicativo</a>
-      <p class="apk-sub">Arquivo APK · Android 8.0 ou superior</p>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL ENTREGADOR -->
-<div class="overlay" id="modal-driver">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal('driver')">×</button>
-    <div id="form-driver-wrap">
-      <p class="modal-eyebrow">Cadastro de entregador</p>
-      <h2>Comece a receber pedidos</h2>
-      <p class="modal-sub">Preencha seus dados, baixe o app e fique online. As lojas parceiras já podem te atribuir pedidos.</p>
-      <div class="field"><label>Nome completo</label><input id="d-nome" placeholder="Seu nome completo"></div>
-      <div class="field-row">
-        <div class="field"><label>Telefone</label><input id="d-tel" placeholder="(16) 99999-9999"></div>
-        <div class="field"><label>Cidade</label><input id="d-cidade" placeholder="Ribeirão Preto"></div>
-      </div>
-      <div class="field"><label>E-mail</label><input id="d-email" type="email" placeholder="seuemail@gmail.com"></div>
-      <div class="field"><label>Senha</label><input id="d-senha" type="password" placeholder="Mínimo 6 caracteres"></div>
-      <div class="field"><label>Placa da moto (opcional)</label><input id="d-placa" placeholder="ABC-1234"></div>
-      <button class="modal-submit submit-driver" onclick="cadastrarEntregador()">Criar minha conta</button>
-      <p class="form-msg" id="msg-driver"></p>
-    </div>
-    <div class="success-view" id="ok-driver">
-      <div class="success-line"></div>
-      <h3>Conta criada</h3>
-      <p>Você já tem acesso ao sistema. Baixe o app, faça login com seu e-mail e senha, e ative o modo online.</p>
-      <a href="https://median.co/app/mgbpwg3fxa15qrarev2ej172dr/build" target="_blank" class="apk-dl">Baixar o aplicativo</a>
-      <p class="apk-sub">Arquivo APK · Android 8.0 ou superior</p>
+    <div class="sv" id="ok-store">
+      <div class="sv-ic">✓</div>
+      <h3>Cadastro enviado!</h3>
+      <p>Recebemos os dados. Aprovação em até 24 horas — você receberá por e-mail.</p>
+      <a href="https://median.co/app/mgbpwg3fxa15qrarev2ej172dr/build" target="_blank" class="apkl">Baixar o app</a>
+      <p class="apks">APK · Android 8.0+</p>
     </div>
   </div>
 </div>
 
 <script>
-// CURSOR
-const cur = document.getElementById('cursor');
-const ring = document.getElementById('cursor-ring');
-if (cur) {
-  document.addEventListener('mousemove', e => {
-    cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px';
-    ring.style.left = e.clientX + 'px'; ring.style.top = e.clientY + 'px';
-  });
-}
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('on',scrollY>60));
 
-// NAV
-window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('scrolled', scrollY > 60));
+function openM(t){document.getElementById('modal-'+t).classList.add('on');document.body.style.overflow='hidden'}
+function closeM(t){document.getElementById('modal-'+t).classList.remove('on');document.body.style.overflow=''}
+document.querySelectorAll('.ov').forEach(o=>o.addEventListener('click',e=>{if(e.target===o){o.classList.remove('on');document.body.style.overflow=''}}));
 
-// MODAL
-function openModal(t) { document.getElementById('modal-'+t).classList.add('open'); document.body.style.overflow='hidden'; }
-function closeModal(t) { document.getElementById('modal-'+t).classList.remove('open'); document.body.style.overflow=''; }
-document.querySelectorAll('.overlay').forEach(o => o.addEventListener('click', e => { if(e.target===o){o.classList.remove('open');document.body.style.overflow='';}}));
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')}),{threshold:.1});
+document.querySelectorAll('.sc,.pc,.step,[data-obs]').forEach(el=>io.observe(el));
 
-// TABS
-function switchTab(t) {
-  ['store','driver'].forEach(x => {
-    document.getElementById('tab-'+x).classList.toggle('active', x===t);
-    document.getElementById('panel-'+x).classList.toggle('active', x===t);
-  });
-  document.querySelectorAll('#panel-'+t+' .step-row').forEach((r,i) => {
-    r.classList.remove('vis');
-    setTimeout(() => r.classList.add('vis'), i*120);
-  });
-}
+const SB_URL=(()=>['aHR0cHM6Ly9kZnZqYXdl','eXhmZW5oamd1c2VrcS5z','dXBhYmFzZS5jbw=='].map(x=>atob(x)).join(''))();
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRmdmphd2V5eGZlbmhqZ3VzZWtxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIwMzk4NTMsImV4cCI6MjA4NzYxNTg1M30.MT9pzSQgc3ZNGiIV95DwjVtNvSZI0Lz-SKMkvMys1Kg';
+const post=(t,d)=>fetch(`${SB_URL}/rest/v1/${t}`,{method:'POST',headers:{'Content-Type':'application/json','apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Prefer':'return=minimal'},body:JSON.stringify(d)});
+const v=id=>document.getElementById(id).value.trim();
+const msg=(id,t,c)=>{const el=document.getElementById(id);el.className='fmsg '+(c||'');el.textContent=t};
 
-// INTERSECTION OBSERVER
-const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); }), {threshold:0.12});
-document.querySelectorAll('.feat-row, .step-row').forEach(el => io.observe(el));
-
-// SUPABASE
-const SB_URL = (() => ['aHR0cHM6Ly9kZnZqYXdl','eXhmZW5oamd1c2VrcS5z','dXBhYmFzZS5jbw=='].map(x=>atob(x)).join(''))();
-const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRmdmphd2V5eGZlbmhqZ3VzZWtxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIwMzk4NTMsImV4cCI6MjA4NzYxNTg1M30.MT9pzSQgc3ZNGiIV95DwjVtNvSZI0Lz-SKMkvMys1Kg';
-const post = (t,d) => fetch(`${SB_URL}/rest/v1/${t}`,{method:'POST',headers:{'Content-Type':'application/json','apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Prefer':'return=minimal'},body:JSON.stringify(d)});
-const v = id => document.getElementById(id).value.trim();
-const setMsg = (id,txt,cls) => { const el=document.getElementById(id); el.className='form-msg '+(cls||''); el.textContent=txt; };
-
-async function cadastrarLoja() {
+async function cadastrarLoja(){
   const nome=v('s-nome'),resp=v('s-resp'),email=v('s-email'),senha=v('s-senha');
-  if(!nome||!resp||!email||!senha){setMsg('msg-store','Preencha todos os campos obrigatórios.','msg-err');return;}
-  if(senha.length<6){setMsg('msg-store','Senha deve ter pelo menos 6 caracteres.','msg-err');return;}
-  setMsg('msg-store','Aguarde...','');
-  try {
-    const r = await post('lojas',{nome_loja:nome,nome,cidade:v('s-cidade'),telefone:v('s-tel'),email:email.toLowerCase(),senha_hash:senha,status:'pendente',responsavel:resp,criado_em:new Date().toISOString()});
-    if(r.ok||r.status===201){document.getElementById('form-store-wrap').style.display='none';document.getElementById('ok-store').classList.add('show');}
-    else{const d=await r.json();setMsg('msg-store',d.message||'Erro ao cadastrar. Tente novamente.','msg-err');}
-  } catch{setMsg('msg-store','Erro de conexão.','msg-err');}
-}
-
-async function cadastrarEntregador() {
-  const nome=v('d-nome'),email=v('d-email'),senha=v('d-senha');
-  if(!nome||!email||!senha){setMsg('msg-driver','Preencha todos os campos obrigatórios.','msg-err');return;}
-  if(senha.length<6){setMsg('msg-driver','Senha deve ter pelo menos 6 caracteres.','msg-err');return;}
-  setMsg('msg-driver','Aguarde...','');
-  try {
-    const r = await post('entregadores',{nome,telefone:v('d-tel'),cidade:v('d-cidade'),email:email.toLowerCase(),senha_hash:senha,placa_moto:v('d-placa').toUpperCase()||null,status:'ativo',online:false,taxa_sistema:0.50,taxa_entrega:0,taxa_tipo:'fixo',taxa_km_limite:5,taxa_km_excedente:2,criado_em:new Date().toISOString()});
-    if(r.ok||r.status===201){document.getElementById('form-driver-wrap').style.display='none';document.getElementById('ok-driver').classList.add('show');}
-    else{const d=await r.json();setMsg('msg-driver',d.message||'Erro ao cadastrar. Tente novamente.','msg-err');}
-  } catch{setMsg('msg-driver','Erro de conexão.','msg-err');}
+  if(!nome||!resp||!email||!senha){msg('msg-store','Preencha todos os campos.','fe');return}
+  if(senha.length<6){msg('msg-store','Senha mínimo 6 caracteres.','fe');return}
+  msg('msg-store','Aguarde...','');
+  try{
+    const r=await post('lojas',{nome_loja:nome,nome,cidade:v('s-cidade'),telefone:v('s-tel'),email:email.toLowerCase(),senha_hash:senha,status:'pendente',responsavel:resp,criado_em:new Date().toISOString()});
+    if(r.ok||r.status===201){document.getElementById('fs-wrap').style.display='none';document.getElementById('ok-store').classList.add('on')}
+    else{const d=await r.json();msg('msg-store',d.message||'Erro ao cadastrar.','fe')}
+  }catch{msg('msg-store','Erro de conexão.','fe')}
 }
 </script>
 </body>
