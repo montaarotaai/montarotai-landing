@@ -527,22 +527,28 @@ footer{
       <p class="modal-tag">Cadastro de loja</p>
       <h2>Sua loja no sistema</h2>
       <p class="modal-sub">Preencha os dados. Aprovação em até 24 horas — você já começa a operar.</p>
+
       <div class="field"><label>Nome da loja</label><input id="s-nome" placeholder="Ex: Pizzaria do João"></div>
+      <div class="field"><label>CNPJ</label><input id="s-cnpj" placeholder="00.000.000/0001-00"></div>
       <div class="frow">
-        <div class="field"><label>Cidade</label><input id="s-cidade" placeholder="Ribeirão Preto"></div>
         <div class="field"><label>Telefone</label><input id="s-tel" placeholder="(16) 99999-9999"></div>
+        <div class="field"><label>Cidade</label><input id="s-cidade" placeholder="Ribeirão Preto"></div>
       </div>
+      <div class="frow">
+        <div class="field"><label>Bairro</label><input id="s-bairro" placeholder="Centro"></div>
+        <div class="field"><label>CEP</label><input id="s-cep" placeholder="14000-000"></div>
+      </div>
+      <div class="field"><label>Endereço</label><input id="s-endereco" placeholder="Rua, número"></div>
+      <div class="field"><label>Nome do contato</label><input id="s-contato" placeholder="Seu nome completo"></div>
       <div class="field"><label>E-mail</label><input id="s-email" type="email" placeholder="email@sualoja.com"></div>
-      <div class="field"><label>Senha</label><input id="s-senha" type="password" placeholder="Mínimo 6 caracteres"></div>
+
       <button class="modal-submit" onclick="cadastrarLoja()">Cadastrar loja</button>
       <p class="form-msg" id="msg-store"></p>
     </div>
     <div class="success-view" id="ok-store">
       <div class="success-icon">✓</div>
       <h3>Cadastro enviado!</h3>
-      <p>Recebemos os dados. Aprovação em até 24 horas — você receberá por e-mail.</p>
-      <a href="https://median.co/app/mgbpwg3fxa15qrarev2ej172dr/build" target="_blank" class="apk-btn">Baixar o app</a>
-      <p class="apk-note">APK · Android 8.0+</p>
+      <p>Recebemos os dados. Aprovação em até 24 horas — você receberá contato.</p>
     </div>
   </div>
 </div>
@@ -572,16 +578,31 @@ const post=(t,d)=>fetch(`${SB_URL}/rest/v1/${t}`,{method:'POST',headers:{'Conten
 const v=id=>document.getElementById(id).value.trim();
 const setMsg=(id,txt,cls)=>{const el=document.getElementById(id);el.className='form-msg '+(cls||'');el.textContent=txt;};
 
-async function cadastrarLoja(){
-  const nome=v('s-nome'),email=v('s-email'),senha=v('s-senha');
-  if(!nome||!email||!senha){setMsg('msg-store','Preencha todos os campos.','err');return;}
-  if(senha.length<6){setMsg('msg-store','Senha mínimo 6 caracteres.','err');return;}
+async function cadastrarLoja() {
+  const nome=v('s-nome'), email=v('s-email');
+  if(!nome||!email){setMsg('msg-store','Preencha nome e e-mail.','err');return;}
   setMsg('msg-store','Aguarde...','');
-  try{
-    const r=await post('lojas',{nome,cidade:v('s-cidade'),telefone:v('s-tel'),email:email.toLowerCase(),senha_hash:senha,status:'pendente'});
-    if(r.ok||r.status===201){document.getElementById('form-wrap').style.display='none';document.getElementById('ok-store').classList.add('show');}
-    else{const d=await r.json();setMsg('msg-store',d.message||'Erro ao cadastrar.','err');}
-  }catch{setMsg('msg-store','Erro de conexão.','err');}
+  try {
+    const r=await post('lojas',{
+      nome,
+      cnpj:v('s-cnpj')||null,
+      telefone:v('s-tel')||null,
+      cidade:v('s-cidade')||null,
+      bairro:v('s-bairro')||null,
+      cep:v('s-cep')||null,
+      endereco:v('s-endereco')||null,
+      contato_nome:v('s-contato')||null,
+      email:email.toLowerCase(),
+      status:'pendente'
+    });
+    if(r.ok||r.status===201){
+      document.getElementById('form-wrap').style.display='none';
+      document.getElementById('ok-store').classList.add('show');
+    } else {
+      const d=await r.json();
+      setMsg('msg-store',d.message||'Erro ao cadastrar.','err');
+    }
+  } catch {setMsg('msg-store','Erro de conexão.','err');}
 }
 </script>
 </body>
