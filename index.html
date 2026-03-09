@@ -315,9 +315,10 @@ footer{
 .modal-sub{font-size:13px;color:#64748B;margin-bottom:26px;line-height:1.6}
 .field{display:flex;flex-direction:column;gap:6px;margin-bottom:11px}
 .field label{font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:#475569}
-.field input{background:#0D1E4A;border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:11px 13px;font-family:Inter,system-ui;font-size:14px;color:var(--wh);outline:none;transition:border-color .2s}
+.field input{background:#0D1E4A;border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:11px 13px;font-family:Inter,system-ui;font-size:14px;color:var(--wh);outline:none;transition:border-color .2s;text-transform:uppercase;}
 .field input:focus{border-color:var(--gold)}
 .field input::placeholder{color:#1E293B}
+#s-email,#s-senha,#d-email,#d-senha{text-transform:none;}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .modal-submit{width:100%;margin-top:16px;padding:14px;border:none;border-radius:8px;font-family:Inter,system-ui;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;background:var(--gold);color:#08153A;letter-spacing:.02em}
 .modal-submit:hover{background:var(--goldh);box-shadow:0 8px 24px rgba(255,204,0,.30)}
@@ -592,8 +593,8 @@ const v=id=>document.getElementById(id).value.trim();
 const setMsg=(id,txt,cls)=>{const el=document.getElementById(id);el.className='form-msg '+(cls||'');el.textContent=txt;};
 
 async function cadastrarLoja() {
-  const nome=v('s-nome'), cidade=v('s-cidade'), tel=v('s-tel'),
-        resp=v('s-resp'), email=v('s-email'), senha=v('s-senha');
+  const nome=v('s-nome').toUpperCase(), cidade=v('s-cidade').toUpperCase(), tel=v('s-tel'),
+        resp=v('s-resp').toUpperCase(), email=v('s-email'), senha=v('s-senha');
   if(!nome||!cidade||!tel||!resp||!email||!senha){
     setMsg('msg-store','Preencha todos os campos obrigatórios.','err');return;
   }
