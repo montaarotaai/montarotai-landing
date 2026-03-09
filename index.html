@@ -532,7 +532,6 @@ footer{
         <div class="field"><label>Cidade</label><input id="s-cidade" placeholder="Ribeirão Preto"></div>
         <div class="field"><label>Telefone</label><input id="s-tel" placeholder="(16) 99999-9999"></div>
       </div>
-      <div class="field"><label>Responsável</label><input id="s-resp" placeholder="Seu nome completo"></div>
       <div class="field"><label>E-mail</label><input id="s-email" type="email" placeholder="email@sualoja.com"></div>
       <div class="field"><label>Senha</label><input id="s-senha" type="password" placeholder="Mínimo 6 caracteres"></div>
       <button class="modal-submit" onclick="cadastrarLoja()">Cadastrar loja</button>
@@ -574,12 +573,12 @@ const v=id=>document.getElementById(id).value.trim();
 const setMsg=(id,txt,cls)=>{const el=document.getElementById(id);el.className='form-msg '+(cls||'');el.textContent=txt;};
 
 async function cadastrarLoja(){
-  const nome=v('s-nome'),resp=v('s-resp'),email=v('s-email'),senha=v('s-senha');
-  if(!nome||!resp||!email||!senha){setMsg('msg-store','Preencha todos os campos.','err');return;}
+  const nome=v('s-nome'),email=v('s-email'),senha=v('s-senha');
+  if(!nome||!email||!senha){setMsg('msg-store','Preencha todos os campos.','err');return;}
   if(senha.length<6){setMsg('msg-store','Senha mínimo 6 caracteres.','err');return;}
   setMsg('msg-store','Aguarde...','');
   try{
-    const r=await post('lojas',{nome,cidade:v('s-cidade'),telefone:v('s-tel'),email:email.toLowerCase(),senha_hash:senha,status:'pendente',responsavel:resp});
+    const r=await post('lojas',{nome,cidade:v('s-cidade'),telefone:v('s-tel'),email:email.toLowerCase(),senha_hash:senha,status:'pendente'});
     if(r.ok||r.status===201){document.getElementById('form-wrap').style.display='none';document.getElementById('ok-store').classList.add('show');}
     else{const d=await r.json();setMsg('msg-store',d.message||'Erro ao cadastrar.','err');}
   }catch{setMsg('msg-store','Erro de conexão.','err');}
