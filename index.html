@@ -259,14 +259,11 @@ nav.scrolled{
   pointer-events:none;animation:pulse-gold 3s ease-in-out infinite}
 @keyframes pulse-gold{0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}}
 .pd-label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#6A9EC8;margin-bottom:16px}
-.pd-amount{display:flex;align-items:flex-start;justify-content:center;gap:4px;line-height:1}
-.pd-amount sup{font-size:20px;font-weight:700;color:#FFCC00;margin-top:8px}
-.pd-num{
-  font-size:72px;font-weight:900;color:var(--wh);letter-spacing:-.04em;
-  animation:count-up .8s ease forwards;
-}
+.pd-amount{display:flex;align-items:center;justify-content:center;gap:2px;line-height:1}
+.pd-amount sup{font-size:20px;font-weight:700;color:#FFCC00;margin-bottom:8px}
+.pd-num{font-size:72px;font-weight:900;color:var(--wh);letter-spacing:-.04em;animation:count-up .8s ease forwards}
 @keyframes count-up{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
-.pd-cents{font-size:30px;font-weight:700;color:#FFCC00;align-self:flex-end;padding-bottom:12px}
+.pd-cents{font-size:30px;font-weight:700;color:#FFCC00;margin-bottom:6px}
 .pd-unit{font-size:14px;color:#8BAFD4;margin-top:8px}
 .pd-unit strong{color:var(--wh)}
 .pd-bar{width:60px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:18px auto}
@@ -456,23 +453,11 @@ footer{
     <button class="btn" onclick="openModal()">Cadastrar minha loja</button>
     <a class="btn-ghost" href="https://wa.me/5516993996336?text=Olá!%20Quero%20saber%20mais%20sobre%20o%20MontaRotaí" target="_blank">Falar no WhatsApp</a>
   </div>
-
-  <div class="stats">
-    <div class="stat">
-      <b><span>R$</span>0,99</b><small>por entrega</small>
-    </div>
-    <div class="stat">
-      <b><span>&lt;</span>24h</b><small>para ativar</small>
-    </div>
-    <div class="stat">
-      <b><span>∞</span></b><small>entregadores</small>
-    </div>
-  </div>
 </section>
 
 </div>
 
-<!-- BELT -->
+<!-- BELT (abaixo dos botões) -->
 <div class="belt">
   <div class="belt-inner">
     <span class="bi"><b>Rota Inteligente</b> &nbsp;·&nbsp; </span>
@@ -488,6 +473,22 @@ footer{
     <span class="bi">Zero mensalidade &nbsp;·&nbsp; </span>
     <span class="bi"><b>Ativo em 24 horas</b> &nbsp;·&nbsp; </span>
   </div>
+</div>
+
+<!-- PREÇO HERO -->
+<div class="container">
+<section class="section" style="padding-top:52px;padding-bottom:0">
+  <div class="price-destaque">
+    <div class="price-destaque-inner">
+      <p class="pd-label">Você paga apenas</p>
+      <div class="pd-amount"><sup>R$</sup><span class="pd-num">0</span><span class="pd-cents">,99</span></div>
+      <p class="pd-unit">por entrega <strong>confirmada</strong></p>
+      <div class="pd-bar"></div>
+      <p class="pd-sub">Totalmente previsível. Sem asterisco.</p>
+    </div>
+    <div class="pd-glow"></div>
+  </div>
+</section>
 </div>
 
 <div class="container">
@@ -580,48 +581,6 @@ footer{
   </div>
 </section>
 
-<!-- COMO FUNCIONA -->
-<section class="section" id="como">
-  <p class="section-label">Como funciona</p>
-  <h2>3 passos.<br><em>Você já está operando.</em></h2>
-  <p class="section-sub">Do cadastro ao controle total em menos de 24 horas.</p>
-  <div class="steps">
-    <div class="step" data-delay="0">
-      <span class="step-num">01</span>
-      <div>
-        <h3>Cadastre sua loja</h3>
-        <p>Preencha os dados, a gente aprova. <strong>Em menos de 24 horas sua loja está ativa.</strong> Sem taxa de adesão, sem burocracia.</p>
-      </div>
-    </div>
-    <div class="step" data-delay="1">
-      <span class="step-num">02</span>
-      <div>
-        <h3>Manda o app para os seus entregadores</h3>
-        <p>Você compartilha o link do app com sua equipe. <strong>Eles baixam, criam conta e já estão prontos.</strong> O app é gratuito para o entregador.</p>
-        <div style="margin-top:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-          <a href="https://median.co/share/eenlwqy#apk" target="_blank"
-             style="display:inline-flex;align-items:center;gap:8px;background:rgba(0,180,255,.12);border:1px solid rgba(0,180,255,.35);color:#00B4FF;font-size:12px;font-weight:600;letter-spacing:.06em;padding:9px 16px;border-radius:8px;text-decoration:none;text-transform:uppercase;transition:all .2s"
-             onmouseover="this.style.background='rgba(0,180,255,.22)'" onmouseout="this.style.background='rgba(0,180,255,.12)'">
-            📲 Copiar link do app
-          </a>
-          <button onclick="navigator.share ? navigator.share({title:'MontaRotaí',text:'Baixe o app da sua loja',url:'https://median.co/share/eenlwqy#apk'}) : (navigator.clipboard.writeText('https://median.co/share/eenlwqy#apk').then(()=>alert('Link copiado!')))"
-             style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,204,0,.12);border:1px solid rgba(255,204,0,.35);color:#FFCC00;font-size:12px;font-weight:600;letter-spacing:.06em;padding:9px 16px;border-radius:8px;cursor:pointer;text-transform:uppercase;transition:all .2s"
-             onmouseover="this.style.background='rgba(255,204,0,.22)'" onmouseout="this.style.background='rgba(255,204,0,.12)'">
-            ↗ Compartilhar
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="step" data-delay="2">
-      <span class="step-num">03</span>
-      <div>
-        <h3>Opera com controle total</h3>
-        <p>Foto da comanda → sistema monta a rota → entregador sai → você acompanha ao vivo → entrega confirmada. <strong>Relatório pronto no final.</strong></p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- PREÇO -->
 <section class="section" id="preco">
   <p class="section-label">Preço</p>
@@ -654,18 +613,6 @@ footer{
       <p class="vant-value strike">Jamais</p>
       <p class="vant-desc">Você sabe exatamente o que vai pagar.</p>
     </div>
-  </div>
-
-  <!-- Preço destaque -->
-  <div class="price-destaque">
-    <div class="price-destaque-inner">
-      <p class="pd-label">Você paga apenas</p>
-      <div class="pd-amount"><sup>R$</sup><span class="pd-num">0</span><span class="pd-cents">,99</span></div>
-      <p class="pd-unit">por entrega <strong>confirmada</strong></p>
-      <div class="pd-bar"></div>
-      <p class="pd-sub">100 entregas = R$99,00 &nbsp;·&nbsp; 200 entregas = R$198,00<br>Totalmente previsível. Sem asterisco.</p>
-    </div>
-    <div class="pd-glow"></div>
   </div>
 
   <!-- Lista de features incluídas -->
