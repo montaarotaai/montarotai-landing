@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monta Rotaí — Gestão de Entregas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #080808;
+  --ink2: #111318;
+  --gold: #B8860B;
+  --gold-hi: #D4A017;
+  --gold-lo: rgba(184,134,11,0.15);
+  --wire: rgba(184,134,11,0.2);
+  --dim: #3a3d45;
+  --mist: #8a8d96;
+  --fog: #c8cad0;
+  --paper: #f0ede8;
+  --white: #ffffff;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:16px; scroll-behavior:smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--ink);
+  color: var(--fog);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* CURSOR */
+.cursor {
+  position: fixed;
+  width: 8px; height: 8px;
+  background: var(--gold-hi);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
+  mix-blend-mode: difference;
+}
+.cursor-ring {
+  position: fixed;
+  width: 32px; height: 32px;
+  border: 1px solid rgba(184,134,11,0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease-out, width 0.3s, height 0.3s, border-color 0.3s;
+}
+body:has(a:hover) .cursor-ring,
+body:has(button:hover) .cursor-ring { width:48px; height:48px; border-color:var(--gold-hi); }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+  height: 64px;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.4s, background 0.4s;
+}
+nav.scrolled {
+  background: rgba(8,8,8,0.95);
+  backdrop-filter: blur(20px);
+  border-bottom-color: var(--wire);
+}
+.nav-wordmark {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--white);
+  text-decoration: none;
+}
+.nav-wordmark span { color: var(--gold-hi); }
+.nav-right { display: flex; gap: 8px; align-items: center; }
+.nav-pill {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 10px 24px;
+  border-radius: 2px;
+  border: none;
+  cursor: none;
+  transition: background 0.2s, color 0.2s;
+  text-decoration: none;
+}
+.pill-ghost { background: transparent; color: var(--fog); border: 1px solid var(--wire); }
+.pill-ghost:hover { background: var(--wire); color: var(--white); }
+.pill-solid { background: var(--gold); color: var(--ink); }
+.pill-solid:hover { background: var(--gold-hi); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  padding: 0 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated grid */
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--wire) 1px, transparent 1px),
+    linear-gradient(90deg, var(--wire) 1px, transparent 1px);
+  background-size: 80px 80px;
+  animation: gridDrift 20s linear infinite;
+}
+@keyframes gridDrift {
+  from { background-position: 0 0; }
+  to { background-position: 80px 80px; }
+}
+
+/* Vignette */
+.hero-vignette {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 70% at 50% 50%, transparent 40%, var(--ink) 100%);
+}
+
+/* Accent light */
+.hero-light {
+  position: absolute;
+  top: -200px; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(184,134,11,0.12) 0%, transparent 70%);
+  animation: breathe 6s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.15); }
+}
+
+.hero-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 100px;
+  position: relative; z-index: 2;
+  max-width: 1100px;
+}
+
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold-hi);
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: riseIn 0.8s ease 0.2s forwards;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 32px; height: 1px;
+  background: var(--gold-hi);
+  vertical-align: middle;
+  margin-right: 14px;
+}
+
+.hero-h1 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: clamp(72px, 10vw, 140px);
+  line-height: 0.92;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  color: var(--white);
+  opacity: 0;
+  animation: riseIn 0.9s ease 0.35s forwards;
+}
+.hero-h1 .accent {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--gold);
+  display: block;
+}
+
+.hero-desc {
+  margin-top: 40px;
+  max-width: 480px;
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--mist);
+  opacity: 0;
+  animation: riseIn 0.9s ease 0.5s forwards;
+}
+.hero-desc strong { color: var(--fog); font-weight: 500; }
+
+.hero-actions {
+  margin-top: 52px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: riseIn 0.9s ease 0.65s forwards;
+}
+.btn-primary {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 18px 40px;
+  border-radius: 2px;
+  border: none;
+  cursor: none;
+  transition: all 0.25s;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-store { background: var(--gold); color: var(--ink); }
+.btn-store:hover { background: var(--gold-hi); transform: translateY(-1px); box-shadow: 0 12px 40px rgba(184,134,11,0.3); }
+.btn-driver { background: transparent; color: var(--fog); border: 1px solid var(--dim); }
+.btn-driver:hover { border-color: var(--fog); color: var(--white); }
+
+.hero-ticker {
+  position: relative; z-index: 2;
+  border-top: 1px solid var(--wire);
+  padding: 24px 0;
+  display: flex;
+  gap: 64px;
+  opacity: 0;
+  animation: riseIn 0.9s ease 0.8s forwards;
+}
+.ticker-item { display: flex; flex-direction: column; }
+.ticker-val {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 36px;
+  color: var(--white);
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+.ticker-val sup { font-size: 16px; color: var(--gold-hi); vertical-align: super; }
+.ticker-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-top: 4px;
+}
+
+/* MARQUEE */
+.marquee-wrap {
+  overflow: hidden;
+  border-top: 1px solid var(--wire);
+  border-bottom: 1px solid var(--wire);
+  padding: 18px 0;
+  background: var(--ink2);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 18s linear infinite;
+}
+.marquee-item {
+  font-family: 'Oswald', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--dim);
+  padding: 0 40px;
+  white-space: nowrap;
+}
+.marquee-item b { color: var(--gold-hi); font-weight: 400; }
+.marquee-sep { color: var(--gold); padding: 0 8px; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* SECTIONS */
+.section { padding: 120px 48px; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+
+.section-header { margin-bottom: 72px; }
+.section-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--gold-hi);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.section-num::after { content: ''; flex: 0 0 32px; height: 1px; background: var(--gold-hi); }
+.section-title {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: clamp(42px, 5vw, 72px);
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  color: var(--white);
+  line-height: 1;
+}
+.section-title em { font-style: normal; color: transparent; -webkit-text-stroke: 1px var(--gold); }
+
+/* FEATURES — diagonal layout */
+.features-alt {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.feat-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--wire);
+  min-height: 220px;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.feat-row.vis { opacity: 1; transform: translateY(0); }
+.feat-row:last-child { border-bottom: 1px solid var(--wire); }
+.feat-cell {
+  padding: 48px 48px 48px 0;
+  border-right: 1px solid var(--wire);
+}
+.feat-cell:last-child { border-right: none; padding: 48px 0 48px 48px; }
+.feat-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--gold-hi);
+  margin-bottom: 20px;
+}
+.feat-title {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 26px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--white);
+  margin-bottom: 12px;
+  line-height: 1.1;
+}
+.feat-body {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--mist);
+  max-width: 340px;
+}
+
+/* HOW IT WORKS — tabs + steps */
+.how-section { background: var(--ink2); }
+
+.tab-row {
+  display: flex;
+  border-bottom: 1px solid var(--wire);
+  margin-bottom: 72px;
+}
+.tab-item {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 20px 40px 20px 0;
+  border: none;
+  background: none;
+  color: var(--dim);
+  cursor: none;
+  position: relative;
+  transition: color 0.2s;
+}
+.tab-item::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0;
+  width: 0; height: 2px;
+  background: var(--gold-hi);
+  transition: width 0.3s ease;
+}
+.tab-item.active { color: var(--white); }
+.tab-item.active::after { width: 100%; }
+
+.steps-panel { display: none; }
+.steps-panel.active { display: flex; flex-direction: column; }
+
+.step-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr;
+  gap: 0;
+  border-top: 1px solid var(--wire);
+  padding: 40px 0;
+  align-items: start;
+  opacity: 0;
+  transform: translateX(-16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.step-row.vis { opacity: 1; transform: translateX(0); }
+.step-row:last-child { border-bottom: 1px solid var(--wire); }
+.step-n {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 48px;
+  color: var(--wire);
+  line-height: 1;
+  padding-top: 4px;
+}
+.step-info { padding-right: 48px; }
+.step-info h3 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+.step-info p {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--mist);
+}
+.step-screen {
+  background: #0c0f1a;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.ss-bar {
+  background: #141828;
+  padding: 10px 14px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.ss-dot { width: 8px; height: 8px; border-radius: 50%; }
+.ss-body { padding: 16px; }
+.ss-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 12px;
+}
+.ss-row:last-child { border-bottom: none; }
+.ss-label { color: var(--mist); font-weight: 300; }
+.ss-val { color: var(--fog); font-family: 'DM Mono', monospace; font-size: 11px; }
+.ss-chip {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 2px;
+}
+.chip-live { background: rgba(22,163,74,0.15); color: #4ade80; border: 1px solid rgba(22,163,74,0.25); }
+.chip-transit { background: rgba(184,134,11,0.15); color: var(--gold-hi); border: 1px solid rgba(184,134,11,0.25); }
+.chip-pending { background: rgba(100,116,139,0.15); color: #94a3b8; border: 1px solid rgba(100,116,139,0.25); }
+.chip-done { background: rgba(0,78,137,0.2); color: #60b3ff; border: 1px solid rgba(0,78,137,0.3); }
+.ss-map {
+  height: 70px;
+  background: linear-gradient(135deg, #080d1a, #0a1120);
+  border-radius: 3px;
+  margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
+}
+.ss-map::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(0,78,137,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,78,137,0.1) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+.ss-pin {
+  position: absolute;
+  font-size: 16px;
+  animation: pulsate 1.8s ease-in-out infinite;
+}
+@keyframes pulsate { 0%,100%{transform:scale(1)} 50%{transform:scale(1.25)} }
+.ss-btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: none;
+  margin-top: 8px;
+}
+.ss-btn-g { background: rgba(22,163,74,0.9); color: white; }
+.ss-btn-b { background: rgba(0,78,137,0.9); color: white; }
+
+/* PRICING */
+.pricing-section { border-top: 1px solid var(--wire); }
+.pricing-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid var(--wire);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.pricing-left {
+  padding: 72px 64px;
+  border-right: 1px solid var(--wire);
+  background: var(--ink2);
+}
+.pricing-amount {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 120px;
+  line-height: 1;
+  color: var(--white);
+  letter-spacing: -3px;
+}
+.pricing-amount sup {
+  font-size: 40px;
+  letter-spacing: 0;
+  vertical-align: super;
+  color: var(--gold-hi);
+}
+.pricing-amount sub {
+  font-size: 22px;
+  letter-spacing: 0;
+  vertical-align: baseline;
+  color: var(--mist);
+  font-weight: 300;
+}
+.pricing-caption {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold-hi);
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pricing-caption::before { content: ''; width: 24px; height: 1px; background: var(--gold-hi); }
+
+.pricing-right {
+  padding: 72px 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.pricing-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+.pricing-list li {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--fog);
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  line-height: 1.5;
+}
+.pricing-list li::before {
+  content: '';
+  width: 16px; height: 1px;
+  background: var(--gold-hi);
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+.pricing-cta {
+  margin-top: 48px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 18px 40px;
+  background: var(--gold);
+  color: var(--ink);
+  border: none;
+  border-radius: 2px;
+  cursor: none;
+  transition: all 0.25s;
+  display: inline-block;
+  text-decoration: none;
+}
+.pricing-cta:hover { background: var(--gold-hi); transform: translateY(-1px); box-shadow: 0 12px 40px rgba(184,134,11,0.3); }
+
+/* CTA FINAL */
+.final-cta {
+  padding: 160px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.final-cta-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(184,134,11,0.1) 0%, transparent 60%);
+}
+.final-cta-h {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: clamp(52px, 8vw, 100px);
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  line-height: 0.92;
+  color: var(--white);
+  position: relative; z-index: 1;
+}
+.final-cta-h em { font-style: normal; color: var(--gold-hi); }
+.final-cta-sub {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--mist);
+  margin: 24px auto 48px;
+  max-width: 400px;
+  line-height: 1.7;
+  position: relative; z-index: 1;
+}
+.final-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+
+.wa-link {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 18px 40px;
+  border: 1px solid var(--wire);
+  border-radius: 2px;
+  color: var(--fog);
+  text-decoration: none;
+  transition: all 0.25s;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.wa-link:hover { border-color: var(--fog); color: var(--white); }
+.wa-icon { width: 18px; height: 18px; flex-shrink: 0; }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--wire);
+  padding: 32px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.footer-brand {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.footer-brand span { color: var(--gold-hi); }
+.footer-info {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--dim);
+}
+
+/* MODAL */
+.overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.88);
+  backdrop-filter: blur(12px);
+  z-index: 500;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.overlay.open { display: flex; }
+.modal {
+  background: var(--ink2);
+  border: 1px solid var(--wire);
+  border-radius: 4px;
+  width: 100%;
+  max-width: 460px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 48px 44px;
+  position: relative;
+  animation: modalIn 0.3s ease;
+}
+@keyframes modalIn { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+.modal-close {
+  position: absolute; top: 18px; right: 22px;
+  background: none; border: none;
+  font-family: 'DM Mono', monospace;
+  font-size: 20px; color: var(--dim);
+  cursor: none; transition: color 0.2s;
+  line-height: 1;
+}
+.modal-close:hover { color: var(--white); }
+.modal-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold-hi);
+  margin-bottom: 12px;
+}
+.modal h2 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 36px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.modal-sub { font-size: 13px; font-weight: 300; color: var(--mist); line-height: 1.6; margin-bottom: 32px; }
+.field { margin-bottom: 16px; }
+.field label {
+  display: block;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 6px;
+}
+.field input {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 2px;
+  color: var(--fog);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 13px 14px;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+.field input:focus { border-color: rgba(184,134,11,0.5); background: rgba(184,134,11,0.04); }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.field-row .field { margin-bottom: 0; }
+.modal-submit {
+  width: 100%;
+  margin-top: 8px;
+  padding: 15px;
+  border: none;
+  border-radius: 2px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: none;
+  transition: all 0.25s;
+}
+.submit-store { background: var(--gold); color: var(--ink); }
+.submit-store:hover { background: var(--gold-hi); }
+.submit-driver { background: #1a4a1a; color: #4ade80; border: 1px solid rgba(74,222,128,0.2); }
+.submit-driver:hover { background: #1f5a1f; }
+.form-msg { font-size: 12px; text-align: center; margin-top: 10px; min-height: 16px; font-family: 'DM Mono', monospace; letter-spacing: 1px; }
+.msg-ok { color: #4ade80; }
+.msg-err { color: #f87171; }
+
+/* SUCCESS */
+.success-view { display: none; text-align: center; padding: 16px 0; }
+.success-view.show { display: block; }
+.success-line {
+  width: 40px; height: 2px;
+  background: var(--gold-hi);
+  margin: 0 auto 24px;
+}
+.success-view h3 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+.success-view p { font-size: 14px; font-weight: 300; color: var(--mist); line-height: 1.7; margin-bottom: 28px; }
+.apk-dl {
+  display: inline-block;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 16px 36px;
+  background: var(--gold);
+  color: var(--ink);
+  border-radius: 2px;
+  text-decoration: none;
+  transition: all 0.25s;
+}
+.apk-dl:hover { background: var(--gold-hi); transform: translateY(-1px); }
+.apk-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-top: 10px;
+}
+
+/* UTILS */
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .nav-right .pill-ghost { display: none; }
+  .hero { padding: 0 20px; }
+  .hero-h1 { font-size: 58px; }
+  .hero-ticker { gap: 32px; flex-wrap: wrap; }
+  .section { padding: 80px 20px; }
+  .feat-row { grid-template-columns: 1fr; }
+  .feat-cell { border-right: none; padding: 40px 0; }
+  .feat-cell:last-child { padding: 0 0 40px; }
+  .step-row { grid-template-columns: 56px 1fr; }
+  .step-screen { display: none; }
+  .pricing-block { grid-template-columns: 1fr; }
+  .pricing-left { border-right: none; border-bottom: 1px solid var(--wire); padding: 48px 32px; }
+  .pricing-right { padding: 48px 32px; }
+  .pricing-amount { font-size: 80px; }
+  .final-cta { padding: 100px 20px; }
+  footer { padding: 24px 20px; flex-direction: column; text-align: center; }
+  .modal { padding: 36px 24px; }
+  .field-row { grid-template-columns: 1fr; }
+  body { cursor: auto; }
+  .cursor, .cursor-ring { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-wordmark">Monta<span>Rotaí</span></a>
+  <div class="nav-right">
+    <button class="nav-pill pill-ghost" onclick="openModal('store')">Para lojas</button>
+    <button class="nav-pill pill-solid" onclick="openModal('driver')">Para entregadores</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-light"></div>
+
+  <div class="hero-main">
+    <p class="hero-eyebrow">Sistema de gestão de entregas com IA</p>
+    <h1 class="hero-h1">
+      Suas entregas,
+      <span class="accent">sob controle.</span>
+    </h1>
+    <p class="hero-desc">
+      Fotografe a comanda. A inteligência artificial lê o endereço, calcula a rota mais eficiente e o entregador já sai. <strong>Tudo no celular.</strong> Sem plataforma intermediária. Sem mensalidade.
+    </p>
+    <div class="hero-actions">
+      <button class="btn-primary btn-store" onclick="openModal('store')">Quero usar na minha loja</button>
+      <button class="btn-primary btn-driver" onclick="openModal('driver')">Sou entregador</button>
+    </div>
+  </div>
+
+  <div class="hero-ticker">
+    <div class="ticker-item">
+      <span class="ticker-val"><sup>R$</sup>0<span style="font-size:0.5em">,99</span></span>
+      <span class="ticker-label">Por entrega</span>
+    </div>
+    <div class="ticker-item">
+      <span class="ticker-val">R$0</span>
+      <span class="ticker-label">Mensalidade</span>
+    </div>
+    <div class="ticker-item">
+      <span class="ticker-val">15<span style="font-size:0.45em;font-weight:300">s</span></span>
+      <span class="ticker-label">Atualização GPS</span>
+    </div>
+    <div class="ticker-item">
+      <span class="ticker-val">IA</span>
+      <span class="ticker-label">Leitura de comanda</span>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Gestão de Entregas <b>—</b></span>
+    <span class="marquee-item">GPS em Tempo Real <b>—</b></span>
+    <span class="marquee-item">Rotas com Inteligência Artificial <b>—</b></span>
+    <span class="marquee-item">Leitura de Comanda por Foto <b>—</b></span>
+    <span class="marquee-item">Relatório Financeiro Completo <b>—</b></span>
+    <span class="marquee-item">Sem Plataforma Intermediária <b>—</b></span>
+    <span class="marquee-item">R$0,99 por Entrega <b>—</b></span>
+    <span class="marquee-item">Gestão de Entregas <b>—</b></span>
+    <span class="marquee-item">GPS em Tempo Real <b>—</b></span>
+    <span class="marquee-item">Rotas com Inteligência Artificial <b>—</b></span>
+    <span class="marquee-item">Leitura de Comanda por Foto <b>—</b></span>
+    <span class="marquee-item">Relatório Financeiro Completo <b>—</b></span>
+    <span class="marquee-item">Sem Plataforma Intermediária <b>—</b></span>
+    <span class="marquee-item">R$0,99 por Entrega <b>—</b></span>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="section" id="funcionalidades">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-num">01</p>
+      <h2 class="section-title">O que o sistema<br><em>entrega</em> para você</h2>
+    </div>
+    <div class="features-alt">
+      <div class="feat-row">
+        <div class="feat-cell">
+          <p class="feat-num">001</p>
+          <h3 class="feat-title">Leitura de Comanda por Foto</h3>
+          <p class="feat-body">Fotografe o comprovante. A IA extrai o endereço automaticamente. Sem digitação, sem erro humano, sem tempo perdido.</p>
+        </div>
+        <div class="feat-cell">
+          <p class="feat-num">002</p>
+          <h3 class="feat-title">Rota Otimizada com IA</h3>
+          <p class="feat-body">Com múltiplos pedidos, o sistema calcula a sequência de entrega mais eficiente. Menos quilômetros. Mais entregas por turno.</p>
+        </div>
+      </div>
+      <div class="feat-row">
+        <div class="feat-cell">
+          <p class="feat-num">003</p>
+          <h3 class="feat-title">GPS em Tempo Real</h3>
+          <p class="feat-body">Posição de cada entregador atualizada a cada 15 segundos no mapa da loja. Sem equipamento adicional. Sem aplicativo separado.</p>
+        </div>
+        <div class="feat-cell">
+          <p class="feat-num">004</p>
+          <h3 class="feat-title">Independência Total</h3>
+          <p class="feat-body">Nenhuma plataforma intermediária. Nenhuma taxa de marketplace. Suas entregas, seus entregadores, suas regras, seu lucro.</p>
+        </div>
+      </div>
+      <div class="feat-row">
+        <div class="feat-cell">
+          <p class="feat-num">005</p>
+          <h3 class="feat-title">Relatório Financeiro</h3>
+          <p class="feat-body">Loja e entregador têm relatórios individuais. Ganhos por dia, semana e mês. Histórico completo de entregas e quilômetros.</p>
+        </div>
+        <div class="feat-cell">
+          <p class="feat-num">006</p>
+          <h3 class="feat-title">Tudo no Celular</h3>
+          <p class="feat-body">Loja gerencia pelo celular. Entregador recebe e navega pelo celular. Sem computador, sem treinamento prolongado, sem burocracia.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section how-section" id="como-funciona">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-num">02</p>
+      <h2 class="section-title">Como funciona<br>na <em>prática</em></h2>
+    </div>
+    <div class="tab-row">
+      <button class="tab-item active" id="tab-store" onclick="switchTab('store')">Para a Loja</button>
+      <button class="tab-item" id="tab-driver" onclick="switchTab('driver')">Para o Entregador</button>
+    </div>
+
+    <!-- LOJA -->
+    <div class="steps-panel active" id="panel-store">
+      <div class="step-row">
+        <div class="step-n">01</div>
+        <div class="step-info">
+          <h3>Cadastre-se e acesse</h3>
+          <p>Preencha o cadastro aqui no site. Em até 24 horas você recebe a aprovação e já pode operar. Nenhum técnico necessário.</p>
+        </div>
+        <div class="step-screen">
+          <div class="ss-bar"><div class="ss-dot" style="background:#ef4444"></div><div class="ss-dot" style="background:#f59e0b"></div><div class="ss-dot" style="background:#22c55e"></div></div>
+          <div class="ss-body">
+            <div style="text-align:center;padding:8px 0">
+              <div style="font-family:'Oswald',sans-serif;font-size:16px;letter-spacing:3px;color:var(--gold-hi);margin-bottom:14px">MONTAROTAÍ</div>
+              <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:2px;padding:9px 12px;font-size:12px;color:var(--mist);margin-bottom:8px;text-align:left">email@sualoja.com</div>
+              <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:2px;padding:9px 12px;font-size:12px;color:var(--mist);margin-bottom:12px;text-align:left">••••••••</div>
+              <div style="background:var(--gold);border-radius:2px;padding:10px;font-size:12px;font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:2px;color:var(--ink)">ENTRAR</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-n">02</div>
+        <div class="step-info">
+          <h3>Fotografe a comanda</h3>
+          <p>Em "Novo Pedido", fotografe o comprovante. A IA lê o endereço e preenche os campos automaticamente. Sem digitação.</p>
+        </div>
+        <div class="step-screen">
+          <div class="ss-bar"><div class="ss-dot" style="background:#ef4444"></div><div class="ss-dot" style="background:#f59e0b"></div><div class="ss-dot" style="background:#22c55e"></div></div>
+          <div class="ss-body">
+            <div style="width:100%;height:50px;background:rgba(255,255,255,0.03);border:1px dashed rgba(184,134,11,0.3);border-radius:2px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--gold-hi);margin-bottom:10px">FOTOGRAFAR COMANDA</div>
+            <div class="ss-row"><span class="ss-label">Endereço</span><span class="ss-chip chip-live">Detectado</span></div>
+            <div class="ss-row"><span class="ss-label" style="font-size:11px">Av. Presidente Vargas, 1200</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-n">03</div>
+        <div class="step-info">
+          <h3>Atribua ao entregador</h3>
+          <p>Veja os entregadores disponíveis e atribua o pedido com um toque. O entregador recebe o alerta de imediato.</p>
+        </div>
+        <div class="step-screen">
+          <div class="ss-bar"><div class="ss-dot" style="background:#ef4444"></div><div class="ss-dot" style="background:#f59e0b"></div><div class="ss-dot" style="background:#22c55e"></div></div>
+          <div class="ss-body">
+            <div class="ss-row"><span class="ss-label">João</span><span class="ss-chip chip-live">Disponível</span></div>
+            <div class="ss-row"><span class="ss-label">Pedro</span><span class="ss-chip chip-done">2 pedidos</span></div>
+            <div class="ss-row"><span class="ss-label">Carlos</span><span class="ss-chip chip-pending">Offline</span></div>
+            <button class="ss-btn ss-btn-b" style="margin-top:10px">Atribuir ao João</button>
+          </div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-n">04</div>
+        <div class="step-info">
+          <h3>Acompanhe em tempo real</h3>
+          <p>Mapa ao vivo com a posição de cada entregador. Status atualizado automaticamente: Na Loja, A Caminho, Entregue.</p>
+        </div>
+        <div class="step-screen">
+          <div class="ss-bar"><div class="ss-dot" style="background:#ef4444"></div><div class="ss-dot" style="background:#f59e0b"></div><div class="ss-dot" style="background:#22c55e"></div></div>
+          <div class="ss-body">
+            <div class="ss-map"><div class="ss-pin" style="top:38%;left:44%">▲</div><div style="position:absolute;bottom:7px;right:9px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--dim)">GPS · AO VIVO</div></div>
+            <div class="ss-row"><span class="ss-label">João · Pedido #142</span><span class="ss-chip chip-transit">A caminho</span></div>
+            <div class="ss-row"><span class="ss-label">Previsão</span><span class="ss-val" style="color:var(--gold-hi)">~12 min</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-n">05</div>
+        <div class="step-info">
+          <h3>Relatório financeiro</h3>
+          <p>Acompanhe cada centavo. Entregas por entregador, quilômetros rodados, custo por período. Dados reais para decisões reais.</p>
+        </div>
+        <div class="step-screen">
+          <div class="ss-bar"><div class="ss-dot" style="background:#ef4444"></div><div class="ss-dot" style="background:#f59e0b"></div><div class="ss-dot" style="background:#22c55e"></div></div>
+          <div class="ss-body">
+            <div class="ss-row"><span class="ss-label">Entregas hoje</span><span class="ss-val">32</span></div>
+            <div class="ss-row"><span class="ss-label">Custo hoje</span><span class="ss-val" style="color:var(--gold-hi)">R$ 31,68</span></div>
+            <div class="ss-row"><span class="ss-label">Km total</span><span class="ss-val">87,4 km</span></div>
+            <div class="ss-row"><span class="ss-label">Top entregador</span><span class="ss-chip chip-live">João · 14</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ENTREGADOR -->
+    <div class="steps-panel" id="panel-driver">
+      <div class="step-row">
+        <div class="step-n">01</div>
+        <div class="step-info">
+          <h3>Cadastre-se e instale</h3>
+          <p>Preencha o cadastro aqui no site. Baixe o aplicativo — um arquivo simples, instalado em menos de um minuto no Android.</p>
+        </div>
+        <div class="step-screen">
+          <div class="ss-bar"><div class="ss-dot" style="background:#ef4444"></div><div class="ss-dot" style="background:#f59e0b"></div><div class="ss-dot" style="background:#22c55e"></div></div>
+          <div class="ss-body" style="text-align:center;padding:20px 14px">
+            <div style="font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:2px;color:var(--white);margin-bottom:6px">MONTAROTAÍ.APK</div>
+            <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--dim);margin-bottom:16px">ANDROID 8.0+</div>
+            <div style="background:rgba(22,163,74,0.9);border-radius:2px;padding:10px;font-size:12px;font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:2px;color:white">BAIXAR AGORA</div>
+          </div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-n">02</div>
+        <div class="step-info">
+          <h3>Fique online</h3>
+          <p>Abra o app e ative "Estou Online". Quando uma loja atribuir um pedido, você recebe alerta sonoro imediatamente.</p>
+        </div>
+        <div class="step-screen">
+          <div class="ss-bar"><div class="ss-dot" style="background:#ef4444"></div><div class="ss-dot" style="background:#f59e0b"></div><div class="ss-dot" style="background:#22c55e"></div></div>
+          <div class="ss-body">
+            <div class="ss-row"><span class="ss-label">Status</span><span class="ss-chip chip-live">Online</span></div>
+            <div class="ss-row"><span class="ss-label">Entregas hoje</span><span class="ss-val">8</span></div>
+            <div class="ss-row"><span class="ss-label">Ganhos hoje</span><span class="ss-val" style="color:var(--gold-hi)">R$ 96,00</span></div>
+            <button class="ss-btn ss-btn-g" style="margin-top:10px">Estou Online</button>
+          </div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-n">03</div>
+        <div class="step-info">
+          <h3>Aceite e busque</h3>
+          <p>Aceite o pedido, vá à loja, confirme a chegada no app. A loja é notificada automaticamente. Sem ligação, sem mensagem.</p>
+        </div>
+        <div class="step-screen">
+          <div class="ss-bar"><div class="ss-dot" style="background:#ef4444"></div><div class="ss-dot" style="background:#f59e0b"></div><div class="ss-dot" style="background:#22c55e"></div></div>
+          <div class="ss-body">
+            <div style="background:rgba(184,134,11,0.08);border:1px solid rgba(184,134,11,0.2);border-radius:2px;padding:12px;margin-bottom:10px">
+              <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-hi);margin-bottom:6px">Novo Pedido</div>
+              <div style="font-size:12px;color:var(--fog)">Av. Presidente Vargas, 1200</div>
+              <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--dim);margin-top:3px">2.4 km</div>
+            </div>
+            <button class="ss-btn ss-btn-g">Aceitar Pedido</button>
+          </div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-n">04</div>
+        <div class="step-info">
+          <h3>Navegue pela rota</h3>
+          <p>O app mostra a sequência otimizada de entregas. Navegação integrada. Menos quilômetro, mais entrega, mais ganho.</p>
+        </div>
+        <div class="step-screen">
+          <div class="ss-bar"><div class="ss-dot" style="background:#ef4444"></div><div class="ss-dot" style="background:#f59e0b"></div><div class="ss-dot" style="background:#22c55e"></div></div>
+          <div class="ss-body">
+            <div class="ss-map"><div class="ss-pin" style="top:45%;left:47%">▲</div><div style="position:absolute;top:8px;left:10px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--gold-hi)">350m · VIRE À DIREITA</div></div>
+            <div class="ss-row"><span class="ss-label">Parada 1</span><span class="ss-chip chip-live">1.2 km</span></div>
+            <div class="ss-row"><span class="ss-label">Parada 2</span><span class="ss-chip chip-transit">2.8 km</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-n">05</div>
+        <div class="step-info">
+          <h3>Seus ganhos, em tempo real</h3>
+          <p>Cada entrega confirmada registra o ganho automaticamente. Acompanhe dia, semana e mês no seu painel pessoal.</p>
+        </div>
+        <div class="step-screen">
+          <div class="ss-bar"><div class="ss-dot" style="background:#ef4444"></div><div class="ss-dot" style="background:#f59e0b"></div><div class="ss-dot" style="background:#22c55e"></div></div>
+          <div class="ss-body">
+            <div class="ss-row"><span class="ss-label">Hoje</span><span class="ss-val" style="color:var(--gold-hi)">R$ 104,00</span></div>
+            <div class="ss-row"><span class="ss-label">Semana</span><span class="ss-val" style="color:var(--gold-hi)">R$ 612,00</span></div>
+            <div class="ss-row"><span class="ss-label">Mês</span><span class="ss-val" style="color:var(--gold-hi)">R$ 2.340,00</span></div>
+            <div class="ss-row"><span class="ss-label">Km rodados</span><span class="ss-val">487 km</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section pricing-section" id="preco">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-num">03</p>
+      <h2 class="section-title">Um preço.<br><em>Sem surpresa.</em></h2>
+    </div>
+    <div class="pricing-block">
+      <div class="pricing-left">
+        <div class="pricing-amount"><sup>R$</sup>0<sub>,99</sub></div>
+        <p class="pricing-caption">Por entrega realizada</p>
+      </div>
+      <div class="pricing-right">
+        <ul class="pricing-list">
+          <li>Entregadores ilimitados</li>
+          <li>Pedidos ilimitados</li>
+          <li>GPS em tempo real incluso</li>
+          <li>IA de leitura de comanda inclusa</li>
+          <li>Relatório financeiro completo</li>
+          <li>Suporte direto — sem call center</li>
+          <li>Sem contrato. Cancele quando quiser.</li>
+        </ul>
+        <button class="pricing-cta" onclick="openModal('store')">Começar agora</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="final-cta">
+  <div class="final-cta-bg"></div>
+  <h2 class="final-cta-h">Sua operação<br>começa <em>hoje.</em></h2>
+  <p class="final-cta-sub">Cadastre-se agora. Em menos de 24 horas sua loja está operando com o sistema.</p>
+  <div class="final-cta-btns">
+    <button class="btn-primary btn-store" onclick="openModal('store')">Cadastrar minha loja</button>
+    <button class="btn-primary btn-driver" onclick="openModal('driver')">Quero ser entregador</button>
+    <a href="https://wa.me/5516993996336?text=Olá!%20Vi%20o%20site%20do%20Monta%20Rotaí%20e%20quero%20saber%20mais" target="_blank" class="wa-link">
+      <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Falar pelo WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-brand">Monta<span>Rotaí</span></span>
+  <span class="footer-info">Ribeirão Preto — SP · (16) 99399-6336 · © 2026</span>
+</footer>
+
+<!-- MODAL LOJA -->
+<div class="overlay" id="modal-store">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('store')">×</button>
+    <div id="form-store-wrap">
+      <p class="modal-eyebrow">Cadastro de loja</p>
+      <h2>Sua loja no sistema</h2>
+      <p class="modal-sub">Preencha os dados abaixo. Você receberá a aprovação em até 24 horas e poderá começar imediatamente.</p>
+      <div class="field"><label>Nome da loja</label><input id="s-nome" placeholder="Ex: Pizzaria do João"></div>
+      <div class="field-row">
+        <div class="field"><label>Cidade</label><input id="s-cidade" placeholder="Ribeirão Preto"></div>
+        <div class="field"><label>Telefone</label><input id="s-tel" placeholder="(16) 99999-9999"></div>
+      </div>
+      <div class="field"><label>Nome do responsável</label><input id="s-resp" placeholder="Seu nome completo"></div>
+      <div class="field"><label>E-mail</label><input id="s-email" type="email" placeholder="email@sualoja.com"></div>
+      <div class="field"><label>Senha</label><input id="s-senha" type="password" placeholder="Mínimo 6 caracteres"></div>
+      <button class="modal-submit submit-store" onclick="cadastrarLoja()">Cadastrar loja</button>
+      <p class="form-msg" id="msg-store"></p>
+    </div>
+    <div class="success-view" id="ok-store">
+      <div class="success-line"></div>
+      <h3>Cadastro enviado</h3>
+      <p>Recebemos os dados da sua loja. Em até 24 horas você receberá a aprovação por e-mail e poderá começar a operar.</p>
+      <a href="https://median.co/app/mgbpwg3fxa15qrarev2ej172dr/build" target="_blank" class="apk-dl">Baixar o aplicativo</a>
+      <p class="apk-sub">Arquivo APK · Android 8.0 ou superior</p>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL ENTREGADOR -->
+<div class="overlay" id="modal-driver">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('driver')">×</button>
+    <div id="form-driver-wrap">
+      <p class="modal-eyebrow">Cadastro de entregador</p>
+      <h2>Comece a receber pedidos</h2>
+      <p class="modal-sub">Preencha seus dados, baixe o app e fique online. As lojas parceiras já podem te atribuir pedidos.</p>
+      <div class="field"><label>Nome completo</label><input id="d-nome" placeholder="Seu nome completo"></div>
+      <div class="field-row">
+        <div class="field"><label>Telefone</label><input id="d-tel" placeholder="(16) 99999-9999"></div>
+        <div class="field"><label>Cidade</label><input id="d-cidade" placeholder="Ribeirão Preto"></div>
+      </div>
+      <div class="field"><label>E-mail</label><input id="d-email" type="email" placeholder="seuemail@gmail.com"></div>
+      <div class="field"><label>Senha</label><input id="d-senha" type="password" placeholder="Mínimo 6 caracteres"></div>
+      <div class="field"><label>Placa da moto (opcional)</label><input id="d-placa" placeholder="ABC-1234"></div>
+      <button class="modal-submit submit-driver" onclick="cadastrarEntregador()">Criar minha conta</button>
+      <p class="form-msg" id="msg-driver"></p>
+    </div>
+    <div class="success-view" id="ok-driver">
+      <div class="success-line"></div>
+      <h3>Conta criada</h3>
+      <p>Você já tem acesso ao sistema. Baixe o app, faça login com seu e-mail e senha, e ative o modo online.</p>
+      <a href="https://median.co/app/mgbpwg3fxa15qrarev2ej172dr/build" target="_blank" class="apk-dl">Baixar o aplicativo</a>
+      <p class="apk-sub">Arquivo APK · Android 8.0 ou superior</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// CURSOR
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+if (cur) {
+  document.addEventListener('mousemove', e => {
+    cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px';
+    ring.style.left = e.clientX + 'px'; ring.style.top = e.clientY + 'px';
+  });
+}
+
+// NAV
+window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('scrolled', scrollY > 60));
+
+// MODAL
+function openModal(t) { document.getElementById('modal-'+t).classList.add('open'); document.body.style.overflow='hidden'; }
+function closeModal(t) { document.getElementById('modal-'+t).classList.remove('open'); document.body.style.overflow=''; }
+document.querySelectorAll('.overlay').forEach(o => o.addEventListener('click', e => { if(e.target===o){o.classList.remove('open');document.body.style.overflow='';}}));
+
+// TABS
+function switchTab(t) {
+  ['store','driver'].forEach(x => {
+    document.getElementById('tab-'+x).classList.toggle('active', x===t);
+    document.getElementById('panel-'+x).classList.toggle('active', x===t);
+  });
+  document.querySelectorAll('#panel-'+t+' .step-row').forEach((r,i) => {
+    r.classList.remove('vis');
+    setTimeout(() => r.classList.add('vis'), i*120);
+  });
+}
+
+// INTERSECTION OBSERVER
+const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); }), {threshold:0.12});
+document.querySelectorAll('.feat-row, .step-row').forEach(el => io.observe(el));
+
+// SUPABASE
+const SB_URL = (() => ['aHR0cHM6Ly9kZnZqYXdl','eXhmZW5oamd1c2VrcS5z','dXBhYmFzZS5jbw=='].map(x=>atob(x)).join(''))();
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRmdmphd2V5eGZlbmhqZ3VzZWtxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIwMzk4NTMsImV4cCI6MjA4NzYxNTg1M30.MT9pzSQgc3ZNGiIV95DwjVtNvSZI0Lz-SKMkvMys1Kg';
+const post = (t,d) => fetch(`${SB_URL}/rest/v1/${t}`,{method:'POST',headers:{'Content-Type':'application/json','apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Prefer':'return=minimal'},body:JSON.stringify(d)});
+const v = id => document.getElementById(id).value.trim();
+const setMsg = (id,txt,cls) => { const el=document.getElementById(id); el.className='form-msg '+(cls||''); el.textContent=txt; };
+
+async function cadastrarLoja() {
+  const nome=v('s-nome'),resp=v('s-resp'),email=v('s-email'),senha=v('s-senha');
+  if(!nome||!resp||!email||!senha){setMsg('msg-store','Preencha todos os campos obrigatórios.','msg-err');return;}
+  if(senha.length<6){setMsg('msg-store','Senha deve ter pelo menos 6 caracteres.','msg-err');return;}
+  setMsg('msg-store','Aguarde...','');
+  try {
+    const r = await post('lojas',{nome_loja:nome,nome,cidade:v('s-cidade'),telefone:v('s-tel'),email:email.toLowerCase(),senha_hash:senha,status:'pendente',responsavel:resp,criado_em:new Date().toISOString()});
+    if(r.ok||r.status===201){document.getElementById('form-store-wrap').style.display='none';document.getElementById('ok-store').classList.add('show');}
+    else{const d=await r.json();setMsg('msg-store',d.message||'Erro ao cadastrar. Tente novamente.','msg-err');}
+  } catch{setMsg('msg-store','Erro de conexão.','msg-err');}
+}
+
+async function cadastrarEntregador() {
+  const nome=v('d-nome'),email=v('d-email'),senha=v('d-senha');
+  if(!nome||!email||!senha){setMsg('msg-driver','Preencha todos os campos obrigatórios.','msg-err');return;}
+  if(senha.length<6){setMsg('msg-driver','Senha deve ter pelo menos 6 caracteres.','msg-err');return;}
+  setMsg('msg-driver','Aguarde...','');
+  try {
+    const r = await post('entregadores',{nome,telefone:v('d-tel'),cidade:v('d-cidade'),email:email.toLowerCase(),senha_hash:senha,placa_moto:v('d-placa').toUpperCase()||null,status:'ativo',online:false,taxa_sistema:0.50,taxa_entrega:0,taxa_tipo:'fixo',taxa_km_limite:5,taxa_km_excedente:2,criado_em:new Date().toISOString()});
+    if(r.ok||r.status===201){document.getElementById('form-driver-wrap').style.display='none';document.getElementById('ok-driver').classList.add('show');}
+    else{const d=await r.json();setMsg('msg-driver',d.message||'Erro ao cadastrar. Tente novamente.','msg-err');}
+  } catch{setMsg('msg-driver','Erro de conexão.','msg-err');}
+}
+</script>
+</body>
+</html>
