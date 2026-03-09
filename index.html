@@ -89,7 +89,7 @@ nav.scrolled{
   padding:120px 32px 80px;text-align:center;overflow:hidden;
 }
 .hero-grid-bg{
-  position:absolute;inset:0;
+  position:absolute;inset:0;pointer-events:none;
   background-image:
     linear-gradient(rgba(0,209,255,.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0,209,255,.04) 1px, transparent 1px);
@@ -105,7 +105,7 @@ nav.scrolled{
 .hero-badge{
   display:inline-flex;align-items:center;gap:8px;
   background:rgba(0,209,255,.08);border:1px solid rgba(0,209,255,.25);
-  border-radius:100px;padding:6px 16px;margin-bottom:36px;
+  border-radius:100px;padding:6px 16px;margin-bottom:36px;position:relative;z-index:2;
   font-family:var(--font-m);font-size:11px;color:var(--blue);letter-spacing:.1em;text-transform:uppercase;
 }
 .hero-badge::before{
@@ -113,6 +113,7 @@ nav.scrolled{
   background:var(--blue);animation:pulse 2s ease-in-out infinite;
 }
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,209,255,.6)}50%{box-shadow:0 0 0 6px transparent}}
+.hero-logo{position:relative;z-index:2}
 .hero-brand-name{
   font-family:var(--font-h);font-weight:900;
   font-size:clamp(56px, 9vw, 120px);
@@ -134,6 +135,7 @@ nav.scrolled{
 }
 .hero-logo img{width:248px;height:248px;object-fit:contain}
 .hero h1{
+  position:relative;z-index:2;
   font-family:var(--font-h);font-weight:900;
   font-size:clamp(52px, 8vw, 96px);
   line-height:.92;letter-spacing:-.01em;text-transform:uppercase;
@@ -141,6 +143,7 @@ nav.scrolled{
 }
 .hero h1 em{color:var(--blue);font-style:normal}
 .hero-sub{
+  position:relative;z-index:2;
   font-size:clamp(16px, 2vw, 20px);color:var(--t2);
   max-width:580px;margin:0 auto 48px;font-weight:400;line-height:1.6;
 }
@@ -211,14 +214,14 @@ section{padding:100px 0}
 
 /* ═══════════ SECTION HEADERS ═══════════ */
 .sec-tag{
-  display:inline-flex;align-items:center;gap:8px;margin-bottom:20px;
-  font-family:var(--font-m);font-size:11px;color:var(--gold);
-  letter-spacing:.12em;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:8px;margin-bottom:24px;
+  font-family:var(--font-m);font-size:13px;color:var(--gold);
+  letter-spacing:.14em;text-transform:uppercase;
 }
 .sec-tag::before{content:'//';color:var(--blue)}
 h2.sec-title{
   font-family:var(--font-h);font-weight:900;text-transform:uppercase;
-  font-size:clamp(40px, 5vw, 68px);line-height:.92;letter-spacing:-.01em;
+  font-size:clamp(52px, 7vw, 88px);line-height:.92;letter-spacing:-.01em;
   color:var(--wh);margin-bottom:20px;
 }
 h2.sec-title em{color:var(--blue);font-style:normal}
@@ -518,11 +521,44 @@ footer{
 }
 .reveal.visible{opacity:1;transform:translateY(0)}
 
+/* ═══════════ HAMBURGUER ═══════════ */
+.hamburger{
+  display:none;flex-direction:column;justify-content:center;gap:5px;
+  background:none;border:none;cursor:pointer;padding:8px;z-index:110;
+}
+.hamburger span{
+  display:block;width:24px;height:2px;background:var(--wh);
+  border-radius:2px;transition:all .3s;
+}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{
+  display:none;position:fixed;top:60px;left:0;right:0;
+  background:var(--bg1);border-bottom:1px solid rgba(0,209,255,.15);
+  padding:20px 24px;z-index:99;flex-direction:column;gap:4px;
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{
+  font-family:var(--font-h);font-weight:700;font-size:20px;
+  text-transform:uppercase;letter-spacing:.04em;
+  color:var(--t1);text-decoration:none;padding:12px 0;
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.mobile-menu a:last-of-type{border-bottom:none}
+.mobile-menu .mobile-cta{
+  margin-top:16px;background:var(--blue);color:#000;
+  font-family:var(--font-h);font-weight:900;font-size:16px;
+  letter-spacing:.08em;text-transform:uppercase;
+  border:none;border-radius:8px;padding:14px;cursor:pointer;width:100%;
+}
 /* ═══════════ RESPONSIVE ═══════════ */
 @media(max-width:900px){
   .hero-stats{flex-direction:column}
   .stat::after{display:none}
+  .hamburger{display:flex}
   nav .nav-links{display:none}
+  nav .nav-cta{display:none}
   .cta-final{padding:48px 32px}
 }
 @media(max-width:640px){
@@ -549,7 +585,19 @@ footer{
     <li><a href="#para-quem">Para quem</a></li>
   </ul>
   <button class="nav-cta" onclick="openModal()">Cadastrar loja</button>
+  <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#solucao" onclick="closeMenu()">Solução</a>
+  <a href="#como-funciona" onclick="closeMenu()">Como funciona</a>
+  <a href="#preco" onclick="closeMenu()">Preço</a>
+  <a href="#para-quem" onclick="closeMenu()">Para quem</a>
+  <button class="mobile-cta" onclick="closeMenu();openModal()">Cadastrar loja →</button>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -754,7 +802,7 @@ footer{
       <div class="driver-card reveal">
         <div class="free-badge">Para entregadores</div>
         <div class="big-price">GRÁTIS</div>
-        <p style="margin-bottom:24px">O entregador usa o sistema sem pagar nada. O custo é inteiramente da loja — e só quando a entrega é confirmada.</p>
+        <p style="margin-bottom:24px">O entregador usa o sistema sem pagar nada.</p>
         <a href="https://median.co/share/eenlwqy#apk" target="_blank" class="btn-primary" style="width:100%;justify-content:center;display:flex">
           📲 Baixar o app (Android)
         </a>
@@ -947,6 +995,16 @@ window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY
 function openModal() { document.getElementById('modal-store').classList.add('open'); document.body.style.overflow='hidden'; }
 function closeModal() { document.getElementById('modal-store').classList.remove('open'); document.body.style.overflow=''; }
 document.getElementById('modal-store').addEventListener('click', e => { if(e.target.id==='modal-store') closeModal(); });
+function toggleMenu() {
+  const h = document.getElementById('hamburger');
+  const m = document.getElementById('mobile-menu');
+  h.classList.toggle('open');
+  m.classList.toggle('open');
+}
+function closeMenu() {
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobile-menu').classList.remove('open');
+}
 
 // Reveal on scroll
 const io = new IntersectionObserver(entries => {
