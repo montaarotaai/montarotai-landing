@@ -244,7 +244,7 @@
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00D1FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 0-8 8c0 5 8 13 8 13s8-8 8-13a8 8 0 0 0-8-8z"/></svg>
 </div>
 <h3>GPS ao vivo — mesmo com tela desligada</h3>
-<p>Você vê no mapa a posição exata de cada entregador em tempo real. O GPS continua funcionando mesmo com a tela apagada ou o app em segundo plano — tecnologia de serviço nativo Android.</p>
+<p>Você vê no mapa a posição exata de cada entregador em tempo real. O GPS continua funcionando mesmo com a tela apagada — tecnologia de serviço nativo Android.</p>
 </div>
 <div class="feat-card">
 <div class="feat-num">// 02</div>
@@ -370,7 +370,7 @@
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00D1FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
 </div>
 <h3>Controle por voz</h3>
-<p>Toque no botão de microfone flutuante em qualquer tela e fale o comando. Naví abre rotas, despacha pedidos e responde com síntese de voz — sem tocar na tela. Funciona mesmo com o app em segundo plano.</p>
+<p>Toque no botão de microfone flutuante em qualquer tela e fale o comando. Naví abre rotas, despacha pedidos e responde com síntese de voz — sem tocar na tela.</p>
 </div>
 <div class="feat-card">
 <div class="feat-num">// 08 — Naví Piloto Automático</div>
@@ -404,7 +404,7 @@
         <div class="driver-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3DFA9A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
         <div>
           <div class="driver-item-title">Naví Voz — controle por voz</div>
-          <div class="driver-item-desc">Botão mic flutuante em qualquer tela. Controla o app por voz — abre rotas, despacha pedidos, lê notificações — e responde em voz alta. Funciona com app em segundo plano.</div>
+          <div class="driver-item-desc">Botão mic flutuante em qualquer tela. Controla o app por voz — abre rotas, despacha pedidos, lê notificações — e responde em voz alta.</div>
         </div>
       </li>
       <li class="driver-item">
@@ -460,8 +460,7 @@
       <li style="display:flex;gap:10px;align-items:flex-start;font-size:15px;color:var(--t2)"><span style="color:var(--blue);font-weight:700;flex-shrink:0">→</span>Botão mic flutuante disponível em qualquer tela</li>
       <li style="display:flex;gap:10px;align-items:flex-start;font-size:15px;color:var(--t2)"><span style="color:var(--blue);font-weight:700;flex-shrink:0">→</span>Banner confirma que o microfone está ativo</li>
       <li style="display:flex;gap:10px;align-items:flex-start;font-size:15px;color:var(--t2)"><span style="color:var(--blue);font-weight:700;flex-shrink:0">→</span>Naví responde em voz alta</li>
-            <li style="display:flex;gap:10px;align-items:flex-start;font-size:15px;color:var(--t2)"><span style="color:var(--blue);font-weight:700;flex-shrink:0">→</span>Funciona mesmo com o app em segundo plano</li>
-    </ul>
+                </ul>
   </div>
   <div class="feat-card">
     <div class="feat-num">// Naví Piloto — apenas para lojas</div>
@@ -567,10 +566,40 @@
 <div id="form-wrap">
 <p class="modal-tag">// Cadastro de empresa</p>
 <h2>Sua empresa no MONTAROTAÍ</h2>
-<p class="modal-sub">Preencha os dados abaixo. Em até 24 horas sua operação já está ativa.</p>
+<p class="modal-sub">Somente empresas com CNPJ ativo. Preencha todos os campos — em até 24 horas sua operação estará ativa.</p>
 <div class="field">
-<label>Nome da empresa <span style="color:#FF6B6B">*</span></label>
-<input id="s-nome" placeholder="Nome do estabelecimento" required autocomplete="off">
+<label>Nome fantasia da loja <span style="color:#FF6B6B">*</span></label>
+<input id="s-nome" placeholder="Ex: Burger do João" required autocomplete="off">
+</div>
+<div class="field">
+<label>Ramo de atividade <span style="color:#FF6B6B">*</span></label>
+<select id="s-ramo" required style="width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--wh);font-size:15px;font-family:var(--font-b);transition:border-color .2s;outline:none;appearance:none;cursor:pointer">
+<option value="" disabled selected style="color:var(--t3)">Selecione o ramo...</option>
+<option value="HAMBURGUERIA">Hamburgueria</option>
+<option value="PIZZARIA">Pizzaria</option>
+<option value="CHURRASCARIA">Churrascaria</option>
+<option value="MARMITARIA">Marmitaria</option>
+<option value="RESTAURANTE">Restaurante</option>
+<option value="LANCHONETE">Lanchonete</option>
+<option value="SUSHI / JAPONESA">Sushi / Japonesa</option>
+<option value="FARMACIA">Farmácia</option>
+<option value="MERCADO / MINIMERCADO">Mercado / Minimercado</option>
+<option value="SORVETERIA / ACAITERIA">Sorveteria / Açaíteria</option>
+<option value="PADARIA">Padaria</option>
+<option value="BEBIDAS">Bebidas</option>
+<option value="OUTRO">Outro</option>
+</select>
+</div>
+<div class="field">
+<label>Entregas por semana <span style="color:#FF6B6B">*</span> <span class="input-note">estimativa</span></label>
+<select id="s-entregas" required style="width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--wh);font-size:15px;font-family:var(--font-b);transition:border-color .2s;outline:none;appearance:none;cursor:pointer">
+<option value="" disabled selected style="color:var(--t3)">Selecione o volume...</option>
+<option value="1-50">Até 50 entregas</option>
+<option value="51-150">51 a 150 entregas</option>
+<option value="151-300">151 a 300 entregas</option>
+<option value="301-600">301 a 600 entregas</option>
+<option value="601+">Mais de 600 entregas</option>
+</select>
 </div>
 <div class="field-row">
 <div class="field">
@@ -668,6 +697,8 @@ const v=id=>document.getElementById(id).value.trim();
 const setMsg=(id,txt,cls)=>{const el=document.getElementById(id);el.className='form-msg '+(cls||'');el.textContent=txt;};
 async function cadastrarLoja() {
 const nome       = v('s-nome').toUpperCase();
+const ramo       = document.getElementById('s-ramo').value;
+const entregas   = document.getElementById('s-entregas').value;
 const tel        = v('s-tel');
 const cnpj       = v('s-cnpj');
 const rua        = v('s-rua').toUpperCase();
@@ -678,8 +709,12 @@ const complemento= v('s-complemento').toUpperCase();
 const resp       = v('s-resp').toUpperCase();
 const email      = v('s-email');
 const senha      = v('s-senha');
-if(!nome||!tel||!cnpj||!rua||!numero||!bairro||!cidade||!resp||!email||!senha){
+if(!nome||!ramo||!entregas||!tel||!cnpj||!rua||!numero||!bairro||!cidade||!resp||!email||!senha){
 setMsg('msg-store','Preencha todos os campos obrigatórios.','err'); return;
+}
+const cnpjDigits = cnpj.replace(/\D/g,'');
+if(cnpjDigits.length !== 14){
+setMsg('msg-store','CNPJ inválido. Somente empresas com CNPJ podem se cadastrar.','err'); return;
 }
 if(senha.length<6){
 setMsg('msg-store','A senha deve ter pelo menos 6 caracteres.','err'); return;
@@ -691,17 +726,19 @@ setMsg('msg-store','Enviando...','');
 try {
 const payload = {
 nome,
-telefone:     tel,
+ramo,
+entregas_semana: entregas,
+telefone:        tel,
 cnpj,
 rua,
 numero,
 bairro,
 cidade,
-complemento:  complemento || null,
-contato_nome: resp,
-email:        email.toLowerCase(),
+complemento:     complemento || null,
+contato_nome:    resp,
+email:           email.toLowerCase(),
 senha,
-status:       'pendente'
+status:          'pendente'
 };
 const r = await post('lojas', payload);
 if(r.ok || r.status===201){
