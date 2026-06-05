@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MontaRotaí — Pare de perder dinheiro no delivery</title>
+<title>MontaRotaí — Gestão completa de entregas com IA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}:root{--bg:#071530;--bg1:#0B1C3D;--bg2:#102248;--bg3:#172A56;--border:rgba(0,209,255,.22);--blue:#00D1FF;--blue-dim:rgba(0,209,255,.14);--gold:#FFD426;--gold-dim:rgba(255,212,38,.14);--red:#FF4D4D;--green:#3DFA9A;--wh:#F4F0FF;--t1:rgba(244,240,255,.95);--t2:rgba(244,240,255,.72);--t3:rgba(244,240,255,.48);--font-h:'Barlow Condensed',sans-serif;--font-b:'Barlow',sans-serif;--font-m:'JetBrains Mono',monospace;--r:12px;--max:1120px}html{scroll-behavior:smooth}body{background:var(--bg);color:var(--wh);font-family:var(--font-b);font-size:19px;line-height:1.6;overflow-x:hidden}body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.4}nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:64px;border-bottom:1px solid transparent;transition:all .3s}nav.scrolled{background:rgba(6,8,16,.92);backdrop-filter:blur(20px);border-bottom-color:var(--border)}.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}.nav-logo img{height:40px;width:40px;object-fit:contain;border-radius:50%}.nav-logo span{font-family:var(--font-h);font-weight:800;font-size:20px;letter-spacing:.04em;color:var(--wh)}.nav-links{display:flex;gap:28px;list-style:none}.nav-links a{font-size:15px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--t1);text-decoration:none;transition:color .2s}.nav-links a:hover{color:var(--wh)}.nav-cta{background:var(--gold);color:#060810;font-family:var(--font-h);font-weight:800;font-size:14px;letter-spacing:.05em;text-transform:uppercase;padding:10px 20px;border-radius:6px;border:none;cursor:pointer;transition:all .2s;white-space:nowrap}.nav-cta:hover{background:#FFE566;transform:translateY(-1px);box-shadow:0 6px 24px rgba(255,212,38,.35)}.nav-login{font-family:var(--font-h);font-weight:800;font-size:14px;letter-spacing:.05em;text-transform:uppercase;padding:10px 20px;border-radius:6px;border:1px solid var(--border);color:var(--wh);text-decoration:none;cursor:pointer;transition:all .2s;white-space:nowrap;background:transparent}.nav-login:hover{border-color:rgba(0,209,255,.6);color:var(--blue);background:rgba(0,209,255,.07);transform:translateY(-1px)}.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:120px 32px 80px;text-align:center;overflow:hidden}.hero-grid-bg{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(0,209,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,212,38,.03) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 70% at 50% 40%,black 40%,transparent 100%)}.hero-glow{position:absolute;top:10%;left:50%;transform:translateX(-50%);width:900px;height:500px;background:radial-gradient(ellipse at 40% 50%,rgba(0,209,255,.14) 0%,transparent 55%),radial-gradient(ellipse at 65% 45%,rgba(255,212,38,.10) 0%,transparent 50%);pointer-events:none}.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,212,38,.07);border:1px solid rgba(255,212,38,.3);border-radius:100px;padding:6px 16px;margin-bottom:36px;position:relative;z-index:2;font-family:var(--font-m);font-size:11px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;box-shadow:0 0 20px rgba(255,212,38,.1)}.hero-badge::before{content:'';display:block;width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2s ease-in-out infinite}@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,212,38,.8)}50%{box-shadow:0 0 0 6px transparent}}.hero-logo{position:relative;z-index:2}.hero-brand-name{font-family:var(--font-h);font-weight:900;font-size:clamp(56px,9vw,120px);line-height:1;letter-spacing:-.02em;text-transform:uppercase;color:var(--wh);margin:28px 0 6px}.hero-brand-name span{color:var(--blue)}.hero-brand-tagline{font-family:var(--font-m);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:32px;border:1px solid rgba(255,212,38,.35);display:inline-block;padding:6px 18px;border-radius:100px;text-shadow:0 0 14px rgba(255,212,38,.4);box-shadow:0 0 16px rgba(255,212,38,.08)}.hero-logo{width:min(300px,78vw);height:auto;margin:0 auto;aspect-ratio:1/1;background:transparent;border:none;border-radius:0;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:none}.hero-logo img{width:100%;height:100%;object-fit:contain}.hero h1{position:relative;z-index:2;font-family:var(--font-h);font-weight:900;font-size:clamp(52px,8vw,96px);line-height:.92;letter-spacing:-.01em;text-transform:uppercase;color:var(--wh);margin-bottom:28px}.hero h1 em{color:var(--blue);font-style:normal}.hero-sub{position:relative;z-index:2;font-size:clamp(19px,2.5vw,24px);color:var(--t2);max-width:580px;margin:0 auto 48px;font-weight:400;line-height:1.6}.hero-sub strong{color:var(--t1);font-weight:600}.hero-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-bottom:72px}.btn-primary{background:var(--gold);color:#060810;font-family:var(--font-h);font-weight:800;font-size:16px;letter-spacing:.04em;text-transform:uppercase;padding:16px 36px;border-radius:8px;border:none;cursor:pointer;transition:all .25s;text-decoration:none;display:inline-flex;align-items:center;gap:8px}.btn-primary:hover{background:#FFE566;transform:translateY(-2px);box-shadow:0 12px 40px rgba(255,212,38,.4)}.btn-ghost{background:transparent;color:var(--wh);font-family:var(--font-h);font-weight:700;font-size:16px;letter-spacing:.04em;text-transform:uppercase;padding:15px 36px;border-radius:8px;border:1px solid var(--border);cursor:pointer;transition:all .25s;text-decoration:none;display:inline-flex;align-items:center;gap:8px}.btn-ghost:hover{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.05)}.hero-stats{display:flex;gap:0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--bg1)}.stat{padding:20px 40px;text-align:center;position:relative}.stat::after{content:'';position:absolute;right:0;top:20%;bottom:20%;width:1px;background:var(--border)}.stat:last-child::after{display:none}.stat-val{font-family:var(--font-h);font-weight:900;font-size:32px;color:var(--blue);letter-spacing:-.01em;text-shadow:0 0 20px rgba(0,209,255,.5)}.stat-val.gold{text-shadow:0 0 20px rgba(255,212,38,.5)}.stat-val.green{text-shadow:0 0 20px rgba(61,250,154,.5)}.stat-val.gold{color:var(--gold)}.stat-val.green{color:var(--green)}.stat-label{font-size:15px;color:var(--t2);font-family:var(--font-m);letter-spacing:.05em;margin-top:2px}.belt{background:var(--bg1);border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;padding:0}.belt-inner{display:flex;width:max-content;animation:slide 28s linear infinite}.belt-inner:hover{animation-play-state:paused}@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}.belt-item{padding:14px 40px;font-family:var(--font-m);font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--t1);white-space:nowrap;border-right:1px solid var(--border);display:flex;align-items:center;gap:12px}.belt-item .dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;box-shadow:0 0 8px var(--gold)}.belt-item strong{color:var(--gold)}.wrap{max-width:var(--max);margin:0 auto;padding:0 32px}section{padding:100px 0}.sec-tag{display:inline-flex;align-items:center;gap:8px;margin-bottom:24px;font-family:var(--font-m);font-size:15px;color:var(--gold);letter-spacing:.14em;text-transform:uppercase;text-shadow:0 0 16px rgba(255,212,38,.5)}.sec-tag::before{content:'//';color:var(--blue);text-shadow:0 0 12px rgba(0,209,255,.7)}h2.sec-title{font-family:var(--font-h);font-weight:900;text-transform:uppercase;font-size:clamp(60px,8vw,100px);line-height:.92;letter-spacing:-.01em;color:var(--wh);margin-bottom:20px}h2.sec-title em{color:var(--blue);font-style:normal}h2.sec-title .gold{color:var(--gold)}.sec-lead{font-size:20px;color:var(--t2);max-width:560px;line-height:1.7;margin-bottom:60px}.problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden}.problem-card{background:var(--bg1);padding:36px 32px;transition:background .2s}.problem-card:hover{background:var(--bg2)}.problem-icon{width:44px;height:44px;margin-bottom:20px;border-radius:8px;background:rgba(255,77,77,.1);border:1px solid rgba(255,77,77,.2);display:flex;align-items:center;justify-content:center;transition:box-shadow .3s}.problem-card:hover .problem-icon{box-shadow:0 0 18px rgba(255,77,77,.3)}.problem-card h3{font-family:var(--font-h);font-weight:800;font-size:28px;text-transform:uppercase;letter-spacing:.02em;color:var(--blue);margin-bottom:10px;text-shadow:0 0 18px rgba(0,209,255,.35)}.problem-card p{font-size:17px;color:var(--t2);line-height:1.7}.features-layout{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden}@media(max-width:760px){.features-layout{grid-template-columns:1fr}}.feat-card{background:var(--bg1);padding:44px 40px;position:relative;overflow:hidden;transition:background .2s}.feat-card:hover{background:var(--bg2)}.feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--blue),transparent);opacity:0;transition:opacity .3s}.feat-card:hover::before{opacity:1}.feat-card:nth-child(odd)::before{background:linear-gradient(90deg,var(--blue),var(--gold),transparent)}.feat-num{font-family:var(--font-m);font-size:11px;color:var(--gold);letter-spacing:.1em;margin-bottom:24px;opacity:.7}.feat-icon{width:52px;height:52px;margin-bottom:20px;border-radius:10px;background:var(--blue-dim);border:1px solid rgba(0,209,255,.25);display:flex;align-items:center;justify-content:center;transition:box-shadow .3s}.feat-card:hover .feat-icon{box-shadow:0 0 20px rgba(0,209,255,.35)}.feat-card:nth-child(even) .feat-icon{background:var(--gold-dim);border-color:rgba(255,212,38,.25)}.feat-card:nth-child(even):hover .feat-icon{box-shadow:0 0 20px rgba(255,212,38,.35)}.feat-card h3{font-family:var(--font-h);font-weight:800;font-size:24px;text-transform:uppercase;letter-spacing:.02em;color:var(--blue);margin-bottom:12px}.feat-card:nth-child(even) h3{color:var(--gold)}.feat-card p{font-size:17px;color:var(--t2);line-height:1.7}.driver-split{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}@media(max-width:760px){.driver-split{grid-template-columns:1fr}}.driver-list{list-style:none;display:flex;flex-direction:column;gap:24px}.driver-item{display:flex;gap:16px;align-items:flex-start}.driver-check{flex-shrink:0;width:28px;height:28px;border-radius:6px;background:rgba(61,250,154,.1);border:1px solid rgba(61,250,154,.3);display:flex;align-items:center;justify-content:center;margin-top:2px;box-shadow:0 0 10px rgba(61,250,154,.15)}.driver-check svg{filter:drop-shadow(0 0 4px rgba(61,250,154,.7))}.driver-item-title{font-family:var(--font-h);font-weight:700;font-size:21px;text-transform:uppercase;color:var(--gold);margin-bottom:4px}.driver-item-desc{font-size:17px;color:var(--t2);line-height:1.6}.driver-card{background:var(--bg1);border:1px solid var(--border);border-radius:16px;padding:36px;text-align:center}.driver-card .free-badge{display:inline-block;background:var(--gold-dim);border:1px solid rgba(255,212,38,.3);color:var(--gold);font-family:var(--font-m);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:6px 16px;border-radius:100px;margin-bottom:20px}.driver-card .big-price{font-family:var(--font-h);font-weight:900;font-size:64px;color:var(--green);letter-spacing:-.02em;line-height:1;margin-bottom:8px}.driver-card p{font-size:17px;color:var(--t2)}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}@media(max-width:900px){.steps{grid-template-columns:repeat(2,1fr)}}@media(max-width:520px){.steps{grid-template-columns:1fr}}.step{padding:40px 32px;position:relative}.step::after{content:'';position:absolute;top:48px;right:0;width:1px;height:40px;background:var(--border)}.step:last-child::after{display:none}.step-num{font-family:var(--font-h);font-weight:900;font-size:72px;color:rgba(255,212,38,.22);line-height:1;margin-bottom:20px;letter-spacing:-.03em;transition:all .3s}.step:hover .step-num{color:rgba(255,212,38,.6);text-shadow:0 0 30px rgba(255,212,38,.4)}.step h3{font-family:var(--font-h);font-weight:800;font-size:22px;text-transform:uppercase;letter-spacing:.02em;color:var(--gold);margin-bottom:10px}.step p{font-size:17px;color:var(--t2);line-height:1.6}.step-border{background:var(--bg1);border:1px solid var(--border);border-radius:12px;overflow:hidden}.seg-grid{display:flex;flex-wrap:wrap;gap:10px}.seg-chip{padding:12px 22px;border-radius:8px;font-weight:600;font-size:17px;border:1px solid rgba(255,212,38,.18);background:var(--bg1);color:var(--t1);transition:all .2s;cursor:default;display:inline-flex;align-items:center;gap:8px}.seg-chip svg{flex-shrink:0;opacity:.9;filter:drop-shadow(0 0 3px rgba(255,212,38,.4))}.seg-chip:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-dim);box-shadow:0 0 16px rgba(255,212,38,.2)}.seg-chip svg{filter:drop-shadow(0 0 4px currentColor)}.seg-chip.highlight{border-color:rgba(255,212,38,.35);background:var(--gold-dim);color:var(--gold)}.price-split{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden}@media(max-width:700px){.price-split{grid-template-columns:1fr}}.price-main{background:var(--bg1);padding:52px 48px;display:flex;flex-direction:column;justify-content:space-between}.price-main .amount{display:flex;align-items:baseline;gap:8px;margin-bottom:16px}.price-main .currency{font-family:var(--font-h);font-weight:900;font-size:28px;color:var(--gold)}.price-main .value{font-family:var(--font-h);font-weight:900;font-size:88px;color:var(--gold);line-height:1;letter-spacing:-.03em}.price-main .cents{font-family:var(--font-h);font-weight:900;font-size:40px;color:var(--gold)}.price-main .per{font-size:17px;color:var(--t2);margin-bottom:32px}.price-main .no-fee{font-family:var(--font-m);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--green)}.price-main .no-fee span{text-decoration:line-through;color:var(--t3)}.price-features{background:var(--bg2);padding:52px 48px}.price-features ul{list-style:none;display:flex;flex-direction:column;gap:16px;margin-bottom:40px}.price-features li{display:flex;align-items:center;gap:12px;font-size:15px;color:var(--t1)}.price-features li::before{content:'';flex-shrink:0;width:18px;height:18px;border-radius:4px;background:rgba(61,250,154,.1);border:1px solid rgba(61,250,154,.25);background-image:url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 6l3 3 5-5' stroke='%233DFA9A' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center}.cta-final{background:var(--bg1);border:1px solid var(--border);border-radius:20px;padding:80px 64px;text-align:center;position:relative;overflow:hidden;margin:0 0 80px}.cta-final::before{content:'';position:absolute;inset:-1px;border-radius:20px;background:linear-gradient(135deg,rgba(0,209,255,.15),transparent,rgba(255,212,38,.1));pointer-events:none}.cta-final::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:350px;background:radial-gradient(ellipse at 40% 50%,rgba(0,209,255,.1) 0%,transparent 50%),radial-gradient(ellipse at 65% 50%,rgba(255,212,38,.09) 0%,transparent 50%);pointer-events:none}.cta-final h2{font-family:var(--font-h);font-weight:900;font-size:clamp(44px,5.5vw,72px);text-transform:uppercase;color:var(--wh);margin-bottom:16px;line-height:.95;letter-spacing:-.01em;position:relative;z-index:1}.cta-final h2 em{color:var(--gold);font-style:normal}.cta-final p{font-size:20px;color:var(--t2);max-width:480px;margin:0 auto 40px;position:relative;z-index:1}.cta-final .btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;position:relative;z-index:1}.dl-strip{background:var(--gold);padding:20px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}.dl-strip .dl-text{font-family:var(--font-h);font-weight:800;font-size:22px;text-transform:uppercase;color:#060810;letter-spacing:.02em}.dl-strip .dl-sub{font-size:13px;color:rgba(6,8,16,.6);margin-top:2px}.btn-dark{background:#060810;color:var(--wh);font-family:var(--font-h);font-weight:800;font-size:15px;letter-spacing:.05em;text-transform:uppercase;padding:14px 28px;border-radius:8px;border:none;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}.btn-dark:hover{background:#111827;transform:translateY(-1px)}footer{border-top:1px solid var(--border);padding:32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}.footer-brand{font-family:var(--font-h);font-weight:700;font-size:16px;letter-spacing:.04em;color:var(--t2)}.footer-info{font-family:var(--font-m);font-size:11px;color:var(--t2);letter-spacing:.05em}.overlay{position:fixed;inset:0;z-index:200;background:rgba(6,8,16,.85);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .3s}.overlay.open{opacity:1;pointer-events:all}.modal{background:var(--bg1);border:1px solid var(--border);border-radius:16px;padding:48px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;position:relative;transform:translateY(20px);transition:transform .3s}.overlay.open .modal{transform:translateY(0)}.modal-close{position:absolute;top:20px;right:20px;background:var(--bg2);border:1px solid var(--border);color:var(--t2);width:32px;height:32px;border-radius:6px;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .2s}.modal-close:hover{background:var(--bg3);color:var(--wh)}.modal-tag{font-family:var(--font-m);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}.modal h2{font-family:var(--font-h);font-weight:900;font-size:32px;text-transform:uppercase;color:var(--wh);margin-bottom:8px}.modal-sub{font-size:17px;color:var(--t2);margin-bottom:32px}.field{margin-bottom:20px}.field label{display:block;font-family:var(--font-m);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}.field input{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--wh);font-size:15px;font-family:var(--font-b);transition:border-color .2s;outline:none}.field input:focus{border-color:rgba(0,209,255,.5)}.field input::placeholder{color:var(--t3)}.form-msg{padding:12px 16px;border-radius:8px;font-size:13px;margin-bottom:20px;display:none}.form-msg:not(:empty){display:block}.form-msg.err{background:rgba(255,77,77,.1);border:1px solid rgba(255,77,77,.25);color:#FF8080}.form-msg.ok{background:rgba(61,250,154,.08);border:1px solid rgba(61,250,154,.2);color:var(--green)}.btn-submit{width:100%;background:var(--gold);color:#060810;font-family:var(--font-h);font-weight:800;font-size:17px;letter-spacing:.04em;text-transform:uppercase;padding:16px;border-radius:8px;border:none;cursor:pointer;transition:all .2s;margin-top:8px}.btn-submit:hover{background:#33DBFF}.ok-state{text-align:center;display:none;padding:20px 0}.ok-state.show{display:block}.ok-icon{width:64px;height:64px;border-radius:50%;background:rgba(61,250,154,.1);border:1px solid rgba(61,250,154,.25);display:flex;align-items:center;justify-content:center;margin:0 auto 20px}.ok-state h3{font-family:var(--font-h);font-weight:800;font-size:26px;text-transform:uppercase;color:var(--wh);margin-bottom:8px}.ok-state p{font-size:14px;color:var(--t2)}.reveal{opacity:0;transform:translateY(32px);transition:opacity .6s ease,transform .6s ease}.reveal.visible{opacity:1;transform:translateY(0)}.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:8px;z-index:110}.hamburger span{display:block;width:24px;height:2px;background:var(--wh);border-radius:2px;transition:all .3s}.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}.hamburger.open span:nth-child(2){opacity:0}.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:var(--bg1);border-bottom:1px solid rgba(0,209,255,.15);padding:20px 24px;z-index:99;flex-direction:column;gap:4px}.mobile-menu.open{display:flex}.mobile-menu a{font-family:var(--font-h);font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:.04em;color:var(--t1);text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05)}.mobile-menu a:last-of-type{border-bottom:none}.mobile-menu .mobile-cta{margin-top:16px;background:var(--blue);color:#000;font-family:var(--font-h);font-weight:900;font-size:16px;letter-spacing:.08em;text-transform:uppercase;border:none;border-radius:8px;padding:14px;cursor:pointer;width:100%}.mobile-menu .mobile-login{display:block;margin-top:10px;text-align:center;font-family:var(--font-h);font-weight:800;font-size:16px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--border);border-radius:8px;padding:13px;width:100%;color:var(--wh);text-decoration:none;transition:border-color .2s,color .2s}.mobile-menu .mobile-login:hover{border-color:rgba(0,209,255,.6);color:var(--blue)}@media(max-width:900px){.hero-stats{flex-direction:column}.stat::after{display:none}.hamburger{display:flex}nav .nav-links{display:none}nav .nav-cta{display:none}nav .nav-login{display:none}.cta-final{padding:48px 32px}.steps{grid-template-columns:repeat(2,1fr)!important}.feat-card{padding:32px 24px}}@media(max-width:640px){.wrap{padding:0 20px}.hero{padding:100px 20px 60px}.hero-stats{flex-direction:column!important;gap:0}.hero-stats .stat{width:100%;border-bottom:1px solid var(--border)}.hero-stats .stat:last-child{border-bottom:none}.driver-card .big-price{font-size:48px}.price-main,.price-features{padding:36px 28px}footer{flex-direction:column;text-align:center}.steps{grid-template-columns:1fr!important}.step::after{display:none}.hero-brand-tagline{font-size:10px;letter-spacing:.12em}.price-split{grid-template-columns:1fr!important}}.feat-icon svg{filter:drop-shadow(0 0 6px var(--blue));color:var(--blue)}.feat-card:nth-child(even) .feat-icon svg{filter:drop-shadow(0 0 6px var(--gold));color:var(--gold)}.problem-icon svg{filter:drop-shadow(0 0 6px rgba(255,77,77,.8));color:#FF6B6B}.step-num svg{filter:drop-shadow(0 0 8px rgba(255,212,38,.7));color:var(--gold)}.driver-check svg{filter:drop-shadow(0 0 5px rgba(61,250,154,.8));color:var(--green)}.dl-strip svg{color:#060810}.btn-primary svg,.nav-cta svg{color:#060810}.field-row{display:grid;gap:12px;grid-template-columns:1fr 1fr}.field-row .field{margin-bottom:0}@media(max-width:520px){.field-row{grid-template-columns:1fr}}.field-row-3{display:grid;gap:12px;grid-template-columns:2fr 1fr}@media(max-width:520px){.field-row-3{grid-template-columns:1fr}}.input-note{font-size:10px;color:var(--t3);text-transform:none;font-family:var(--font-b);letter-spacing:0}</style>
@@ -41,18 +41,18 @@
 <section class="hero">
 <div class="hero-grid-bg"></div>
 <div class="hero-glow"></div>
-<div class="hero-badge">Feito para delivery com entregadores próprios · IA Naví integrada · Brasil</div>
+<div class="hero-badge">Gestão de delivery com IA · Android · Brasil · R$0 mensalidade</div>
 <div class="hero-logo">
 <img src="logo.webp" alt="MontaRotaí">
 </div>
 <div class="hero-brand-name">Monta<span>Rota</span>í</div>
-<div class="hero-brand-tagline">Gestão completa de entregas — no celular, tablet ou computador</div>
+<div class="hero-brand-tagline">Gestão completa de entregas — celular, tablet ou computador</div>
 <h1>
-  Pare de perder<br>dinheiro no<br><em>seu delivery</em>
+  O sistema que<br>faz seu delivery<br><em>rodar sozinho</em>
 </h1>
 <p class="hero-sub">
-  Enquanto você não sabe onde está cada entregador, seus pedidos atrasam, seus clientes reclamam e seu negócio perde dinheiro todo dia.
-  <strong>O MONTAROTAÍ muda isso agora.</strong>
+  Rastreamento GPS ao vivo, despacho automático, foto da comanda que vira pedido, controle financeiro de entregadores e IA integrada — tudo em um app.
+  <strong>Centavos por entrega. Zero mensalidade.</strong>
 </p>
 <div class="hero-btns">
 <button class="btn-primary" onclick="openModal()">
@@ -87,42 +87,35 @@
 <!-- BELT -->
 <div class="belt">
 <div class="belt-inner">
-<div class="belt-item"><span class="dot"></span><strong>Entregador rastreado ao vivo</strong></div>
-<div class="belt-item"><span class="dot"></span>Pedidos despachados automaticamente</div>
-<div class="belt-item"><span class="dot"></span><strong>Foto da comanda vira pedido</strong></div>
-<div class="belt-item"><span class="dot"></span>Fila de entregadores organizada</div>
-<div class="belt-item"><span class="dot"></span><strong>Controle financeiro de entregadores</strong></div>
-<div class="belt-item"><span class="dot"></span>Relatório financeiro completo</div>
+<div class="belt-item"><span class="dot"></span><strong>GPS ao vivo com tela desligada</strong></div>
+<div class="belt-item"><span class="dot"></span>Foto da comanda vira pedido via IA</div>
+<div class="belt-item"><span class="dot"></span><strong>Despacho automático por região</strong></div>
+<div class="belt-item"><span class="dot"></span>Fila FIFO — ordem justa, sem briga</div>
+<div class="belt-item"><span class="dot"></span><strong>Controle financeiro por entregador</strong></div>
+<div class="belt-item"><span class="dot"></span>Vales e adiantamentos descontados automaticamente</div>
 <div class="belt-item"><span class="dot"></span><strong>Rota calculada pela rua real</strong></div>
 <div class="belt-item"><span class="dot"></span>Zero mensalidade</div>
-<div class="belt-item"><span class="dot"></span><strong>Chat em tempo real loja ↔ entregador</strong></div>
-<div class="belt-item"><span class="dot"></span>IA Naví de suporte integrada</div>
-<div class="belt-item"><span class="dot"></span><strong>Naví Voz — controle por voz tipo JARVIS</strong></div>
-<div class="belt-item"><span class="dot"></span>Naví Piloto — operação automática</div>
-<div class="belt-item"><span class="dot"></span><strong>GPS ativo com tela desligada</strong></div>
-<div class="belt-item"><span class="dot"></span>Push notifications nativas Android</div>
+<div class="belt-item"><span class="dot"></span><strong>Chat loja ↔ entregador pelo app</strong></div>
+<div class="belt-item"><span class="dot"></span>Naví IA — suporte 24 horas com escalada automática</div>
+<div class="belt-item"><span class="dot"></span><strong>Naví Voz — controle por voz</strong></div>
+<div class="belt-item"><span class="dot"></span>Naví Piloto — operação 100% automática</div>
 <div class="belt-item"><span class="dot"></span><strong>ETA ao vivo em cada pedido</strong></div>
-<div class="belt-item"><span class="dot"></span>Entregador rastreado ao vivo</div>
-<div class="belt-item"><span class="dot"></span><strong>Pedidos despachados automaticamente</strong></div>
-<div class="belt-item"><span class="dot"></span>Foto da comanda vira pedido</div>
-<div class="belt-item"><span class="dot"></span><strong>Fila de entregadores organizada</strong></div>
-<div class="belt-item"><span class="dot"></span>Controle financeiro de entregadores</div>
+<div class="belt-item"><span class="dot"></span>Push notifications Android mesmo com app fechado</div>
+<div class="belt-item"><span class="dot"></span>Relatório financeiro completo por período</div>
+<div class="belt-item"><span class="dot"></span><strong>GPS ao vivo com tela desligada</strong></div>
+<div class="belt-item"><span class="dot"></span>Foto da comanda vira pedido via IA</div>
+<div class="belt-item"><span class="dot"></span><strong>Despacho automático por região</strong></div>
+<div class="belt-item"><span class="dot"></span>Fila FIFO — ordem justa, sem briga</div>
+<div class="belt-item"><span class="dot"></span><strong>Controle financeiro por entregador</strong></div>
+<div class="belt-item"><span class="dot"></span>Vales e adiantamentos descontados automaticamente</div>
 <div class="belt-item"><span class="dot"></span><strong>Rota calculada pela rua real</strong></div>
 <div class="belt-item"><span class="dot"></span>Zero mensalidade</div>
-<div class="belt-item"><span class="dot"></span><strong>Chat em tempo real loja ↔ entregador</strong></div>
-<div class="belt-item"><span class="dot"></span>IA Naví de suporte integrada</div>
-<div class="belt-item"><span class="dot"></span><strong>Naví Voz — controle por voz tipo JARVIS</strong></div>
-<div class="belt-item"><span class="dot"></span>Naví Piloto — operação automática</div>
-<div class="belt-item"><span class="dot"></span><strong>GPS ativo com tela desligada</strong></div>
-<div class="belt-item"><span class="dot"></span>Push notifications nativas Android</div>
+<div class="belt-item"><span class="dot"></span><strong>Chat loja ↔ entregador pelo app</strong></div>
+<div class="belt-item"><span class="dot"></span>Naví IA — suporte 24 horas com escalada automática</div>
+<div class="belt-item"><span class="dot"></span><strong>Naví Voz — controle por voz</strong></div>
+<div class="belt-item"><span class="dot"></span>Naví Piloto — operação 100% automática</div>
 <div class="belt-item"><span class="dot"></span><strong>ETA ao vivo em cada pedido</strong></div>
-<div class="belt-item"><span class="dot"></span>Entregador rastreado ao vivo</div>
-<div class="belt-item"><span class="dot"></span><strong>Pedidos despachados automaticamente</strong></div>
-<div class="belt-item"><span class="dot"></span>Foto da comanda vira pedido</div>
-<div class="belt-item"><span class="dot"></span><strong>Fila de entregadores organizada</strong></div>
-<div class="belt-item"><span class="dot"></span>Controle financeiro de entregadores</div>
-<div class="belt-item"><span class="dot"></span><strong>Rota calculada pela rua real</strong></div>
-<div class="belt-item"><span class="dot"></span>Zero mensalidade</div>
+<div class="belt-item"><span class="dot"></span>Push notifications Android mesmo com app fechado</div>
 </div>
 </div>
 
@@ -131,28 +124,28 @@
 <div class="wrap">
 <p class="sec-tag">A realidade do seu delivery hoje</p>
 <h2 class="sec-title">Você está<br>operando <em>no escuro</em></h2>
-<p class="sec-lead">Sem visibilidade da operação, você paga entregador sem saber se ele realmente trabalhou, e perde cliente sem saber por quê.</p>
+<p class="sec-lead">Sem visibilidade da operação, você paga entregador no achismo, perde cliente sem saber por quê e cresce no caos.</p>
 <div class="problem-grid reveal">
 <div class="problem-card">
 <div class="problem-icon">
 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FF4D4D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
 </div>
 <h3>Entregador sumido</h3>
-<p>Você despachou, o pedido saiu — e aí? Ninguém sabe onde o entregador está. O cliente liga perguntando e você não tem resposta.</p>
+<p>Você despachou, o pedido saiu — e aí? Ninguém sabe onde está. O cliente liga perguntando e você não tem resposta. Sem GPS ao vivo, você está cego.</p>
 </div>
 <div class="problem-card">
 <div class="problem-icon">
 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FF4D4D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
 </div>
-<h3>Entregadores mal aproveitados</h3>
-<p>Um entregador volta e fica parado esperando enquanto 5 pedidos estão prontos na cozinha. Tempo perdido é dinheiro perdido.</p>
+<h3>Despacho no achismo</h3>
+<p>Um entregador volta e fica parado esperando enquanto 5 pedidos estão prontos na cozinha. Sem rota inteligente, você desperdiça combustível e tempo todo dia.</p>
 </div>
 <div class="problem-card">
 <div class="problem-icon">
 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FF4D4D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
 </div>
-<h3>Pagamento no achismo</h3>
-<p>No fim do turno, você não sabe exatamente quantas corridas cada entregador fez, nem qual valor líquido pagar descontando vales e adiantamentos.</p>
+<h3>Pagamento no escuro</h3>
+<p>No fim do turno você não sabe exatamente quantas corridas cada entregador fez, nem o valor líquido a pagar descontando vales e adiantamentos. Sobra briga.</p>
 </div>
 <div class="problem-card">
 <div class="problem-icon">
@@ -173,7 +166,7 @@
 <div class="wrap">
 <p class="sec-tag">Para quem é</p>
 <h2 class="sec-title">Para qualquer negócio<br>com <em class="gold">entregadores próprios</em></h2>
-<p class="sec-lead">Se você tem entregadores próprios ou terceirizados e faz delivery todos os dias, o MONTAROTAÍ foi feito pra você. Não importa o tamanho — o que importa é que você quer controle.</p>
+<p class="sec-lead">Se você tem entregadores próprios ou terceirizados e faz delivery todos os dias, o MONTAROTAÍ foi feito pra você. Não importa o tamanho — o que importa é que você quer controle de verdade.</p>
 <div class="seg-grid reveal">
 <span class="seg-chip"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18"/><path d="M3 15h18"/><path d="M5 19h14a2 2 0 0 0 2-2v-1H3v1a2 2 0 0 0 2 2z"/><path d="M3 11V9a9 9 0 0 1 18 0v2"/></svg> Restaurantes</span>
 <span class="seg-chip"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 1 10 10L12 22 2 12A10 10 0 0 1 12 2z"/><path d="M12 2v20"/><path d="M2 12h20"/></svg> Pizzarias</span>
@@ -186,7 +179,7 @@
 </div>
 </section>
 
-<!-- INTELIGÊNCIA LOGÍSTICA -->
+<!-- COMO FUNCIONA -->
 <section id="como-funciona" style="background:var(--bg1);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
 <div class="wrap">
 <p class="sec-tag">Como funciona na prática</p>
@@ -198,8 +191,8 @@
 <div class="feat-icon">
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00D1FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>
 </div>
-<h3>Tire uma foto, está feito</h3>
-<p>Fotografe a comanda do iFood, Stone ou qualquer plataforma — o MONTAROTAÍ lê automaticamente, preenche todos os campos do pedido e calcula o valor da corrida. Sem redigitar nada, sem erro humano.</p>
+<h3>Fotografou — está feito</h3>
+<p>Tire uma foto da comanda de qualquer plataforma. A IA lê automaticamente, preenche todos os campos do pedido e calcula o valor da corrida pela distância real. Sem redigitar nada, sem erro humano, sem perda de tempo.</p>
 </div>
 </div>
 <div>
@@ -209,7 +202,7 @@
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00D1FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
 </div>
 <h3>Alarme, rota e confirmação</h3>
-<p>Quando um pedido é despachado, o entregador recebe alarme sonoro e vibração no celular — mesmo com a tela desligada. Ele abre o app, vê os endereços na ordem certa e navega diretamente. Ao chegar, confirma com um toque.</p>
+<p>Quando um pedido é despachado, o entregador recebe alarme sonoro e vibração — mesmo com a tela desligada. Ele abre o app, vê os endereços na ordem certa da rua real e navega diretamente. Ao chegar, confirma a entrega com um toque.</p>
 </div>
 </div>
 </div>
@@ -219,7 +212,7 @@
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00D1FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
 </div>
 <h3>Um botão que distribui tudo</h3>
-<p style="margin-bottom:20px">Quando há pedidos prontos e entregadores disponíveis, você aperta um botão. O MONTAROTAÍ agrupa os pedidos por região, define quem leva o quê e despacha tudo de uma vez — com a rota já calculada para cada entregador.</p>
+<p style="margin-bottom:20px">Pedidos prontos + entregadores disponíveis? Aperta um botão. O MONTAROTAÍ agrupa por região, define quem leva o quê e despacha tudo de uma vez — com rota já calculada para cada entregador. Sem achismo, sem telefone, sem confusão.</p>
 <div style="display:flex;gap:32px;flex-wrap:wrap">
 <div style="display:flex;align-items:center;gap:10px">
 <div style="width:8px;height:8px;border-radius:50%;background:var(--green)"></div>
@@ -243,43 +236,43 @@
 <div class="wrap">
 <p class="sec-tag">O que o MONTAROTAÍ faz</p>
 <h2 class="sec-title">Você sabe tudo<br>em tempo <em>real</em></h2>
-<p class="sec-lead">Do momento em que o pedido entra até o dinheiro sendo pago ao entregador — tudo registrado, organizado e visível onde você estiver — celular, tablet ou computador.</p>
+<p class="sec-lead">Do momento em que o pedido entra até o dinheiro ser pago ao entregador — tudo registrado, organizado e visível onde você estiver.</p>
 <div class="features-layout reveal">
 <div class="feat-card">
 <div class="feat-num">// 01</div>
 <div class="feat-icon">
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00D1FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 0-8 8c0 5 8 13 8 13s8-8 8-13a8 8 0 0 0-8-8z"/></svg>
 </div>
-<h3>Onde está cada entregador agora</h3>
-<p>Você vê no mapa a posição exata de cada entregador em tempo real. Sabe quem está em rota, quem voltou, quem está parado — sem precisar ligar para ninguém.</p>
+<h3>GPS ao vivo — mesmo com tela desligada</h3>
+<p>Você vê no mapa a posição exata de cada entregador em tempo real. O GPS continua funcionando mesmo com a tela apagada ou o app em segundo plano — tecnologia de serviço nativo Android.</p>
 </div>
 <div class="feat-card">
 <div class="feat-num">// 02</div>
 <div class="feat-icon">
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00D1FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>
 </div>
-<h3>Pedidos distribuídos automaticamente</h3>
-<p>O sistema decide quem leva qual pedido, na melhor ordem, aproveitando ao máximo cada saída do entregador. Sem achismo, sem briga por pedido, sem desperdício de viagem.</p>
+<h3>Rota inteligente agrupada por região</h3>
+<p>O sistema calcula rotas pela rua real agrupa pedidos por direção geográfica e define a ordem ideal de entrega para cada entregador. Menos km rodado, mais entrega por saída.</p>
 </div>
 <div class="feat-card">
 <div class="feat-num">// 03</div>
 <div class="feat-icon">
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00D1FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
 </div>
-<h3>Quanto tempo vai demorar</h3>
-<p>Para cada entrega em andamento, você sabe o tempo estimado de chegada. Seu atendimento para de ser "está a caminho" e começa a ser "chega em 12 minutos".</p>
+<h3>ETA ao vivo em cada pedido</h3>
+<p>Para cada entrega em andamento, você sabe o tempo estimado de chegada calculado pela distância real da rua. Seu atendimento para de ser "está a caminho" e vira "chega em 12 minutos".</p>
 </div>
 <div class="feat-card">
 <div class="feat-num">// 04</div>
 <div class="feat-icon">
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00D1FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg>
 </div>
-<h3>Quem está rendendo mais</h3>
-<p>Veja o histórico de corridas, tempo médio e desempenho de cada entregador por período. Chega de adivinhar quem trabalha de verdade — os números mostram tudo.</p>
+<h3>Performance real de cada entregador</h3>
+<p>Veja corridas, tempo médio, quilômetros rodados e desempenho por período de cada entregador. Chega de adivinhar quem trabalha de verdade — os números mostram tudo, filtrado por dia, semana ou mês.</p>
 </div>
 </div>
 <p style="margin-top:40px;font-size:18px;color:var(--t2);text-align:center;max-width:600px;margin-left:auto;margin-right:auto;">
-  Tudo isso no mesmo app — para você gestor e para o entregador. Sem treinamento, sem complicação. É feito para ser usado sem pensar.
+  Tudo num único app — para você gestor e para o entregador. Sem treinamento, sem complicação.
 </p>
 </div>
 </section>
@@ -289,28 +282,28 @@
 <div class="wrap">
 <p class="sec-tag">Rastreamento</p>
 <h2 class="sec-title">Nenhuma entrega<br><em>sumida</em> de novo</h2>
-<p class="sec-lead">Seu entregador é rastreado do momento em que sai da loja até confirmar a entrega. Mesmo com a tela do celular desligada, o GPS continua funcionando.</p>
+<p class="sec-lead">Seu entregador é rastreado do momento em que sai da loja até confirmar a entrega. O GPS funciona com a tela desligada — serviço nativo Android rodando em foreground.</p>
 <div class="step-border reveal">
 <div class="steps" style="grid-template-columns:repeat(4,1fr)">
 <div class="step">
 <div class="step-num"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
 <h3>Posição ao vivo</h3>
-<p>Você vê no mapa onde cada entregador está agora, sem precisar ligar ou perguntar.</p>
+<p>Veja no mapa onde cada entregador está agora, sem precisar ligar ou perguntar.</p>
 </div>
 <div class="step">
 <div class="step-num"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3l-4 18h4l4-3 4 3h4L16 3h-4l-4 3z"/><line x1="12" y1="6" x2="12" y2="8"/><line x1="12" y1="11" x2="12" y2="13"/><line x1="12" y1="16" x2="12" y2="18"/></svg></div>
-<h3>Caminho percorrido</h3>
-<p>Veja o trajeto completo que o entregador fez — e confirme que a entrega realmente aconteceu.</p>
+<h3>Trajeto percorrido</h3>
+<p>Veja o caminho completo que o entregador fez — e confirme que a entrega realmente aconteceu.</p>
 </div>
 <div class="step">
 <div class="step-num"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
 <h3>Distância até o cliente</h3>
-<p>Saiba exatamente quantos metros ou quilômetros faltam para o entregador chegar ao destino.</p>
+<p>Saiba exatamente quantos metros ou km faltam para o entregador chegar ao destino.</p>
 </div>
 <div class="step">
 <div class="step-num" style="color:rgba(255,212,38,.5)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
-<h3>Entrega confirmada</h3>
-<p>O entregador confirma no app quando entrega. O status muda na hora para você e para o registro financeiro.</p>
+<h3>Confirmação no app</h3>
+<p>O entregador confirma no app ao entregar. O status muda na hora para o gestor.</p>
 </div>
 </div>
 </div>
@@ -324,20 +317,20 @@
 <h2 class="sec-title">Financeiro, fila<br>e <em>controle total</em></h2>
 <div class="features-layout reveal">
 <div class="feat-card">
-<div class="feat-num">// 01 — Fila de Entregadores</div>
+<div class="feat-num">// 01 — Fila de Entregadores (FIFO)</div>
 <div class="feat-icon">
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00D1FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/><path d="M13 13l6 6"/></svg>
 </div>
 <h3>Ordem justa, sem discussão</h3>
-<p>Cada entregador que volta toca em "Estou de Volta" e entra automaticamente na fila — em ordem de chegada. O sistema decide quem vai a seguir. Sem favoritismo, sem briga.</p>
+<p>Cada entregador que volta toca em "Estou de Volta" e entra automaticamente na fila por ordem de chegada. O sistema decide quem vai a seguir. Sem favoritismo, sem briga, sem decisão manual.</p>
 </div>
 <div class="feat-card">
 <div class="feat-num">// 02 — Controle Financeiro</div>
 <div class="feat-icon">
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00D1FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
 </div>
-<h3>Quanto pagar para cada um</h3>
-<p>O app registra todas as corridas e calcula automaticamente o valor de cada entregador — já descontando vales e adiantamentos. Chega de conta manual no final do turno.</p>
+<h3>Quanto pagar — calculado, não chutado</h3>
+<p>O app registra todas as corridas e calcula o valor de cada entregador automaticamente — já descontando vales e adiantamentos registrados no turno. Taxa por distância real ou valor fixo. Chega de conta manual.</p>
 </div>
 <div class="feat-card">
 <div class="feat-num">// 03 — Relatório Financeiro</div>
@@ -345,39 +338,39 @@
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00D1FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
 </div>
 <h3>Números que você nunca teve</h3>
-<p>Total de entregas por entregador, valor de corridas por período, quilômetros rodados, tempo médio de entrega e histórico completo de pagamentos. Tudo filtrado por dia, semana ou mês.</p>
+<p>Total de entregas por entregador, valor de corridas por período, km rodados, tempo médio de entrega e histórico completo de pagamentos. Filtrado por dia, semana ou mês — tudo num único relatório.</p>
 </div>
 <div class="feat-card">
-<div class="feat-num">// 04 — Visão do Entregador</div>
+<div class="feat-num">// 04 — Extrato do Entregador</div>
 <div class="feat-icon">
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00D1FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
 </div>
 <h3>Transparência para quem entrega</h3>
-<p>Cada entregador vê no app seu próprio extrato — corridas realizadas, valores, descontos e saldo a receber. Menos dúvida, menos conversa, mais confiança na equipe.</p>
+<p>Cada entregador vê no app seu próprio extrato — corridas, valores, descontos e saldo a receber. Menos dúvida, menos conversa, mais confiança na equipe. O pagamento pode ser via Pix com chave configurada por entregador.</p>
 </div>
 <div class="feat-card">
 <div class="feat-num">// 05 — Chat em Tempo Real</div>
 <div class="feat-icon">
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00D1FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
 </div>
-<h3>Loja fala com entregador sem sair do app</h3>
-<p>Chat direto entre loja e entregador — sem WhatsApp, sem telefonema. Badge de mensagens não-lidas em tempo real. O admin de suporte conversa com lojas e entregadores pelo mesmo canal, sem precisar de outro sistema.</p>
+<h3>Chat direto pelo próprio aplicativo</h3>
+<p>Chat em tempo real entre loja e entregador diretamente no app — sem depender de WhatsApp ou ligação. Badge de mensagens não-lidas em tempo real. O admin de suporte acessa todos os canais pelo mesmo sistema.</p>
 </div>
 <div class="feat-card">
 <div class="feat-num">// 06 — Naví IA de Suporte</div>
 <div class="feat-icon">
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFD426" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
 </div>
-<h3>IA resolve dúvidas sem você precisar parar</h3>
-<p>O assistente Naví atende entregadores e lojas no chat de suporte — GPS, fila, ganhos, despacho, configurações — com diagnóstico inteligente por etapas. Quando não resolve, escala automaticamente para o admin.</p>
+<h3>IA atende enquanto você trabalha</h3>
+<p>O assistente Naví resolve dúvidas de entregadores e lojas — GPS, fila, ganhos, despacho, configurações — com diagnóstico inteligente por etapas. Quando não resolve, escala automaticamente para o admin com todo o histórico.</p>
 </div>
 <div class="feat-card">
-<div class="feat-num">// 07 — Naví Voz (JARVIS)</div>
+<div class="feat-num">// 07 — Naví Voz</div>
 <div class="feat-icon">
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00D1FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
 </div>
-<h3>Controle por voz — "Ok Naví"</h3>
-<p>Fale e o app obedece. Wake word "Ok Naví" + botão de microfone flutuante. Abre telas, despacha pedidos, lê código iFood em voz alta, lê notificações. Naví responde com síntese de voz — sem precisar olhar para a tela.</p>
+<h3>Controle por voz</h3>
+<p>Toque no botão de microfone flutuante em qualquer tela e fale o comando. Naví abre rotas, despacha pedidos e responde com síntese de voz — sem tocar na tela. Funciona mesmo com o app em segundo plano.</p>
 </div>
 <div class="feat-card">
 <div class="feat-num">// 08 — Naví Piloto Automático</div>
@@ -385,7 +378,7 @@
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFD426" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="16 12 12 8 8 12"/><line x1="12" y1="16" x2="12" y2="8"/></svg>
 </div>
 <h3>A operação roda sozinha</h3>
-<p>Piloto automático real para lojas. Confirma chegada na loja e entrega no cliente por GPS — sem nenhum toque na tela. Exibe ETA ao vivo em cada pedido. Entra na fila automaticamente quando o entregador volta. Liga ou desliga com um botão.</p>
+<p>O Naví Piloto monitora o GPS dos entregadores e age sozinho: confirma chegada na loja e entrega no cliente sem nenhum toque na tela. ETA ao vivo em cada card. Entra na fila automaticamente quando o entregador volta. Liga/desliga com um botão.</p>
 </div>
 </div>
 </div>
@@ -398,34 +391,34 @@
   <div>
     <p class="sec-tag">// Inteligência Artificial</p>
     <h2 class="sec-title" style="font-size:clamp(48px,7vw,88px)">Conheça<br>a <em>Naví</em></h2>
-    <p style="font-size:19px;color:var(--t2);line-height:1.7;margin-bottom:32px">A Naví é o sistema de IA integrado ao MontaRotaí. São quatro módulos que trabalham juntos — suporte, voz, piloto e contexto operacional — tudo incluso sem custo extra.</p>
+    <p style="font-size:19px;color:var(--t2);line-height:1.7;margin-bottom:32px">A Naví é o módulo de IA do MontaRotaí. Quatro funcionalidades que trabalham juntas — suporte por chat, controle por voz, piloto automático e contexto operacional completo. Módulo adicional, cobrado por uso.</p>
     <ul class="driver-list">
       <li class="driver-item">
         <div class="driver-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3DFA9A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
         <div>
-          <div class="driver-item-title">Naví Suporte — chat 24/7</div>
-          <div class="driver-item-desc">Responde dúvidas de entregadores e lojas a qualquer hora. Diagnóstico por etapas, escalada automática para admin com histórico completo.</div>
+          <div class="driver-item-title">Naví Suporte — chat 24 horas</div>
+          <div class="driver-item-desc">Responde dúvidas de entregadores e lojas a qualquer hora. Diagnóstico por etapas, escalada automática para admin com histórico completo da conversa.</div>
         </div>
       </li>
       <li class="driver-item">
         <div class="driver-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3DFA9A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
         <div>
-          <div class="driver-item-title">Naví Voz — "Ok Naví", modo JARVIS</div>
-          <div class="driver-item-desc">Controle o app completamente por voz. Wake word "Ok Naví" + botão mic flutuante. Naví fala as respostas em voz alta. Lê código iFood e notificações automaticamente.</div>
+          <div class="driver-item-title">Naví Voz — controle por voz</div>
+          <div class="driver-item-desc">Botão mic flutuante em qualquer tela. Controla o app por voz — abre rotas, despacha pedidos, lê notificações — e responde em voz alta. Funciona com app em segundo plano.</div>
         </div>
       </li>
       <li class="driver-item">
         <div class="driver-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3DFA9A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
         <div>
           <div class="driver-item-title">Naví Piloto — operação automática (loja)</div>
-          <div class="driver-item-desc">Piloto automático real. Confirma chegada e entrega por GPS sem nenhum toque. ETA ao vivo em cada pedido. Entra na fila automaticamente. Liga e desliga com um botão.</div>
+          <div class="driver-item-desc">Piloto automático por GPS: confirma chegada e entrega no cliente sem nenhum toque na tela. ETA ao vivo. Fila automática ao retornar.</div>
         </div>
       </li>
       <li class="driver-item">
         <div class="driver-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3DFA9A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
         <div>
-          <div class="driver-item-title">Já incluída no plano — sem custo extra</div>
-          <div class="driver-item-desc">Os quatro módulos fazem parte do MontaRotaí. Não são add-ons, não têm mensalidade separada. Ativos desde o primeiro dia.</div>
+          <div class="driver-item-title">Naví — módulo adicional</div>
+          <div class="driver-item-desc">A Naví é um módulo adicional do MontaRotaí, cobrada por uso. Ative quando quiser e pague apenas pelo que usar.</div>
         </div>
       </li>
     </ul>
@@ -442,7 +435,7 @@
     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:28px 32px;max-width:300px;text-align:center">
       <div style="font-family:var(--font-h);font-weight:900;font-size:28px;color:var(--wh);letter-spacing:.02em;text-transform:uppercase;margin-bottom:6px">Naví</div>
       <div style="font-family:var(--font-m);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:16px">Suporte · Voz · Piloto · MontaRotaí</div>
-      <p style="font-size:15px;color:var(--t2);line-height:1.6">"Olá! Posso te ajudar com sua rota, ganhos ou qualquer dúvida sobre o app. É só chamar — ou dizer <em>Ok Naví</em>."</p>
+      <p style="font-size:15px;color:var(--t2);line-height:1.6">"Olá! Posso te ajudar com sua rota, ganhos ou qualquer dúvida sobre o app. É só chamar."</p>
     </div>
   </div>
 </div>
@@ -454,21 +447,20 @@
 <div class="wrap">
 <p class="sec-tag">// Módulos de IA avançados</p>
 <h2 class="sec-title" style="font-size:clamp(48px,7vw,88px)">Voz e <em>Piloto</em><br>automático</h2>
-<p class="sec-lead" style="margin-bottom:48px">Além do suporte por chat, a Naví tem dois módulos que elevam a operação a outro nível — controle por voz e piloto automático completo.</p>
+<p class="sec-lead" style="margin-bottom:48px">Além do suporte por chat, a Naví tem dois módulos que elevam a operação a outro nível — controle total por voz e piloto automático por GPS real.</p>
 <div class="features-layout reveal" style="grid-template-columns:1fr 1fr">
   <div class="feat-card">
-    <div class="feat-num">// Naví Voz — modo JARVIS</div>
+    <div class="feat-num">// Naví Voz</div>
     <div class="feat-icon">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00D1FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
     </div>
-    <h3>Controle o app sem tocar na tela</h3>
-    <p style="margin-bottom:20px">Diga <strong style="color:var(--blue)">"Ok Naví"</strong> — e pronto. Um botão de microfone flutuante aparece na tela. Você fala o comando e o app executa: abrir rota, ver ganhos, despachar pedidos, chamar entregador pelo nome.</p>
+    <h3>Controle o app por voz</h3>
+    <p style="margin-bottom:20px">Toque no botão mic flutuante em qualquer tela e fale o comando. O app executa: abrir rota, ver ganhos, despachar pedidos, chamar entregador pelo nome. Naví responde em voz alta.</p>
     <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
-      <li style="display:flex;gap:10px;align-items:flex-start;font-size:15px;color:var(--t2)"><span style="color:var(--blue);font-weight:700;flex-shrink:0">→</span>Wake word "Ok Naví" + botão mic flutuante</li>
-      <li style="display:flex;gap:10px;align-items:flex-start;font-size:15px;color:var(--t2)"><span style="color:var(--blue);font-weight:700;flex-shrink:0">→</span>Banner azul no topo confirma que o mic está aberto</li>
-      <li style="display:flex;gap:10px;align-items:flex-start;font-size:15px;color:var(--t2)"><span style="color:var(--blue);font-weight:700;flex-shrink:0">→</span>Naví fala as respostas em voz alta (síntese TTS)</li>
-      <li style="display:flex;gap:10px;align-items:flex-start;font-size:15px;color:var(--t2)"><span style="color:var(--blue);font-weight:700;flex-shrink:0">→</span>Lê código iFood em voz alta automaticamente</li>
-      <li style="display:flex;gap:10px;align-items:flex-start;font-size:15px;color:var(--t2)"><span style="color:var(--blue);font-weight:700;flex-shrink:0">→</span>Funciona com tela desligada via HUD Jarvis</li>
+      <li style="display:flex;gap:10px;align-items:flex-start;font-size:15px;color:var(--t2)"><span style="color:var(--blue);font-weight:700;flex-shrink:0">→</span>Botão mic flutuante disponível em qualquer tela</li>
+      <li style="display:flex;gap:10px;align-items:flex-start;font-size:15px;color:var(--t2)"><span style="color:var(--blue);font-weight:700;flex-shrink:0">→</span>Banner confirma que o microfone está ativo</li>
+      <li style="display:flex;gap:10px;align-items:flex-start;font-size:15px;color:var(--t2)"><span style="color:var(--blue);font-weight:700;flex-shrink:0">→</span>Naví responde em voz alta</li>
+            <li style="display:flex;gap:10px;align-items:flex-start;font-size:15px;color:var(--t2)"><span style="color:var(--blue);font-weight:700;flex-shrink:0">→</span>Funciona mesmo com o app em segundo plano</li>
     </ul>
   </div>
   <div class="feat-card">
@@ -477,13 +469,13 @@
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFD426" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="16 12 12 8 8 12"/><line x1="12" y1="16" x2="12" y2="8"/></svg>
     </div>
     <h3 style="color:var(--gold)">A operação roda sozinha</h3>
-    <p style="margin-bottom:20px">O Naví Piloto é um piloto automático real. Ele monitora GPS dos entregadores em tempo real e age sozinho — sem precisar de nenhum toque na tela.</p>
+    <p style="margin-bottom:20px">O Naví Piloto monitora o GPS dos entregadores em tempo real e age autonomamente — sem precisar de nenhum toque na tela. Age por GPS para cada destino.</p>
     <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
       <li style="display:flex;gap:10px;align-items:flex-start;font-size:15px;color:var(--t2)"><span style="color:var(--gold);font-weight:700;flex-shrink:0">→</span>Confirma "chegou na loja" automaticamente por GPS</li>
-      <li style="display:flex;gap:10px;align-items:flex-start;font-size:15px;color:var(--t2)"><span style="color:var(--gold);font-weight:700;flex-shrink:0">→</span>Confirma "entregue" automaticamente quando chega ao cliente</li>
+      <li style="display:flex;gap:10px;align-items:flex-start;font-size:15px;color:var(--t2)"><span style="color:var(--gold);font-weight:700;flex-shrink:0">→</span>Confirma "entregue" quando chega ao cliente — sem toque</li>
       <li style="display:flex;gap:10px;align-items:flex-start;font-size:15px;color:var(--t2)"><span style="color:var(--gold);font-weight:700;flex-shrink:0">→</span>ETA ao vivo em cada card de pedido</li>
-      <li style="display:flex;gap:10px;align-items:flex-start;font-size:15px;color:var(--t2)"><span style="color:var(--gold);font-weight:700;flex-shrink:0">→</span>Entra na fila automaticamente ao detectar entregador de volta</li>
-      <li style="display:flex;gap:10px;align-items:flex-start;font-size:15px;color:var(--t2)"><span style="color:var(--gold);font-weight:700;flex-shrink:0">→</span>Botão "Piloto LIGADO/DESLIGADO" com estado salvo</li>
+      <li style="display:flex;gap:10px;align-items:flex-start;font-size:15px;color:var(--t2)"><span style="color:var(--gold);font-weight:700;flex-shrink:0">→</span>Entra na fila automaticamente ao voltar para a loja</li>
+      <li style="display:flex;gap:10px;align-items:flex-start;font-size:15px;color:var(--t2)"><span style="color:var(--gold);font-weight:700;flex-shrink:0">→</span>Botão "Piloto LIGADO/DESLIGADO" — controle total</li>
     </ul>
   </div>
 </div>
@@ -500,9 +492,9 @@
 <div>
 <div class="amount" style="flex-direction:column;align-items:flex-start;gap:4px">
 <span style="font-family:var(--font-h);font-weight:900;font-size:clamp(36px,5vw,64px);color:var(--gold);line-height:1;letter-spacing:-.02em">Centavos</span>
-<span style="font-family:var(--font-h);font-weight:700;font-size:22px;color:var(--gold);opacity:.8">por entrega</span>
+<span style="font-family:var(--font-h);font-weight:700;font-size:22px;color:var(--gold);opacity:.8">por entrega roteirizada</span>
 </div>
-<p class="per">Você paga pelo uso real do sistema — centavos por entrega roteirizada, sem mensalidade, sem taxa sobre faturamento.</p>
+<p class="per">Você paga pelo uso real — centavos por entrega roteirizada pelo sistema. Sem mensalidade, sem taxa sobre faturamento, sem surpresa na fatura.</p>
 </div>
 <div>
 <div class="no-fee" style="margin-bottom:8px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Mensalidade: <span>não existe</span></div>
@@ -512,20 +504,21 @@
 </div>
 <div class="price-features">
 <ul>
-<li>Rastreamento ao vivo de todos os entregadores</li>
-<li>Despacho automático de pedidos</li>
-<li>Foto da comanda vira pedido automaticamente</li>
+<li>GPS ao vivo — mesmo com tela desligada</li>
+<li>Foto da comanda vira pedido via IA</li>
+<li>Despacho automático por região geográfica</li>
 <li>Rota calculada pelas ruas reais</li>
-<li>Fila automática de entregadores (FIFO)</li>
-<li>Relatório financeiro completo</li>
-<li>Controle de vales e adiantamentos</li>
-<li>Entregadores e pedidos ilimitados</li>
-<li>Chat em tempo real loja ↔ entregador</li>
-<li>Naví IA de suporte 24/7 com escalada para admin</li>
-<li>Naví Voz — controle por voz, "Ok Naví", TTS</li>
-<li>Naví Piloto — operação automática por GPS (loja)</li>
+<li>Fila automática FIFO de entregadores</li>
 <li>ETA ao vivo em cada card de pedido</li>
-<li>Push notifications nativas Android (FCM)</li>
+<li>Controle de vales e adiantamentos por entregador</li>
+<li>Relatório financeiro completo por período</li>
+<li>Pagamento via Pix configurado por entregador</li>
+<li>Chat em tempo real loja ↔ entregador pelo próprio app</li>
+<li>Push notifications nativas Android</li>
+<li>Naví IA — suporte 24 horas com escalada automática</li>
+<li>Naví Voz — controle por voz</li>
+<li>Naví Piloto — operação automática por GPS</li>
+<li>Entregadores e pedidos ilimitados</li>
 </ul>
 <button class="btn-primary" style="width:100%;justify-content:center;display:flex" onclick="openModal()">
   Quero começar agora →
@@ -539,8 +532,8 @@
 <section style="padding:80px 0 0">
 <div class="wrap">
 <div class="cta-final">
-<h2>Chega de operar<br>no <em>escuro</em></h2>
-<p>Seu concorrente já sabe onde cada entregador está. Você ainda vai ficar ligando para saber se o pedido foi entregue?</p>
+<h2>Seu concorrente já<br>sabe onde está cada <em>entregador</em></h2>
+<p>Você ainda vai ficar ligando para saber se o pedido foi entregue? Ou pagando entregador no achismo no fim do turno?</p>
 <div class="btns">
 <button class="btn-primary" onclick="openModal()">Cadastrar minha empresa agora</button>
 <a class="btn-ghost" href="https://wa.me/5516993996336?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20o%20MontaRotaí" target="_blank">Falar no WhatsApp</a>
@@ -553,7 +546,7 @@
 <div class="dl-strip">
 <div>
 <div class="dl-text"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/><polyline points="15 9 12 6 9 9"/><line x1="12" y1="6" x2="12" y2="14"/></svg> Baixe o app agora — é gratuito</div>
-<div class="dl-sub">Para gestores e entregadores · Android · Disponível na Play Store</div>
+<div class="dl-sub">Para gestores e entregadores · Android · Play Store</div>
 </div>
 <a href="https://play.google.com/apps/testing/br.com.montarotai.app" target="_blank" class="btn-dark" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px">
   Baixar na Play Store
@@ -567,7 +560,7 @@
 <div id="form-wrap">
 <p class="modal-tag">// Cadastro de empresa</p>
 <h2>Sua empresa no MONTAROTAÍ</h2>
-<p class="modal-sub">Preencha os dados abaixo. Em até 24h sua operação já está ativa.</p>
+<p class="modal-sub">Preencha os dados abaixo. Em até 24 horas sua operação já está ativa.</p>
 <div class="field">
 <label>Nome da empresa <span style="color:#FF6B6B">*</span></label>
 <input id="s-nome" placeholder="Nome do estabelecimento" required autocomplete="off">
