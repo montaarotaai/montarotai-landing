@@ -24,9 +24,6 @@
 .csel-item:last-child{border-bottom:none}
 .csel-item:hover{background:rgba(0,209,255,.08);color:var(--wh)}
 .csel-item.chosen{background:rgba(0,209,255,.1);color:var(--blue)}
-.csel-badge{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:20px;padding:0 6px;border-radius:4px;font-family:var(--font-m);font-size:10px;font-weight:700;letter-spacing:.06em;background:rgba(61,250,154,.1);border:1px solid rgba(61,250,154,.25);color:var(--green);flex-shrink:0}
-.csel-badge--gold{background:rgba(255,212,38,.1);border-color:rgba(255,212,38,.25);color:var(--gold)}
-.csel-badge--blue{background:rgba(0,209,255,.1);border-color:rgba(0,209,255,.25);color:var(--blue)}
 }.reveal{opacity:0;transform:translateY(32px);transition:opacity .6s ease,transform .6s ease}.reveal.visible{opacity:1;transform:translateY(0)}.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:8px;z-index:110}.hamburger span{display:block;width:24px;height:2px;background:var(--wh);border-radius:2px;transition:all .3s}.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}.hamburger.open span:nth-child(2){opacity:0}.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:var(--bg1);border-bottom:1px solid rgba(0,209,255,.15);padding:20px 24px;z-index:99;flex-direction:column;gap:4px}.mobile-menu.open{display:flex}.mobile-menu a{font-family:var(--font-h);font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:.04em;color:var(--t1);text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05)}.mobile-menu a:last-of-type{border-bottom:none}.mobile-menu .mobile-cta{margin-top:16px;background:var(--blue);color:#000;font-family:var(--font-h);font-weight:900;font-size:16px;letter-spacing:.08em;text-transform:uppercase;border:none;border-radius:8px;padding:14px;cursor:pointer;width:100%}.mobile-menu .mobile-login{display:block;margin-top:10px;text-align:center;font-family:var(--font-h);font-weight:800;font-size:16px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--border);border-radius:8px;padding:13px;width:100%;color:var(--wh);text-decoration:none;transition:border-color .2s,color .2s}.mobile-menu .mobile-login:hover{border-color:rgba(0,209,255,.6);color:var(--blue)}@media(max-width:900px){.hero-stats{flex-direction:column}.stat::after{display:none}.hamburger{display:flex}nav .nav-links{display:none}nav .nav-cta{display:none}nav .nav-login{display:none}.cta-final{padding:48px 32px}.steps{grid-template-columns:repeat(2,1fr)!important}.feat-card{padding:32px 24px}}@media(max-width:640px){.wrap{padding:0 20px}.hero{padding:100px 20px 60px}.hero-stats{flex-direction:column!important;gap:0}.hero-stats .stat{width:100%;border-bottom:1px solid var(--border)}.hero-stats .stat:last-child{border-bottom:none}.driver-card .big-price{font-size:48px}.price-main,.price-features{padding:36px 28px}footer{flex-direction:column;text-align:center}.steps{grid-template-columns:1fr!important}.step::after{display:none}.hero-brand-tagline{font-size:10px;letter-spacing:.12em}.price-split{grid-template-columns:1fr!important}}.feat-icon svg{filter:drop-shadow(0 0 6px var(--blue));color:var(--blue)}.feat-card:nth-child(even) .feat-icon svg{filter:drop-shadow(0 0 6px var(--gold));color:var(--gold)}.problem-icon svg{filter:drop-shadow(0 0 6px rgba(255,77,77,.8));color:#FF6B6B}.step-num svg{filter:drop-shadow(0 0 8px rgba(255,212,38,.7));color:var(--gold)}.driver-check svg{filter:drop-shadow(0 0 5px rgba(61,250,154,.8));color:var(--green)}.dl-strip svg{color:#060810}.btn-primary svg,.nav-cta svg{color:#060810}.field-row{display:grid;gap:12px;grid-template-columns:1fr 1fr}.field-row .field{margin-bottom:0}@media(max-width:520px){.field-row{grid-template-columns:1fr}}.field-row-3{display:grid;gap:12px;grid-template-columns:2fr 1fr}@media(max-width:520px){.field-row-3{grid-template-columns:1fr}}.input-note{font-size:10px;color:var(--t3);text-transform:none;font-family:var(--font-b);letter-spacing:0}</style>
 </head>
 <body>
@@ -600,19 +597,19 @@
     <svg class="csel-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
   </div>
   <div class="csel-list">
-    <div class="csel-item" data-val="HAMBURGUERIA" data-label="Hamburgueria">🍔 Hamburgueria</div>
-    <div class="csel-item" data-val="PIZZARIA" data-label="Pizzaria">🍕 Pizzaria</div>
-    <div class="csel-item" data-val="CHURRASCARIA" data-label="Churrascaria">🥩 Churrascaria</div>
-    <div class="csel-item" data-val="MARMITARIA" data-label="Marmitaria">🍱 Marmitaria</div>
-    <div class="csel-item" data-val="RESTAURANTE" data-label="Restaurante">🍽️ Restaurante</div>
-    <div class="csel-item" data-val="LANCHONETE" data-label="Lanchonete">🥪 Lanchonete</div>
-    <div class="csel-item" data-val="SUSHI / JAPONESA" data-label="Sushi / Japonesa">🍣 Sushi / Japonesa</div>
-    <div class="csel-item" data-val="FARMACIA" data-label="Farmácia">💊 Farmácia</div>
-    <div class="csel-item" data-val="MERCADO / MINIMERCADO" data-label="Mercado / Minimercado">🛒 Mercado / Minimercado</div>
-    <div class="csel-item" data-val="SORVETERIA / ACAITERIA" data-label="Sorveteria / Açaíteria">🍦 Sorveteria / Açaíteria</div>
-    <div class="csel-item" data-val="PADARIA" data-label="Padaria">🥐 Padaria</div>
-    <div class="csel-item" data-val="BEBIDAS" data-label="Bebidas">🥤 Bebidas</div>
-    <div class="csel-item" data-val="OUTRO" data-label="Outro">✨ Outro</div>
+    <div class="csel-item" data-val="HAMBURGUERIA" data-label="Hamburgueria">Hamburgueria</div>
+    <div class="csel-item" data-val="PIZZARIA" data-label="Pizzaria">Pizzaria</div>
+    <div class="csel-item" data-val="CHURRASCARIA" data-label="Churrascaria">Churrascaria</div>
+    <div class="csel-item" data-val="MARMITARIA" data-label="Marmitaria">Marmitaria</div>
+    <div class="csel-item" data-val="RESTAURANTE" data-label="Restaurante">Restaurante</div>
+    <div class="csel-item" data-val="LANCHONETE" data-label="Lanchonete">Lanchonete</div>
+    <div class="csel-item" data-val="SUSHI / JAPONESA" data-label="Sushi / Japonesa">Sushi / Japonesa</div>
+    <div class="csel-item" data-val="FARMACIA" data-label="Farmácia">Farmácia</div>
+    <div class="csel-item" data-val="MERCADO / MINIMERCADO" data-label="Mercado / Minimercado">Mercado / Minimercado</div>
+    <div class="csel-item" data-val="SORVETERIA / ACAITERIA" data-label="Sorveteria / Açaíteria">Sorveteria / Açaíteria</div>
+    <div class="csel-item" data-val="PADARIA" data-label="Padaria">Padaria</div>
+    <div class="csel-item" data-val="BEBIDAS" data-label="Bebidas">Bebidas</div>
+    <div class="csel-item" data-val="OUTRO" data-label="Outro">Outro</div>
   </div>
 </div>
 <input type="hidden" id="s-ramo" value="">
@@ -625,11 +622,11 @@
     <svg class="csel-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
   </div>
   <div class="csel-list">
-    <div class="csel-item" data-val="1-50" data-label="Até 50 entregas"><span class="csel-badge">S</span> Até 50 entregas / semana</div>
-    <div class="csel-item" data-val="51-150" data-label="51–150 entregas"><span class="csel-badge">M</span> 51 a 150 entregas / semana</div>
-    <div class="csel-item" data-val="151-300" data-label="151–300 entregas"><span class="csel-badge">G</span> 151 a 300 entregas / semana</div>
-    <div class="csel-item" data-val="301-600" data-label="301–600 entregas"><span class="csel-badge csel-badge--gold">XG</span> 301 a 600 entregas / semana</div>
-    <div class="csel-item" data-val="601+" data-label="600+ entregas"><span class="csel-badge csel-badge--blue">MAX</span> Mais de 600 entregas / semana</div>
+    <div class="csel-item" data-val="1-50" data-label="Até 50 entregas / semana">Até 50 entregas / semana</div>
+    <div class="csel-item" data-val="51-150" data-label="51 a 150 entregas / semana">51 a 150 entregas / semana</div>
+    <div class="csel-item" data-val="151-300" data-label="151 a 300 entregas / semana">151 a 300 entregas / semana</div>
+    <div class="csel-item" data-val="301-600" data-label="301 a 600 entregas / semana">301 a 600 entregas / semana</div>
+    <div class="csel-item" data-val="601+" data-label="Mais de 600 entregas / semana">Mais de 600 entregas / semana</div>
   </div>
 </div>
 <input type="hidden" id="s-entregas" value="">
