@@ -620,13 +620,13 @@
     <svg class="fsel-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
   </button>
   <div class="fsel-drop">
-    <button type="button" class="fsel-opt" data-target="s-entregas" data-label="Até 300 / semana" data-val="1-300">Até 300 entregas / semana</button>
-    <button type="button" class="fsel-opt" data-target="s-entregas" data-label="301 – 600 / semana" data-val="301-600">301 a 600 entregas / semana</button>
-    <button type="button" class="fsel-opt" data-target="s-entregas" data-label="601 – 1.000 / semana" data-val="601-1000">601 a 1.000 entregas / semana</button>
-    <button type="button" class="fsel-opt" data-target="s-entregas" data-label="1.001 – 2.500 / semana" data-val="1001-2500">1.001 a 2.500 entregas / semana</button>
-    <button type="button" class="fsel-opt" data-target="s-entregas" data-label="2.501 – 5.000 / semana" data-val="2501-5000">2.501 a 5.000 entregas / semana</button>
-    <button type="button" class="fsel-opt" data-target="s-entregas" data-label="5.001 – 10.000 / semana" data-val="5001-10000">5.001 a 10.000 entregas / semana</button>
-    <button type="button" class="fsel-opt" data-target="s-entregas" data-label="Acima de 10.000 / semana" data-val="10000+">Acima de 10.000 entregas / semana</button>
+    <button type="button" class="fsel-opt" data-target="s-entregas" data-label="Até 300 / semana" data-val="300">Até 300 entregas / semana</button>
+    <button type="button" class="fsel-opt" data-target="s-entregas" data-label="301 – 600 / semana" data-val="600">301 a 600 entregas / semana</button>
+    <button type="button" class="fsel-opt" data-target="s-entregas" data-label="601 – 1.000 / semana" data-val="1000">601 a 1.000 entregas / semana</button>
+    <button type="button" class="fsel-opt" data-target="s-entregas" data-label="1.001 – 2.500 / semana" data-val="2500">1.001 a 2.500 entregas / semana</button>
+    <button type="button" class="fsel-opt" data-target="s-entregas" data-label="2.501 – 5.000 / semana" data-val="5000">2.501 a 5.000 entregas / semana</button>
+    <button type="button" class="fsel-opt" data-target="s-entregas" data-label="5.001 – 10.000 / semana" data-val="10000">5.001 a 10.000 entregas / semana</button>
+    <button type="button" class="fsel-opt" data-target="s-entregas" data-label="Acima de 10.000 / semana" data-val="15000">Acima de 10.000 entregas / semana</button>
   </div>
 </div>
 <input type="hidden" id="s-entregas" value="">
@@ -757,7 +757,7 @@ try {
 const payload = {
 nome,
 ramo,
-entregas_semana: entregas,
+entregas_semana: parseInt(entregas, 10),
 telefone:        tel,
 cnpj,
 rua,
