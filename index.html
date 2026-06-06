@@ -757,7 +757,7 @@ try {
 const payload = {
 nome,
 ramo,
-entregas_semana: parseInt(entregas, 10),
+entregas_semana: entregas || null,
 telefone:        tel,
 cnpj,
 rua,
@@ -776,14 +776,15 @@ document.getElementById('form-wrap').style.display='none';
 document.getElementById('ok-store').classList.add('show');
 } else {
 const d = await r.json();
-const msg = d.message || (d.details ? d.details : 'Erro ao cadastrar.');
+const errArr = Array.isArray(d) ? d[0] : d;
+const msg = errArr.message || errArr.details || errArr.hint || JSON.stringify(errArr);
 if(msg.includes('duplicate') || msg.includes('unique')){
-setMsg('msg-store','Este e-mail já está cadastrado.','err');
+setMsg('msg-store','Este e-mail ou CNPJ já está cadastrado.','err');
 } else {
 setMsg('msg-store', msg,'err');
 }
 }
-} catch { setMsg('msg-store','Erro de conexão. Tente novamente.','err'); }
+} catch(e) { setMsg('msg-store','Erro: '+(e.message||'Tente novamente.'),'err'); }
 }
 
 document.querySelectorAll('.chip-opt').forEach(function(btn){
