@@ -23,9 +23,9 @@
 .mural-side.ent .mural-tag{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(255,212,38,.3)}
 .mural-side h3{font-family:var(--font-h);font-weight:800;font-size:26px;text-transform:uppercase;color:var(--wh);margin-bottom:16px;line-height:1.05}
 .mural-side ul{list-style:none;display:flex;flex-direction:column;gap:14px}
-.mural-side li{display:flex;gap:10px;align-items:flex-start;font-size:16px;color:var(--t2);line-height:1.55}
-.mural-side.loja li::before{content:'→';color:var(--blue);font-weight:700;flex-shrink:0}
-.mural-side.ent li::before{content:'→';color:var(--gold);font-weight:700;flex-shrink:0}
+.mural-side li{position:relative;padding-left:26px;font-size:16px;color:var(--t2);line-height:1.55}
+.mural-side.loja li::before{content:'→';position:absolute;left:0;top:0;color:var(--blue);font-weight:700}
+.mural-side.ent li::before{content:'→';position:absolute;left:0;top:0;color:var(--gold);font-weight:700}
 .stars-row{display:inline-flex;gap:2px;color:var(--gold)}
 .social-proof{background:var(--bg1);border:1px solid var(--border);border-radius:16px;padding:40px;display:grid;grid-template-columns:200px 1fr;gap:36px;align-items:center}@media(max-width:700px){.social-proof{grid-template-columns:1fr;text-align:center}.social-proof .shot-wrap{max-width:220px;margin:0 auto}}
 .social-proof blockquote{font-family:var(--font-h);font-weight:700;font-size:26px;color:var(--wh);line-height:1.25;text-transform:none;margin-bottom:14px}
