@@ -1,5 +1,5 @@
-MONTAROTA — ATUALIZAÇÃO DO SITE
+MONTAROTA — SITE COM CAPA CORRIGIDA
 
-Envie index.html e a pasta assets/ para a mesma raiz da hospedagem. O index preserva os formulários, handlers e links do HTML recebido; a arte nova foi adicionada à seção de integrações automáticas.
+O ZIP contém index.html e a pasta assets/ com todas as imagens referenciadas. A capa foi atualizada para a versão sem a instrução de deslizar; o CTA agora diz “Conheça a MontaRota”.
 
-A imagem PNG original é entregue separadamente; o site usa uma versão WebP otimizada em assets/.
+Para publicar, envie o index.html e a pasta assets/ juntos para a raiz da hospedagem. O JavaScript, os formulários e os destinos clicáveis permanecem os mesmos.
